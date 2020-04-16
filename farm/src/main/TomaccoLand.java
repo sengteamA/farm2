@@ -1,13 +1,10 @@
-package seng201;
+package main;
 
-import java.util.ArrayList;
-
-public class AnimalFarm extends Farm {
-	//20% happiness and health bonus for all animals - Nick 16/04/2020
-	public double happinessMultiplier = 1.2;
-	public double healthMultiplier = 1.2;
+public class TomaccoLand extends Farm {
+	public float cropGrowth = (float)1.2;
+	//drought less likely....
 	
-	AnimalFarm() {
+	TomaccoLand() {
 		super();
 	}
 	
@@ -50,10 +47,9 @@ public class AnimalFarm extends Farm {
 	}
 	
 	public String Flavour() {
-	return "All Animals are equal, but some are more equal than others.\n"
-		+ "All animals start 20% happier and healthier on purchase\n"
-		+ "Feeding and playing with animals is 20% more effective\n";
+		return "The dangers of nuclear waste meets the genius of genetic engineering\n"
+				+ "tending to crops is 20% more effective\n"
+				+ "droughts are 20% less likely";
 	}
-	
-	
+
 }

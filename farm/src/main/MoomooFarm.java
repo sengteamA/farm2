@@ -1,10 +1,13 @@
-package seng201;
+package main;
 
-public class TomaccoLand extends Farm {
-	public float cropGrowth = (float)1.2;
-	//drought less likely....
+import java.util.ArrayList;
+
+public class MoomooFarm extends Farm {
 	
-	TomaccoLand() {
+	public float cow_discount = (float)0.8;
+	public float cow_factor = (float)1;
+	
+	public MoomooFarm() {
 		super();
 	}
 	
@@ -15,13 +18,12 @@ public class TomaccoLand extends Farm {
 	public int getBankBalance() {
 		return super.getBankBalance();
 	}
-	
 	public int getActionsLeft() {
 		return super.getActionsLeft();
 	}
 	
 	/*
-	 * animal, crops, items not yet implemented
+	 * animal, crops, items not yet implemented. 
 	public ArrayList showCrops() {
 		return super.showCrops();
 	}
@@ -32,6 +34,12 @@ public class TomaccoLand extends Farm {
 	
 	public Arraylist showItems() {
 		return super.showItems();
+	}
+	
+	public void hasCow() {
+		if (animals.contains("cow")) {
+			cow_factor = 1.2;
+		}
 	}*/
 	
 	public void setName() {
@@ -45,11 +53,9 @@ public class TomaccoLand extends Farm {
 	public void updateBankbalance(int amount) {
 		super.updateBankBalance(amount);
 	}
-	
 	public String Flavour() {
-		return "The dangers of nuclear waste meets the genius of genetic engineering\n"
-				+ "tending to crops is 20% more effective\n"
-				+ "droughts are 20% less likely";
-	}
-
+		return "Cows be thy god\n"
+			+ "cows can be purchased with 20% discount\n"
+			+ "tend crops 20% more effective when farm has cows";
+	
 }

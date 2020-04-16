@@ -1,4 +1,4 @@
-package seng201;
+package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;

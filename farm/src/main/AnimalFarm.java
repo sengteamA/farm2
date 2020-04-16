@@ -1,12 +1,13 @@
-package seng201;
+package main;
 
 import java.util.ArrayList;
 
-public class TrumpRanch extends Farm {
-	public float discount = (float)0.9; //10% discount on all purchases
-	public float bonus = (float)1.1; //10% bonus on selling crops
-	public int bankBalance = 1200; // 20% bonus starting cash
-	TrumpRanch() {
+public class AnimalFarm extends Farm {
+	//20% happiness and health bonus for all animals - Nick 16/04/2020
+	public double happinessMultiplier = 1.2;
+	public double healthMultiplier = 1.2;
+	
+	AnimalFarm() {
 		super();
 	}
 	
@@ -15,7 +16,7 @@ public class TrumpRanch extends Farm {
 	}
 	
 	public int getBankBalance() {
-		return bankBalance;
+		return super.getBankBalance();
 	}
 	
 	public int getActionsLeft() {
@@ -45,13 +46,14 @@ public class TrumpRanch extends Farm {
 	}
 	
 	public void updateBankbalance(int amount) {
-		bankBalance += amount;
+		super.updateBankBalance(amount);
 	}
 	
 	public String Flavour() {
-		return "I always get the best deals!!\n"
-				+ "All purchases are 10% cheaper\n"
-				+ "10% bonus on all sales\n"
-				+ "Starts game with 20% more cash";
+	return "All Animals are equal, but some are more equal than others.\n"
+		+ "All animals start 20% happier and healthier on purchase\n"
+		+ "Feeding and playing with animals is 20% more effective\n";
 	}
+	
+	
 }

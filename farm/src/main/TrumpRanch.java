@@ -1,13 +1,12 @@
-package seng201;
+package main;
 
 import java.util.ArrayList;
 
-public class MoomooFarm extends Farm {
-	
-	public float cow_discount = (float)0.8;
-	public float cow_factor = (float)1;
-	
-	public MoomooFarm() {
+public class TrumpRanch extends Farm {
+	public float discount = (float)0.9; //10% discount on all purchases
+	public float bonus = (float)1.1; //10% bonus on selling crops
+	public int bankBalance = 1200; // 20% bonus starting cash
+	TrumpRanch() {
 		super();
 	}
 	
@@ -16,14 +15,15 @@ public class MoomooFarm extends Farm {
 	}
 	
 	public int getBankBalance() {
-		return super.getBankBalance();
+		return bankBalance;
 	}
+	
 	public int getActionsLeft() {
 		return super.getActionsLeft();
 	}
 	
 	/*
-	 * animal, crops, items not yet implemented. 
+	 * animal, crops, items not yet implemented
 	public ArrayList showCrops() {
 		return super.showCrops();
 	}
@@ -34,12 +34,6 @@ public class MoomooFarm extends Farm {
 	
 	public Arraylist showItems() {
 		return super.showItems();
-	}
-	
-	public void hasCow() {
-		if (animals.contains("cow")) {
-			cow_factor = 1.2;
-		}
 	}*/
 	
 	public void setName() {
@@ -51,11 +45,13 @@ public class MoomooFarm extends Farm {
 	}
 	
 	public void updateBankbalance(int amount) {
-		super.updateBankBalance(amount);
+		bankBalance += amount;
 	}
-	public String Flavour() {
-		return "Cows be thy god\n"
-			+ "cows can be purchased with 20% discount\n"
-			+ "tend crops 20% more effective when farm has cows";
 	
+	public String Flavour() {
+		return "I always get the best deals!!\n"
+				+ "All purchases are 10% cheaper\n"
+				+ "10% bonus on all sales\n"
+				+ "Starts game with 20% more cash";
+	}
 }
