@@ -71,12 +71,4 @@ public class Animal {
 		System.out.println(pig.getHappiness());
 		System.out.println(pig.getHealth());
 	}
-
-	public int anotherUselessTestFunction() {
-		return 5;
-	}
-
-	public boolean testFunction() {
-		return true;
-	}
 }
