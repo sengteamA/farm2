@@ -1,4 +1,4 @@
-package seng201;
+package main.animal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
