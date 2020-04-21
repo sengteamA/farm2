@@ -36,13 +36,25 @@ class FarmTest {
 		 */
 		assertEquals("abc", testFarm.getName());
 	}
+
+	@Test
+	void valid_names_test() {
+		assertEquals(true, testFarm.isValidName("Rimuru Tempest"));
+		assertEquals(true, testFarm.isValidName("abc"));
+		assertEquals(true, testFarm.isValidName("D V Dyke"));
+		assertEquals(true, testFarm.isValidName("MiXeD cApS nAmE"));
+		assertEquals(true, testFarm.isValidName("NICK LEE"));
+	}
 	
-	// TODO: test edge cases (2 chars, 15 chars, 16 chars)
-	// one-word names, multiple-word names
-	// mIxEd CaPs names
-	// ALL CAPS names
-	//
-	// also test invalid cases (starts with space(s), ends with space(s))
-	// + multiple spaces between words
-	// + symbols and/or numbers in name
+	@Test
+	void invalid_names_test() {
+		assertEquals(false, testFarm.isValidName(""));
+		assertEquals(false, testFarm.isValidName("a"));
+		assertEquals(false, testFarm.isValidName("ab"));
+		assertEquals(false, testFarm.isValidName("My 1st Name"));
+		assertEquals(false, testFarm.isValidName("abcdefghijklmnop"));
+		assertEquals(false, testFarm.isValidName("tHis name Is tOo long"));
+		assertEquals(false, testFarm.isValidName("Ke$ha"));
+		assertEquals(false, testFarm.isValidName("Two  spaces h"));
+	}
 }

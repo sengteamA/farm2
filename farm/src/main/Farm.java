@@ -51,12 +51,18 @@ public class Farm {
 	}
 	
 	public void setName() {
-		String s;
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Please enter a name between 3 to 15 characters long without numbers of symbols");
-		s = sc.nextLine();
-		name = s;
-		validName();
+		while (true) {
+			String s;
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Please enter a name between 3 to 15 characters long without numbers of symbols");
+			s = sc.nextLine();
+			name = s;
+			if (isValidName(name)) {
+				break;
+			} else {
+				name = null;
+			}
+		}
 	}
 	
 	// deducts actions left by 1 - Nick 15/04/2020
@@ -68,15 +74,14 @@ public class Farm {
 	//
 	// this checks if the string consists of words separated by at most one space
 	// https://regexr.com/ is a good place to test if regex works correctly
-	public void validName() {
+	public boolean isValidName(String name) {
 		if (name.length() < 3 || name.length() > 15) {
 			System.out.println("Name is outside required length");
-			name = null;
-			setName();
+			return false;
 		} else if (name.matches("^[A-Za-z]+( [A-Za-z]+)*$") == false) {
 			System.out.println("Name cannot contain numbers or symbols, or extra spaces");
-			name = null;
-			setName();
+			return false;
 		}
+		return true;
 	}
 }
