@@ -1,4 +1,4 @@
-package seng201;
+package main.animal;
 
 public class Sheep extends Animal {
 	
