@@ -16,7 +16,7 @@ public class Farm {
 	public float healthMultiplier = 1;
 	public int actionsLeft = 2;
 	
-	Farm() {};
+	public Farm() {};
 	
 	public String getName() {
 		return name;
@@ -64,16 +64,17 @@ public class Farm {
 		actionsLeft -= 1;
 	}
 	
-	//this method will continue to demand for entries until a valid name is provided - Nick 15/04/2020
-	//should space in name be allowed?
+	// this method will continue to demand for entries until a valid name is provided - Nick 15/04/2020
+	//
+	// this checks if the string consists of words separated by at most one space
+	// https://regexr.com/ is a good place to test if regex works correctly
 	public void validName() {
 		if (name.length() < 3 || name.length() > 15) {
 			System.out.println("Name is outside required length");
 			name = null;
 			setName();
-		}
-		else if (name.matches("^[a-zA-Z]*$") == false) {
-			System.out.println("Name cannot contain numbers or symbols");
+		} else if (name.matches("^[A-Za-z]+( [A-Za-z]+)*$") == false) {
+			System.out.println("Name cannot contain numbers or symbols, or extra spaces");
 			name = null;
 			setName();
 		}

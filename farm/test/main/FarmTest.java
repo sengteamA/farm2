@@ -27,7 +27,7 @@ class FarmTest {
 	}
 	
 	@Test //passed on 15/04/2020 - Nick
-	void name_lenght_test() {
+	void name_length_test() {
 		testFarm.setName();
 		/* first name will be less than 3 char long
 		 * second name will be more than 15 char long
@@ -36,5 +36,13 @@ class FarmTest {
 		 */
 		assertEquals("abc", testFarm.getName());
 	}
-
+	
+	// TODO: test edge cases (2 chars, 15 chars, 16 chars)
+	// one-word names, multiple-word names
+	// mIxEd CaPs names
+	// ALL CAPS names
+	//
+	// also test invalid cases (starts with space(s), ends with space(s))
+	// + multiple spaces between words
+	// + symbols and/or numbers in name
 }
