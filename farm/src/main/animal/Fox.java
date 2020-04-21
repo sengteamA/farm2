@@ -1,4 +1,4 @@
-package seng201.animal;
+package main.animal;
 
 public class Fox extends Animal {
 	Fox() {

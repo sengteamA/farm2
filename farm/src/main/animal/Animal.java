@@ -1,6 +1,6 @@
-package seng201.animal;
+package main.animal;
 
-import seng201.Asset;
+import main.Asset;
 
 public class Animal extends Asset {
 	

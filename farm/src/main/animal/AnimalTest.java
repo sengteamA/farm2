@@ -1,4 +1,4 @@
-package seng201.animal;
+package main.animal;
 
 import static org.junit.Assert.assertEquals;
 
