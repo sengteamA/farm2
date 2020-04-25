@@ -39,22 +39,22 @@ class FarmTest {
 
 	@Test
 	void valid_names_test() {
-		assertEquals(true, testFarm.isValidName("Rimuru Tempest"));
-		assertEquals(true, testFarm.isValidName("abc"));
-		assertEquals(true, testFarm.isValidName("D V Dyke"));
-		assertEquals(true, testFarm.isValidName("MiXeD cApS nAmE"));
-		assertEquals(true, testFarm.isValidName("NICK LEE"));
+		assertTrue(testFarm.isValidName("Rimuru Tempest"));
+		assertTrue(testFarm.isValidName("abc"));
+		assertTrue(testFarm.isValidName("D V Dyke"));
+		assertTrue(testFarm.isValidName("MiXeD cApS nAmE"));
+		assertTrue(testFarm.isValidName("NICK LEE"));
 	}
 	
 	@Test
 	void invalid_names_test() {
-		assertEquals(false, testFarm.isValidName(""));
-		assertEquals(false, testFarm.isValidName("a"));
-		assertEquals(false, testFarm.isValidName("ab"));
-		assertEquals(false, testFarm.isValidName("My 1st Name"));
-		assertEquals(false, testFarm.isValidName("abcdefghijklmnop"));
-		assertEquals(false, testFarm.isValidName("tHis name Is tOo long"));
-		assertEquals(false, testFarm.isValidName("Ke$ha"));
-		assertEquals(false, testFarm.isValidName("Two  spaces h"));
+		assertFalse(testFarm.isValidName(""));
+		assertFalse(testFarm.isValidName("a"));
+		assertFalse(testFarm.isValidName("ab"));
+		assertFalse(testFarm.isValidName("My 1st Name"));
+		assertFalse(testFarm.isValidName("abcdefghijklmnop"));
+		assertFalse(testFarm.isValidName("tHis name Is tOo long"));
+		assertFalse(testFarm.isValidName("Ke$ha"));
+		assertFalse(testFarm.isValidName("Two  spaces h"));
 	}
 }
