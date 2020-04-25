@@ -57,4 +57,10 @@ class FarmTest {
 		assertFalse(testFarm.isValidName("Ke$ha"));
 		assertFalse(testFarm.isValidName("Two  spaces h"));
 	}
+	
+	@Test //
+	void farm_type_test() {
+		testFarm.setType("Moomoo Farm");
+		assertEquals("Moomoo Farm", testFarm.getType());
+	}
 }

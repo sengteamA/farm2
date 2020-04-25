@@ -16,6 +16,7 @@ public class Farm {
 	public float healthMultiplier = 1;
 	public int actionsLeft = 2;
 	public String flavour;
+	public String farmType;
 	
 	public Farm() {};
 	
@@ -88,5 +89,13 @@ public class Farm {
 	
 	public String getFlavour() {
 		return flavour;
+	}
+	
+	public String getType() {
+		return farmType;
+	}
+	
+	public void setType(String chosenFarm) {
+		farmType = chosenFarm; 
 	}
 }
