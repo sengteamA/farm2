@@ -15,6 +15,7 @@ public class Farm {
 	public float happinessMultiplier = 1;
 	public float healthMultiplier = 1;
 	public int actionsLeft = 2;
+	public String flavour;
 	
 	public Farm() {};
 	
@@ -83,5 +84,9 @@ public class Farm {
 			return false;
 		}
 		return true;
+	}
+	
+	public String getFlavour() {
+		return flavour;
 	}
 }
