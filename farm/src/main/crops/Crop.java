@@ -7,7 +7,7 @@ public class Crop extends Asset {
 	private float daysElapsed = 0;
 	
 	// protected so only subclasses can initialize a crop
-	protected Crop(String name, int purchasePrice, int daysToHarvest) {
+	public Crop(String name, int purchasePrice, int daysToHarvest) {
 		super(name, purchasePrice);
 		this.daysToHarvest = daysToHarvest;
 	}
