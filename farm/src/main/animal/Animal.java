@@ -9,7 +9,7 @@ public class Animal extends Asset {
 	private int maxHealth;
 	private int maxHappiness;
 	
-	protected Animal(String name, int health, int happiness, int maxHealth, int maxHappiness, int purchasePrice) {
+	public Animal(String name, int health, int happiness, int maxHealth, int maxHappiness, int purchasePrice) {
 		super(name, purchasePrice);
 		this.health = health;
 		this.happiness = happiness;

@@ -10,7 +10,7 @@ public class Asset {
 	protected int purchasePrice;
 
 	// protected so only subclasses can initialize an asset
-	protected Asset(String name, int purchasePrice) {
+	public Asset(String name, int purchasePrice) {
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 	}

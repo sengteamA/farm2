@@ -3,12 +3,14 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
+import main.animal.Animal;
+import main.crops.Crop;
 
 public class Farm {
-	public String name;
-	public int bankBalance = 1000; // amount of money on hand at any time. Other classes will need access to this. Set at 1000? - Nick 15/04/2020
-	//public ArrayList<Animal> animals; Animals class yet to be implemented - Nick 15/04/2020
-	//public ArrayList<Crops> crops; Crops class yet to be implemented - Nick 15/04/2020
+	private String name;
+	public int bankBalance = 1000;
+	public ArrayList<Animal> animals;
+	public ArrayList<Crop> crops;
 	//public ArrayList<Items> items; Items class yet to be implemented - Nick 15/04/2020
 	public float cropGrowthSpeed = 1;
 	public int initialCashBonus;
