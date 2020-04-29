@@ -122,7 +122,7 @@ public class Game {
 	}
 
 	private void promptAction(Scanner sc) {
-		System.out.printf("You have %d actions left.\n", farm.actionsLeft);
+		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
 		System.out.println("1. Tend to crops.");
 		System.out.println("2. Feed animals.");
 		System.out.println("3. Play with animals.");
