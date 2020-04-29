@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import farm.src.main.animal.*;
+import farm.src.main.crops.*;
+import farm.src.main.items.*;
+
 //animals, crops and items not yet implemented
 class FarmTest {
 	
@@ -62,5 +66,59 @@ class FarmTest {
 	void farm_type_test() {
 		testFarm.setType("Moomoo Farm");
 		assertEquals("Moomoo Farm", testFarm.getType());
+	}
+	
+	@Test //completed 30/04/2020
+	void animal_list_test() {
+		Sheep blackie = new Sheep();
+		Cow moomoo = new Cow();
+		Fox crash = new Fox();
+		testFarm.addAnimals(blackie);
+		testFarm.addAnimals(moomoo);
+		testFarm.addAnimals(crash);
+		assertEquals(3, testFarm.showAnimals().size());
+		assertTrue(testFarm.showAnimals().contains(blackie));
+		testFarm.delAnimals(moomoo);
+		assertFalse(testFarm.showAnimals().contains(moomoo));
+	}
+	
+	@Test //completed 30/04/2020
+	void crops_list_test() {
+		Carrot carrot = new Carrot();
+		Hipotke slime = new Hipotke();
+		Mushroom magic = new Mushroom();
+		Tomacco tomacco = new Tomacco();
+		Wasabi volcano = new Wasabi();
+		Wheat mccain = new Wheat();
+		testFarm.addCrops(carrot);
+		testFarm.addCrops(magic);
+		testFarm.addCrops(volcano);
+		assertEquals(3, testFarm.showCrops().size());
+		assertTrue(testFarm.showCrops().contains(magic));
+		assertFalse(testFarm.showCrops().contains(slime));
+		assertFalse(testFarm.showCrops().contains(tomacco));
+		assertFalse(testFarm.showCrops().contains(mccain));
+		testFarm.delCrops(magic);;	
+		assertFalse(testFarm.showCrops().contains(magic));
+	}
+	
+	@Test //completed 30/04/2020
+	void items_list_test() {
+		ChemicalSpray bleach = new ChemicalSpray();
+		Compost compost = new Compost();
+		InstantGroLite ig_lite = new InstantGroLite();
+		InstantGroPro ig_pro = new InstantGroPro();
+		PandaGummy po = new PandaGummy();
+		Stockfeed stockfeed = new Stockfeed();
+		testFarm.addItems(bleach);
+		testFarm.addItems(compost);
+		testFarm.addItems(ig_lite);
+		assertEquals(3, testFarm.showItems().size());
+		assertTrue(testFarm.showItems().contains(bleach));
+		assertFalse(testFarm.showItems().contains(ig_pro));
+		assertFalse(testFarm.showItems().contains(po));
+		assertFalse(testFarm.showItems().contains(stockfeed));
+		testFarm.delItems(bleach);
+		assertFalse(testFarm.showItems().contains(bleach));
 	}
 }
