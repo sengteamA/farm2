@@ -2,26 +2,32 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import main.animal.Animal;
-import main.crops.Crop;
+import java.util.regex.*;
+import main.animal.*;
+import main.crops.*;
+import main.items.*;
 
 public class Farm {
 	private String name;
-	public int bankBalance = 1000;
-	public ArrayList<Animal> animals;
-	public ArrayList<Crop> crops;
-	//public ArrayList<Items> items; Items class yet to be implemented - Nick 15/04/2020
-	public float cropGrowthSpeed = 1;
-	public int initialCashBonus;
-	public float happinessMultiplier = 1;
-	public float healthMultiplier = 1;
-	public int actionsLeft = 2;
-	public String flavour;
-	public String farmType;
-
-	public Farm() {};
-
+	private int bankBalance = 1000;
+	private ArrayList<Animal> animals;
+	private ArrayList<Crop> crops;
+	private ArrayList<Items> items;
+	private float cropGrowthSpeed = 1;
+	private int initialCashBonus;
+	private float happinessMultiplier = 1;
+	private float healthMultiplier = 1;
+	private int actionsLeft = 2;
+	private int farmCap = 10;
+	private String flavour;
+	private String farmType;
+	
+	public Farm() {
+		animals = new ArrayList<Animal>();
+		crops = new ArrayList<Crop>();
+		items = new ArrayList<Item>();
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -33,8 +39,7 @@ public class Farm {
 	public int getActionsLeft() {
 		return actionsLeft;
 	}
-
-	/* the below three methods are not yet available as they are dependent on other classes - Nick 15/04/2020
+	
 	public ArrayList showCrops() {
 		return crops;
 	}
@@ -46,10 +51,7 @@ public class Farm {
 	public ArrayList showItems() {
 		return items;
 	}
-	*/
-
-	// prompts players to enter a name for the farm - Nick 15/04/2020
-
+	
 	public void updateBankBalance(int amount) {
 		bankBalance += amount;
 	}
@@ -99,4 +101,37 @@ public class Farm {
 	public void setType(String chosenFarm) {
 		farmType = chosenFarm;
 	}
+	
+	public void addAnimals(Animal newAnimal) {
+		animals.add(newAnimal);
+	}
+	
+	public void addCrops(Crop newCrop) {
+		crops.add(newCrop);
+	}
+	
+	public void addItems(Item newItem) {
+		items.add(newItem);
+	}
+	
+	public void delAnimals(Animal runAway) {
+		animals.remove(runAway);
+	}
+	
+	public void delCrops(Crop withered) {
+		crops.remove(withered);
+	}
+	
+	public void delItems(Item used) {
+		items.remove(used);
+	}
+	
+	public int getFarmCap() {
+		return farmCap;
+	}
+	
+	public void addCap(int amount) {
+		farmCap += amount;
+	}
+}
 }
