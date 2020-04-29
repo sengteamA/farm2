@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.*;
+
 import main.animal.Animal;
 import main.crops.Crop;
 
@@ -19,45 +19,44 @@ public class Farm {
 	public int actionsLeft = 2;
 	public String flavour;
 	public String farmType;
-	
+
 	public Farm() {};
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public int getBankBalance() {
 		return bankBalance;
 	}
-	
+
 	public int getActionsLeft() {
 		return actionsLeft;
 	}
-	
+
 	/* the below three methods are not yet available as they are dependent on other classes - Nick 15/04/2020
 	public ArrayList showCrops() {
 		return crops;
 	}
-	
+
 	public ArrayList showAnimals() {
 		return animals
 	}
-	
+
 	public ArrayList showItems() {
 		return items;
 	}
 	*/
-	
+
 	// prompts players to enter a name for the farm - Nick 15/04/2020
-	
+
 	public void updateBankBalance(int amount) {
 		bankBalance += amount;
 	}
-	
-	public void setName() {
+
+	public void setName(Scanner sc) {
 		while (true) {
 			String s;
-			Scanner sc = new Scanner(System.in);
 			System.out.println("Please enter a name between 3 to 15 characters long without numbers of symbols");
 			s = sc.nextLine();
 			name = s;
@@ -68,12 +67,12 @@ public class Farm {
 			}
 		}
 	}
-	
+
 	// deducts actions left by 1 - Nick 15/04/2020
 	public void updateAP() {
 		actionsLeft -= 1;
 	}
-	
+
 	// this method will continue to demand for entries until a valid name is provided - Nick 15/04/2020
 	//
 	// this checks if the string consists of words separated by at most one space
@@ -88,16 +87,16 @@ public class Farm {
 		}
 		return true;
 	}
-	
+
 	public String getFlavour() {
 		return flavour;
 	}
-	
+
 	public String getType() {
 		return farmType;
 	}
-	
+
 	public void setType(String chosenFarm) {
-		farmType = chosenFarm; 
+		farmType = chosenFarm;
 	}
 }
