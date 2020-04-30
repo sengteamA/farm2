@@ -41,4 +41,9 @@ public class AnimalTest {
 	void fox_price_test() {
 		assertEquals(400, Crash.getPurchasePrice());
 	}
+	
+	@Test // passed 30/04/2020
+	void toString_test() {
+		assertEquals("SHEEP health 5 happiness 5", Babe.toString());
+	}
 }
