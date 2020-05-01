@@ -8,8 +8,24 @@ public class MoomooFarm extends Farm {
 			+ "cows can be purchased with 20% discount\n"
 			+ "tend crops 20% more effective when farm has cows";
 	
-	//yet to implement cow factor
 	public MoomooFarm() {
 		super();
+	}
+	
+	public boolean hasCow() {
+		boolean outcome = false;
+		for (Animal animal: this.showAnimals()) {
+			if (animal instanceof Cow) {
+				outcome = true;
+			}
+		}
+		return outcome;
+	}
+	
+	public float getCowFactor() {
+		if (this.hasCow() == true) {
+			cow_factor = (float)1.2;
+		}
+		return cow_factor;
 	}
 }
