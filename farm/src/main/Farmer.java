@@ -22,6 +22,8 @@ public class Farmer {
 		farm = my_farm;
 	}
 
+	// TODO: add some errors if not initialised yet?
+	// or force user to initialise name and age in the constructor?
 	public String getName() {
 		return name;
 	}
