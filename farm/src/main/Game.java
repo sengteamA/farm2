@@ -151,9 +151,12 @@ public class Game {
 	}
 
 	/**
-	 * Prints status of farm, crops, animals, and amount of money.
+	 * Prints status of farm (including amount of money), and
+	 * prompts if the user wants to see status of crops, animals,
+	 * and items.
 	 */
 	private void viewStatus() {
+
 	}
 
 	/**
