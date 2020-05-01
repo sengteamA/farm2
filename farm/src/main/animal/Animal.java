@@ -43,4 +43,8 @@ public class Animal extends Asset {
 	public int bonus() { 
 		return (health + happiness) * 4;
 	}
+	
+	public String toString() {
+		return name.toUpperCase() + " health " + health + " happiness " + happiness;
+	}
 }

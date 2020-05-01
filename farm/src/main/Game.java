@@ -169,7 +169,7 @@ public class Game {
 			System.out.printf("Day number: %d\n", dayNumber);
 			System.out.println("Please type a number from 1-9 below.");
 			System.out.println("1. View status or visit store.");
-			System.out.printf("2. Take an action (%d left).\n", farm.actionsLeft);
+			System.out.printf("2. Take an action (%d left).\n", farm.getActionsLeft());
 			System.out.println("3. Move on to next day.");
 			optionLoop: while (true) {
 				switch (sc.nextInt()) {
