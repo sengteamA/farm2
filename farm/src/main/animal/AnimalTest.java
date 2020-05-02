@@ -49,8 +49,8 @@ public class AnimalTest {
 	
 	@Test // passed 02/05/2020
 	void bonus_tests() {
-		assertEquals(68, Moomoo.bonus());
+		assertEquals(100, Moomoo.bonus());
 		Moomoo.updateHealth(10);
-		assertEquals(88, Moomoo.bonus());
+		assertEquals(104, Moomoo.bonus());
 	}
 }

@@ -39,9 +39,9 @@ public class Animal extends Asset {
 		}
 	}
 	
-	///subject to revision
 	public int bonus() { 
-		return (health + happiness) * 4;
+		float bonus = (float)(health + happiness) * (float)0.4;
+		return (int)bonus;
 	}
 	
 	public String toString() {

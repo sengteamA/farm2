@@ -135,14 +135,14 @@ class FarmTest {
 		Fox crash = new Fox();
 		testFarm.addAnimals(blackie);
 		assertEquals(40, testFarm.getDailyBonusMoney());
-		blackie.updateHappiness(5);
-		blackie.updateHealth(2);
+		blackie.updateHappiness(50);
+		blackie.updateHealth(20);
 		assertEquals(68, testFarm.getDailyBonusMoney());
 		testFarm.addAnimals(crash);
 		assertEquals(228, testFarm.getDailyBonusMoney());
 		testFarm.delAnimals(crash);
 		assertEquals(68, testFarm.getDailyBonusMoney());
 		testFarm.addAnimals(moomoo);
-		assertEquals(164, testFarm.getDailyBonusMoney());
+		assertEquals(168, testFarm.getDailyBonusMoney());
 	}
 }

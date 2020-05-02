@@ -2,6 +2,6 @@ package main.animal;
 
 public class Cow extends Animal {
 	public Cow() {
-		super("Cow", 12, 12, 25, 25, 350);
+		super("Cow", 125, 125, 250, 250, 350);
 	}
 }
