@@ -12,7 +12,7 @@ public class Farm {
 	private int bankBalance = 1000;
 	private ArrayList<Animal> animals;
 	private ArrayList<Crop> crops;
-	private ArrayList<Items> items;
+	private ArrayList<Item> items;
 	private float cropGrowthSpeed = 1;
 	private int initialCashBonus;
 	private float happinessMultiplier = 1;
@@ -21,13 +21,13 @@ public class Farm {
 	private int farmCap = 10;
 	private String flavour;
 	private String farmType;
-	
+
 	public Farm() {
 		animals = new ArrayList<Animal>();
 		crops = new ArrayList<Crop>();
 		items = new ArrayList<Item>();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -39,19 +39,19 @@ public class Farm {
 	public int getActionsLeft() {
 		return actionsLeft;
 	}
-	
-	public ArrayList showCrops() {
+
+	public ArrayList<Crop> showCrops() {
 		return crops;
 	}
 
-	public ArrayList showAnimals() {
-		return animals
+	public ArrayList<Animal> showAnimals() {
+		return animals;
 	}
 
-	public ArrayList showItems() {
+	public ArrayList<Item> showItems() {
 		return items;
 	}
-	
+
 	public void updateBankBalance(int amount) {
 		bankBalance += amount;
 	}
@@ -101,35 +101,35 @@ public class Farm {
 	public void setType(String chosenFarm) {
 		farmType = chosenFarm;
 	}
-	
+
 	public void addAnimals(Animal newAnimal) {
 		animals.add(newAnimal);
 	}
-	
+
 	public void addCrops(Crop newCrop) {
 		crops.add(newCrop);
 	}
-	
+
 	public void addItems(Item newItem) {
 		items.add(newItem);
 	}
-	
+
 	public void delAnimals(Animal runAway) {
 		animals.remove(runAway);
 	}
-	
+
 	public void delCrops(Crop withered) {
 		crops.remove(withered);
 	}
-	
+
 	public void delItems(Item used) {
 		items.remove(used);
 	}
-	
+
 	public int getFarmCap() {
 		return farmCap;
 	}
-	
+
 	public void addCap(int amount) {
 		farmCap += amount;
 	}
