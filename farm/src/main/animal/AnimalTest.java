@@ -46,4 +46,11 @@ public class AnimalTest {
 	void toString_test() {
 		assertEquals("SHEEP health 5 happiness 5", Babe.toString());
 	}
+	
+	@Test // passed 02/05/2020
+	void bonus_tests() {
+		assertEquals(68, Moomoo.bonus());
+		Moomoo.updateHealth(10);
+		assertEquals(88, Moomoo.bonus());
+	}
 }
