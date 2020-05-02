@@ -5,11 +5,12 @@ import main.Asset;
 public class Crop extends Asset {
 	private int daysToHarvest;
 	private float daysElapsed = 0;
+	private int sellingPrice;
 	
-	// protected so only subclasses can initialize a crop
-	public Crop(String name, int purchasePrice, int daysToHarvest) {
+	public Crop(String name, int purchasePrice, int daysToHarvest, int sellingPrice) {
 		super(name, purchasePrice);
 		this.daysToHarvest = daysToHarvest;
+		this.sellingPrice = sellingPrice;
 	}
 
 	public String getName() {
@@ -22,6 +23,10 @@ public class Crop extends Asset {
 	
 	public float getDaysElapsed() {
 		return daysElapsed;
+	}
+	
+	public int getPrice() {
+		return sellingPrice;
 	}
 	
 	public String toString() {
