@@ -1,8 +1,15 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// eclipse forces me to include this...
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
+
+import main.animal.Animal;
+import main.crops.Crop;
+import main.items.Item;
 
 /**
  * The class that runs the game loop, and handles every object in the game.
@@ -22,8 +29,9 @@ public class Game {
 	private void setGameDuration(Scanner sc) {
 		System.out.print("For how many days (from 5 to 10) would you like to play? ");
 		while (true) {
-			if (sc.hasNextInt()) {
+			try {
 				maxDays = sc.nextInt();
+				sc.nextLine(); // discard rest of line
 				if (5 <= maxDays && maxDays <= 10) {
 					System.out.printf("Number of days set to %d\n", maxDays);
 					break;
@@ -31,8 +39,9 @@ public class Game {
 					System.out.printf("%d is not between 5 and 10 inclusive!", maxDays);
 					continue;
 				}
-			} else {
-				System.out.printf("Please type a valid number");
+			} catch (InputMismatchException e) {
+				System.out.println("Please type a valid number.");
+				sc.next(); // discard the input
 			}
 		}
 	}
@@ -42,7 +51,7 @@ public class Game {
 	 * the farmer.
 	 */
 	private void setFarmerDetails(Scanner sc) {
-		farmer = new Farmer();
+		farmer = new Farmer(farm);
 		farmer.setDetails(sc);
 	}
 
@@ -53,30 +62,30 @@ public class Game {
 	private void selectFarm(Scanner sc) {
 		System.out.println("What farm would you like to create?");
 		farmSelectLoop: while (true) {
-			// TODO: Print flavour text as well here?
 			System.out.println("Input 1 for Animal Farm.");
 			System.out.println("Input 2 for Trump Ranch.");
 			System.out.println("Input 3 for Tomacco Land.");
 			System.out.println("Input 4 for Moo Moo Farm.");
-			if (!sc.hasNextInt()) {
-				System.out.println("Please type a positive number.");
-				continue;
-			}
-			switch (sc.nextInt()) {
-			case 1:
-				farm = new AnimalFarm();
-				break farmSelectLoop; // breaks out of the while loop
-			case 2:
-				farm = new TrumpRanch();
-				break farmSelectLoop;
-			case 3:
-				farm = new TomaccoLand();
-				break farmSelectLoop;
-			case 4:
-				farm = new MoomooFarm();
-				break farmSelectLoop;
-			default:
-				System.out.println("Number must be from 1 to 4.");
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					farm = new AnimalFarm();
+					break farmSelectLoop; // breaks out of the while loop
+				case 2:
+					farm = new TrumpRanch();
+					break farmSelectLoop;
+				case 3:
+					farm = new TomaccoLand();
+					break farmSelectLoop;
+				case 4:
+					farm = new MoomooFarm();
+					break farmSelectLoop;
+				default:
+					System.out.println("Number must be from 1 to 4.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please type a number from 1 to 4.");
+				sc.next();
 			}
 		}
 		// we include this because nextInt only "consumed" the number
@@ -84,6 +93,7 @@ public class Game {
 		sc.nextLine();
 		// printing the type of farm is optional
 		System.out.printf("Farm %s successfully created!\n", farm.getType());
+		System.out.printf("Farm info: %s", farm.getFlavour());
 	}
 
 	/**
@@ -101,27 +111,34 @@ public class Game {
 	 * Prompt user for a game loop option that doesn't cost any actions.
 	 */
 	private void promptNonAction(Scanner sc) {
-		System.out.println("1. View status of farm's crops and animals.");
-		System.out.println("2. View status of farm, and money available.");
-		System.out.println("3. View general store.");
-		System.out.println("4. Go back.");
+		System.out.println("1. View status of farm OR farm's crops/animals/items.");
+		System.out.println("2. View general store.");
+		System.out.println("3. Go back.");
 		optionLoop: while (true) {
-			switch (sc.nextInt()) {
-			case 1:
-				break optionLoop;
-			case 2:
-				break optionLoop;
-			case 3:
-				break optionLoop;
-			case 4:
-				return;
-			default:
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					System.out.println("Viewing status...");
+					viewStatus(sc);
+					break optionLoop;
+				case 2:
+					store.visitStore();
+					break optionLoop;
+				case 3:
+					break optionLoop;
+				default:
+					System.out.println("Please type a valid number.");
+				}
+			} catch (InputMismatchException e) {
 				System.out.println("Please type a valid number.");
+				sc.next();
 			}
 		}
+		sc.nextLine();
 	}
 
 	private void promptAction(Scanner sc) {
+		// TODO: test this
 		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
 		System.out.println("1. Tend to crops.");
 		System.out.println("2. Feed animals.");
@@ -130,23 +147,62 @@ public class Game {
 		System.out.println("5. Tend to farm land.");
 		System.out.println("6. Go back.");
 		optionLoop: while (true) {
-			switch (sc.nextInt()) {
-			case 1:
-				break optionLoop;
-			case 2:
-				break optionLoop;
-			case 3:
-				break optionLoop;
-			case 4:
-				break optionLoop;
-			case 5:
-				break optionLoop;
-			case 6:
-				sc.close();
-				return;
-			default:
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					System.out.println("Tending to the crops...");
+					// Farmer.tendToCrops()
+					break optionLoop;
+				case 2:
+					System.out.println("Feeding the animals...");
+					// Farmer.feedAnimals()
+					break optionLoop;
+				case 3:
+					System.out.println("Playing with the animals...");
+					// farmer.playWithAnimals()
+					break optionLoop;
+				case 4:
+					System.out.println("Harvesting the crops...");
+					// farmer.harvestCrops()
+					break optionLoop;
+				case 5:
+					System.out.println("Tending to the farm land...");
+					// farmer.tendToLand()
+					break optionLoop;
+				case 6:
+					System.out.println("Returning...");
+					break optionLoop;
+				default:
+					System.out.println("Please type a valid number.");
+					sc.next();
+				}
+			} catch (InputMismatchException e) {
 				System.out.println("Please type a valid number.");
+				sc.next();
 			}
+		}
+		sc.nextLine();
+	}
+
+	private void viewCrops() {
+		ArrayList<Crop> crops = farm.showCrops();
+		for (Crop crop : crops) {
+			// it ain't pretty, but it's a proof of concept
+			System.out.printf("%s\n", crop);
+		}
+	}
+
+	private void viewAnimals() {
+		ArrayList<Animal> animals = farm.showAnimals();
+		for (Animal animal : animals) {
+			System.out.printf("%s\n", animal);
+		}
+	}
+
+	private void viewItems() {
+		ArrayList<Item> items = farm.showItems();
+		for (Item item : items) {
+			System.out.printf("%s\n", item);
 		}
 	}
 
@@ -155,8 +211,41 @@ public class Game {
 	 * prompts if the user wants to see status of crops, animals,
 	 * and items.
 	 */
-	private void viewStatus() {
-
+	private void viewStatus(Scanner sc) {
+		System.out.printf("%s, owned by %s (%d y.o.)\n", farm.getName(), farmer.getName(), farmer.getAge());
+		System.out.printf("Money: %d\n", farm.getBankBalance());
+		System.out.println("===");
+		outerLoop: while (true) {
+			System.out.println("Type 1 to view crops");
+			System.out.println("Type 2 to view animals");
+			System.out.println("Type 3 to view items");
+			System.out.println("Type 4 to go back");
+			optionLoop: while (true) {
+				try {
+					switch (sc.nextInt()) {
+					case 1:
+						System.out.println("Viewing crops...");
+						viewCrops();
+						break optionLoop;
+					case 2:
+						System.out.println("Viewing animals...");
+						viewAnimals();
+						break optionLoop;
+					case 3:
+						System.out.println("Viewing items...");
+						viewItems();
+						break optionLoop;
+					case 4:
+						System.out.println("Returning...");
+						break outerLoop;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Please type a number.");
+					sc.next();
+				}
+			}
+		}
+		sc.nextLine();
 	}
 
 	/**
@@ -180,6 +269,10 @@ public class Game {
 					promptAction(sc);
 					break optionLoop;
 				case 3:
+					// change name later to reflect what
+					// the actual function is called
+					System.out.println("Receiving bonus money...");
+					farm.getDailyBonusMoney();
 					continue outerLoop; // should skip to next day
 				default:
 					System.out.println("Please type a valid number.");
