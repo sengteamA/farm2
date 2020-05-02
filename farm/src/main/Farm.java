@@ -133,4 +133,12 @@ public class Farm {
 	public void addCap(int amount) {
 		farmCap += amount;
 	}
+	
+	public int getDailyBonusMoney() {
+		int money = 0;
+		for (Animal animal: animals) {
+			money += animal.bonus();
+		}
+		return money;
+	}
 }
