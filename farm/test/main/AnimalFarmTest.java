@@ -33,5 +33,12 @@ class AnimalFarmTest {
 				+ "All animals start 20% happier and healthier on purchase\n"
 				+ "Feeding and playing with animals is 20% more effective\n", s);
 	}
+	
+	@Test // passed 02/05/2020
+	void class_test() {
+		assertTrue(snowball instanceof AnimalFarm);
+		assertTrue(snowball instanceof Farm);
+	}
+	
 
 }
