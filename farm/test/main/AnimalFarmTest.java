@@ -16,14 +16,14 @@ class AnimalFarmTest {
 	
 	@Test //passed 16/04/2020
 	void health_bonus_test() {
-		float health = 10 * snowball.healthMultiplier;
-		assertEquals(12, health);
+		float health = 10 * snowball.animal_bonus;
+		assertEquals(2, health);
 	}
 	
 	@Test //passed 16/04/2020
 	void happy_bonus_test() {
-		float happy = 10 * snowball.happinessMultiplier;
-		assertEquals(12, happy);
+		float happy = 10 * snowball.animal_bonus;
+		assertEquals(2, happy);
 	}
 	
 	@Test // passed 16/04/2020
