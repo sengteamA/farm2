@@ -5,7 +5,7 @@ import main.Asset;
 public class Item extends Asset {
 	
 	private String type;
-	private int units;
+	private static int units;
 	private String benefit;
 	private String flavour;
 	
