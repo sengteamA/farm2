@@ -38,7 +38,7 @@ public class Crop extends Asset {
 	}
 	
 	public String toString() {
-		return name + ": days left " + daysToHarvest;
+		return name + ": days left " + this.getDaysToHarvest();
 	}
 
 }
