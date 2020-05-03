@@ -38,6 +38,6 @@ public class Item extends Asset {
 	}
 	
 	public String toString() {
-		return name + " " + units;
+		return name + ": " + benefit;
 	}
 }
