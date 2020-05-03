@@ -4,7 +4,7 @@ import main.Asset;
 
 public class Crop extends Asset {
 	private int daysToHarvest;
-	private float daysElapsed = 0;
+	private int daysElapsed = 0;
 	private int sellingPrice;
 	
 	public Crop(String name, int purchasePrice, int daysToHarvest, int sellingPrice) {
@@ -18,11 +18,19 @@ public class Crop extends Asset {
 	}
 	
 	public int getDaysToHarvest() {
-		return daysToHarvest;
+		int days_left = daysToHarvest - daysElapsed;
+		if (days_left < 0) {
+			days_left = 0;
+		}
+		return days_left;
 	}
 	
 	public float getDaysElapsed() {
 		return daysElapsed;
+	}
+	
+	public void updateDaysElapsed(int day) {
+		daysElapsed += day;
 	}
 	
 	public int getPrice() {
