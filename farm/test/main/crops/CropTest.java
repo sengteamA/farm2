@@ -36,5 +36,13 @@ class CropTest {
 	void testPurchasePrice() {
 		assertEquals(100, my_crop.getPurchasePrice());
 	}
+	
+	@Test // done 03/05/2020
+	void daysTillHarvestTest() {
+		my_crop.updateDaysElapsed(500);
+		assertEquals(1500, my_crop.getDaysLeft());
+		my_crop.updateDaysElapsed(2000);
+		assertEquals(0, my_crop.getDaysLeft());
+	}
 
 }

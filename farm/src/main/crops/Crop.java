@@ -18,11 +18,7 @@ public class Crop extends Asset {
 	}
 	
 	public int getDaysToHarvest() {
-		int days_left = daysToHarvest - daysElapsed;
-		if (days_left < 0) {
-			days_left = 0;
-		}
-		return days_left;
+		return daysToHarvest;
 	}
 	
 	public float getDaysElapsed() {
@@ -33,12 +29,19 @@ public class Crop extends Asset {
 		daysElapsed += day;
 	}
 	
+	public int getDaysLeft() {
+		float days = this.getDaysToHarvest() - this.getDaysElapsed();
+		if (days <= 0) {
+			days = 0;
+		}
+		return (int) days;
+	}
+	
 	public int getPrice() {
 		return sellingPrice;
 	}
 	
 	public String toString() {
-		return name + ": days left " + this.getDaysToHarvest();
+		return name + ": days left " + this.getDaysLeft();
 	}
-
 }
