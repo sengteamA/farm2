@@ -5,7 +5,7 @@ import main.Asset;
 public class Item extends Asset {
 	
 	private String type;
-	private int units;
+	private static int units;
 	private String benefit;
 	private String flavour;
 	
@@ -38,6 +38,6 @@ public class Item extends Asset {
 	}
 	
 	public String toString() {
-		return name + " " + units;
+		return name + ": " + benefit;
 	}
 }
