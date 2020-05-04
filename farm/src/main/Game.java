@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// eclipse forces me to include this...
-import org.junit.jupiter.api.extension.ExtensionContext.Store;
-
 import main.animal.Animal;
 import main.crops.Crop;
 import main.items.Item;
@@ -107,83 +104,6 @@ public class Game {
 		farm.setName(sc);
 	}
 
-	/**
-	 * Prompt user for a game loop option that doesn't cost any actions.
-	 */
-	private void promptNonAction(Scanner sc) {
-		System.out.println("1. View status of farm OR farm's crops/animals/items.");
-		System.out.println("2. View general store.");
-		System.out.println("3. Go back.");
-		optionLoop: while (true) {
-			try {
-				switch (sc.nextInt()) {
-				case 1:
-					System.out.println("Viewing status...");
-					viewStatus(sc);
-					break optionLoop;
-				case 2:
-					store.visitStore();
-					break optionLoop;
-				case 3:
-					break optionLoop;
-				default:
-					System.out.println("Please type a valid number.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Please type a valid number.");
-				sc.next();
-			}
-		}
-		sc.nextLine();
-	}
-
-	private void promptAction(Scanner sc) {
-		// TODO: test this
-		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
-		System.out.println("1. Tend to crops.");
-		System.out.println("2. Feed animals.");
-		System.out.println("3. Play with animals.");
-		System.out.println("4. Harvest crops.");
-		System.out.println("5. Tend to farm land.");
-		System.out.println("6. Go back.");
-		optionLoop: while (true) {
-			try {
-				switch (sc.nextInt()) {
-				case 1:
-					System.out.println("Tending to the crops...");
-					// Farmer.tendToCrops()
-					break optionLoop;
-				case 2:
-					System.out.println("Feeding the animals...");
-					// Farmer.feedAnimals()
-					break optionLoop;
-				case 3:
-					System.out.println("Playing with the animals...");
-					// farmer.playWithAnimals()
-					break optionLoop;
-				case 4:
-					System.out.println("Harvesting the crops...");
-					// farmer.harvestCrops()
-					break optionLoop;
-				case 5:
-					System.out.println("Tending to the farm land...");
-					// farmer.tendToLand()
-					break optionLoop;
-				case 6:
-					System.out.println("Returning...");
-					break optionLoop;
-				default:
-					System.out.println("Please type a valid number.");
-					sc.next();
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Please type a valid number.");
-				sc.next();
-			}
-		}
-		sc.nextLine();
-	}
-
 	private void viewCrops() {
 		ArrayList<Crop> crops = farm.showCrops();
 		for (Crop crop : crops) {
@@ -243,6 +163,83 @@ public class Game {
 					System.out.println("Please type a number.");
 					sc.next();
 				}
+			}
+		}
+		sc.nextLine();
+	}
+
+	/**
+	 * Prompt user for a game loop option that doesn't cost any actions.
+	 */
+	private void promptNonAction(Scanner sc) {
+		System.out.println("1. View status of farm OR farm's crops/animals/items.");
+		System.out.println("2. View general store.");
+		System.out.println("3. Go back.");
+		optionLoop: while (true) {
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					System.out.println("Viewing status...");
+					viewStatus(sc);
+					break optionLoop;
+				case 2:
+					store.visitStore(farm, sc);
+					break optionLoop;
+				case 3:
+					break optionLoop;
+				default:
+					System.out.println("Please type a valid number.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please type a valid number.");
+				sc.next();
+			}
+		}
+		sc.nextLine();
+	}
+
+	private void promptAction(Scanner sc) {
+		// TODO: test this
+		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
+		System.out.println("1. Tend to crops.");
+		System.out.println("2. Feed animals.");
+		System.out.println("3. Play with animals.");
+		System.out.println("4. Harvest crops.");
+		System.out.println("5. Tend to farm land.");
+		System.out.println("6. Go back.");
+		optionLoop: while (true) {
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					System.out.println("Tending to the crops...");
+					// Farmer.tendToCrops()
+					break optionLoop;
+				case 2:
+					System.out.println("Feeding the animals...");
+					// Farmer.feedAnimals()
+					break optionLoop;
+				case 3:
+					System.out.println("Playing with the animals...");
+					// farmer.playWithAnimals()
+					break optionLoop;
+				case 4:
+					System.out.println("Harvesting the crops...");
+					// farmer.harvestCrops()
+					break optionLoop;
+				case 5:
+					System.out.println("Tending to the farm land...");
+					// farmer.tendToLand()
+					break optionLoop;
+				case 6:
+					System.out.println("Returning...");
+					break optionLoop;
+				default:
+					System.out.println("Please type a valid number.");
+					sc.next();
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please type a valid number.");
+				sc.next();
 			}
 		}
 		sc.nextLine();
