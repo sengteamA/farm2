@@ -22,4 +22,13 @@ public class Asset {
 	public int getPurchasePrice() {
 		return purchasePrice;
 	}
+
+	/**
+	 * Returns any relevant general information about the asset,
+	 * to be used in the description of the asset in the Store.
+	 * @return information about the asset, as a single-line string.
+	 */
+	public String getInfo() {
+		return getName() + " - " + getPurchasePrice();
+	}
 }
