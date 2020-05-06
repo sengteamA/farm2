@@ -80,7 +80,14 @@ public class Store {
 		addItem(stockfeed.getName(), stockfeed);
 	}
 
-	public void displayItems(TreeMap<String,Asset> aisle) {
+	/**
+	 * Displays assets the player has.
+	 */
+	public void displayFarmerAssets() {
+
+	}
+
+	public void displayAisleAssets(TreeMap<String,Asset> aisle) {
 		for (Map.Entry<String,Asset> entry : aisle.entrySet()) {
 			// TODO: change getInfo() of Animal, Crop and Item
 			// to be, well, more expressive
@@ -126,6 +133,8 @@ public class Store {
 		outerLoop: while (true) {
 			System.out.println("Welcome to the county general store.");
 			System.out.printf("You have %d money.\n", farm.getBankBalance());
+			// TODO
+			// Show what items the player currently owns, their amounts, and theamount of money the player has.
 			System.out.println("Type 1 to buy crops.");
 			System.out.println("Type 2 to buy animals");
 			System.out.println("Type 3 to buy items/farming supplies.");
