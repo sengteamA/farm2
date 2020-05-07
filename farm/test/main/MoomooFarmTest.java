@@ -1,6 +1,6 @@
 package main;
 
-import farm.main.animal.Cow;
+import main.animal.Cow;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,12 +20,12 @@ public class MoomooFarmTest {
 	void cow_factor_test() {
 		Cow sophie = new Cow();
 		assertFalse(moo.hasCow());
-		moo.addAnimals(sophie);
+		moo.addAnimal(sophie);
 		assertTrue(sophie instanceof Cow);
 		assertEquals((float)1, moo.showAnimals().size());
 		assertTrue(moo.hasCow());
 		assertEquals((float)1.2, moo.getCowFactor());
-		moo.delAnimals(sophie);
+		moo.delAnimal(sophie);
 		assertFalse(moo.hasCow());
 	}
 	

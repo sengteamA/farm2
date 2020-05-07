@@ -102,27 +102,27 @@ public class Farm {
 		farmType = chosenFarm;
 	}
 
-	public void addAnimals(Animal newAnimal) {
+	public void addAnimal(Animal newAnimal) {
 		animals.add(newAnimal);
 	}
 
-	public void addCrops(Crop newCrop) {
+	public void addCrop(Crop newCrop) {
 		crops.add(newCrop);
 	}
 
-	public void addItems(Item newItem) {
+	public void addItem(Item newItem) {
 		items.add(newItem);
 	}
 
-	public void delAnimals(Animal runAway) {
+	public void delAnimal(Animal runAway) {
 		animals.remove(runAway);
 	}
 
-	public void delCrops(Crop withered) {
+	public void delCrop(Crop withered) {
 		crops.remove(withered);
 	}
 
-	public void delItems(Item used) {
+	public void delItem(Item used) {
 		items.remove(used);
 	}
 

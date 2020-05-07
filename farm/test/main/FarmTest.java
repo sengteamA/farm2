@@ -1,17 +1,15 @@
 package main;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import farm.src.main.animal.*;
-import farm.src.main.crops.*;
-import farm.src.main.items.*;
+import main.animal.*;
+import main.crops.*;
+import main.items.*;
 
 //animals, crops and items not yet implemented
 class FarmTest {
@@ -79,12 +77,12 @@ class FarmTest {
 		Sheep blackie = new Sheep();
 		Cow moomoo = new Cow();
 		Fox crash = new Fox();
-		testFarm.addAnimals(blackie);
-		testFarm.addAnimals(moomoo);
-		testFarm.addAnimals(crash);
+		testFarm.addAnimal(blackie);
+		testFarm.addAnimal(moomoo);
+		testFarm.addAnimal(crash);
 		assertEquals(3, testFarm.showAnimals().size());
 		assertTrue(testFarm.showAnimals().contains(blackie));
-		testFarm.delAnimals(moomoo);
+		testFarm.delAnimal(moomoo);
 		assertFalse(testFarm.showAnimals().contains(moomoo));
 	}
 	
@@ -96,15 +94,15 @@ class FarmTest {
 		Tomacco tomacco = new Tomacco();
 		Wasabi volcano = new Wasabi();
 		Wheat mccain = new Wheat();
-		testFarm.addCrops(carrot);
-		testFarm.addCrops(magic);
-		testFarm.addCrops(volcano);
+		testFarm.addCrop(carrot);
+		testFarm.addCrop(magic);
+		testFarm.addCrop(volcano);
 		assertEquals(3, testFarm.showCrops().size());
 		assertTrue(testFarm.showCrops().contains(magic));
 		assertFalse(testFarm.showCrops().contains(slime));
 		assertFalse(testFarm.showCrops().contains(tomacco));
 		assertFalse(testFarm.showCrops().contains(mccain));
-		testFarm.delCrops(magic);;	
+		testFarm.delCrop(magic);;	
 		assertFalse(testFarm.showCrops().contains(magic));
 	}
 	
@@ -116,15 +114,15 @@ class FarmTest {
 		InstantGroPro ig_pro = new InstantGroPro();
 		PandaGummy po = new PandaGummy();
 		Stockfeed stockfeed = new Stockfeed();
-		testFarm.addItems(bleach);
-		testFarm.addItems(compost);
-		testFarm.addItems(ig_lite);
+		testFarm.addItem(bleach);
+		testFarm.addItem(compost);
+		testFarm.addItem(ig_lite);
 		assertEquals(3, testFarm.showItems().size());
 		assertTrue(testFarm.showItems().contains(bleach));
 		assertFalse(testFarm.showItems().contains(ig_pro));
 		assertFalse(testFarm.showItems().contains(po));
 		assertFalse(testFarm.showItems().contains(stockfeed));
-		testFarm.delItems(bleach);
+		testFarm.delItem(bleach);
 		assertFalse(testFarm.showItems().contains(bleach));
 	}
 	
@@ -133,16 +131,16 @@ class FarmTest {
 		Sheep blackie = new Sheep();
 		Cow moomoo = new Cow();
 		Fox crash = new Fox();
-		testFarm.addAnimals(blackie);
+		testFarm.addAnimal(blackie);
 		assertEquals(40, testFarm.getDailyBonusMoney());
 		blackie.updateHappiness(50);
 		blackie.updateHealth(20);
 		assertEquals(68, testFarm.getDailyBonusMoney());
-		testFarm.addAnimals(crash);
+		testFarm.addAnimal(crash);
 		assertEquals(228, testFarm.getDailyBonusMoney());
-		testFarm.delAnimals(crash);
+		testFarm.delAnimal(crash);
 		assertEquals(68, testFarm.getDailyBonusMoney());
-		testFarm.addAnimals(moomoo);
+		testFarm.addAnimal(moomoo);
 		assertEquals(168, testFarm.getDailyBonusMoney());
 	}
 }
