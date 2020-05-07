@@ -29,14 +29,4 @@ class ItemTests {
 		Compost compost = new Compost();
 		assertEquals(150, compost.getPurchasePrice());
 	}
-	
-	@Test
-	void item_count_test() {
-		Compost compost = new Compost();
-		assertEquals(0, compost.getUnits());
-		compost.updateUnits(15);
-		assertEquals(15, compost.getUnits());
-	}
-
-
 }
