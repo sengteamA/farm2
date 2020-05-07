@@ -3,7 +3,6 @@ package main.animal;
 import main.Asset;
 
 public class Animal extends Asset {
-
 	private int health;
 	private int happiness;
 	private int maxHealth;
@@ -51,7 +50,7 @@ public class Animal extends Asset {
 
 	@Override
 	public String getInfo() {
-		return getName() + " - " + getPurchasePrice() + " (happiness " + \
+		return getName() + " - " + getPurchasePrice() + " (happiness " +
 				getHappiness() + ", health " + getHealth() + ")";
 	}
 }

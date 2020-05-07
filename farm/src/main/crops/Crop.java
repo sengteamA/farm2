@@ -44,7 +44,7 @@ public class Crop extends Asset {
 
 	@Override
 	public String getInfo() {
-		return getName() + " - " + getPurchasePrice() + " (" + \
+		return getName() + " - " + getPurchasePrice() + " (" +
 				getDaysToHarvest() + " days)";
 	}
 }

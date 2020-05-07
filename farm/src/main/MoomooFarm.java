@@ -1,5 +1,8 @@
 package main;
 
+import main.animal.Animal;
+import main.animal.Cow;
+
 public class MoomooFarm extends Farm {
 	
 	public float cow_discount = (float)0.8;
@@ -14,7 +17,7 @@ public class MoomooFarm extends Farm {
 	
 	public boolean hasCow() {
 		boolean outcome = false;
-		for (Animal animal: this.showAnimals()) {
+		for (Animal animal : this.showAnimals()) {
 			if (animal instanceof Cow) {
 				outcome = true;
 			}
