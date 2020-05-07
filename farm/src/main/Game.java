@@ -53,6 +53,13 @@ public class Game {
 	}
 
 	/**
+	 * Creates a new Store instance for the game.
+	 */
+	private void createStore() {
+		store = new Store();
+	}
+
+	/**
 	 * Prompts the user about what farm to create, and assigns Game.farm to
 	 * this value.
 	 */
@@ -102,6 +109,9 @@ public class Game {
 		setFarmerDetails(sc);
 		selectFarm(sc);
 		farm.setName(sc);
+		// set up store, now that we have a farm
+		// (this could go anywhere to be honest)
+		createStore();
 	}
 
 	private void viewCrops() {

@@ -141,4 +141,14 @@ public class Farm {
 		}
 		return money;
 	}
+
+	/**
+	 * Returns whether deducting an amount would result in bank balance
+	 * going into debt.
+	 * @param toDeduct
+	 * @return whether bankBalance - toDeduct < 0
+	 */
+	public boolean hasEnoughMoney(int toDeduct) {
+		return getBankBalance() - toDeduct >= 0;
+	}
 }
