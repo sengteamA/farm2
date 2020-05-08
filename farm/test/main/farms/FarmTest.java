@@ -1,13 +1,15 @@
-package main;
+package main.farms;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.animal.*;
+import main.animals.*;
 import main.crops.*;
 import main.items.*;
 
@@ -18,7 +20,7 @@ class FarmTest {
 
 	@BeforeEach
 	public void init() {
-		testFarm = new Farm();
+		testFarm = new Farm("My new farm", "Flavour text");
 	}
 
 	@Test //passed on 15/04/2020 - Nick

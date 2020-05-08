@@ -1,4 +1,4 @@
-package main;
+package main.farms;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,8 +27,8 @@ class AnimalFarmTest {
 	}
 	
 	@Test // passed 16/04/2020
-	void flavour_test() {
-		String s= snowball.flavour;
+	void flavourTest() {
+		String s = snowball.getFlavour();
 		assertEquals("All Animals are equal, but some are more equal than others.\n"
 				+ "All animals start 20% happier and healthier on purchase\n"
 				+ "Feeding and playing with animals is 20% more effective\n", s);

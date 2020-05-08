@@ -1,11 +1,12 @@
 package main.animal;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import main.Farm;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import main.animals.Sheep;
+import main.farms.Farm;
 
 class SheepTest {
 	
@@ -14,7 +15,7 @@ class SheepTest {
 	
 	@BeforeEach
 	public void init() {
-		farm = new Farm();
+		farm = new Farm("", "");
 		babe = new Sheep();
 		
 	}

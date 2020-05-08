@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.Farm;
+import main.animals.Animal;
+import main.farms.Farm;
 
 class AnimalTest {
 	
@@ -16,7 +17,7 @@ class AnimalTest {
 	@BeforeEach
 	public void init() {
 		pig = new Animal("Napoleon", 10, 10, 20, 20, 200);
-		farm = new Farm();
+		farm = new Farm("My New Farm", "Empty flavour text");
 	}
 
 	@Test // test passed 17/04/2020

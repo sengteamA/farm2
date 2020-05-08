@@ -24,10 +24,12 @@ public class Farm {
 	private String flavour;
 	private String farmType;
 
-	public Farm() {
+	public Farm(String myFarmType, String myFlavour) {
 		animals = new ArrayList<Animal>();
 		crops = new ArrayList<Crop>();
 		items = new ArrayList<Item>();
+		farmType = myFarmType;
+		flavour = myFlavour;
 	}
 
 	public String getName() {
