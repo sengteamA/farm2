@@ -151,4 +151,38 @@ public class Farm {
 	public boolean hasEnoughMoney(int toDeduct) {
 		return getBankBalance() - toDeduct >= 0;
 	}
+	
+	public boolean hasAnimals() {
+		boolean result = true;
+		if (this.showAnimals().isEmpty()) {
+			result = false;
+		}
+		return result;
+	}
+	public boolean hasFoodItems() {
+		boolean result = true;
+		Map<String, Long> counts = this.showItems().stream().filter(e -> e.getType().equals("Animal")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+		if (counts.isEmpty()) {
+			result = false;
+		}
+		return result;
+		//counts.keySet() this gives us a list of animals
+	}
+	
+	public boolean hasCrops() {
+		boolean result = true;
+		if (this.showCrops().isEmpty()) {
+			result = false;
+		}
+		return result;
+	}
+	
+	public boolean hasPlantItems() {
+		boolean result = true;
+		Map<String, Long> counts = this.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+		if (counts.isEmpty()) {
+			result = false;
+		}
+		return result;
+	}
 }

@@ -143,4 +143,52 @@ class FarmTest {
 		testFarm.addAnimal(moomoo);
 		assertEquals(168, testFarm.getDailyBonusMoney());
 	}
+	
+	@Test //test completed 08/05/2020
+	void has_animal_test() {
+		assertFalse(testFarm.hasAnimals());
+		Sheep blackie = new Sheep();
+		testFarm.addAnimal(blackie);
+		assertTrue(testFarm.hasAnimals());
+		testFarm.delAnimal(blackie);
+		assertFalse(testFarm.hasAnimals());
+	}
+	
+	@Test // test completed 08/05/2020
+	void has_food_items() {
+		assertFalse(testFarm.hasFoodItems());
+		Compost compost = new Compost();
+		Stockfeed stock = new Stockfeed();
+		testFarm.addItem(compost);
+		assertFalse(testFarm.hasFoodItems());
+		testFarm.addItem(stock);
+		assertTrue(testFarm.hasFoodItems());
+		testFarm.delItem(compost);
+		assertTrue(testFarm.hasFoodItems());
+		testFarm.delItem(stock);
+		assertFalse(testFarm.hasFoodItems());
+	}
+	
+	@Test // test completed 08/05/2020
+	void has_crops_test() {
+		assertFalse(testFarm.hasCrops());
+		Tomacco marl = new Tomacco();
+		testFarm.addCrop(marl);
+		assertTrue(testFarm.hasCrops());
+		testFarm.delCrop(marl);
+		assertFalse(testFarm.hasCrops());
+	}
+	
+	@Test // test completed 08/05/2020
+	void has_plant_items() {
+		assertFalse(testFarm.hasPlantItems()); 
+		Compost compost = new Compost();
+		Stockfeed stock = new Stockfeed();
+		testFarm.addItem(stock);
+		assertFalse(testFarm.hasPlantItems());
+		testFarm.addItem(compost);
+		assertTrue(testFarm.hasPlantItems());
+		testFarm.delItem(compost);
+		assertFalse(testFarm.hasPlantItems());
+	}
 }
