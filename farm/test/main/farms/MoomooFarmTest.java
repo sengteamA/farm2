@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 import main.animals.Cow;
 
 public class MoomooFarmTest {
-	
+
 	public MoomooFarm moo = new MoomooFarm();
-	
+
 	@BeforeEach
 	public void init() {
 		moo = new MoomooFarm();
 	}
 
 	@Test //test completed 01/05/2020
-	void cow_factor_test() {
+	void cowFactorTest() {
 		Cow sophie = new Cow();
 		assertFalse(moo.hasCow());
 		moo.addAnimal(sophie);
@@ -30,5 +30,5 @@ public class MoomooFarmTest {
 		moo.delAnimal(sophie);
 		assertFalse(moo.hasCow());
 	}
-	
+
 }

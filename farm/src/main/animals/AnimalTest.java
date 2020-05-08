@@ -8,49 +8,49 @@ import org.junit.jupiter.api.Test;
 public class AnimalTest {
 
 	//an object created for each animal subclass
-	public Sheep Babe;
-	public Cow Moomoo;
-	public Fox Crash;
+	public Sheep babe;
+	public Cow moomoo;
+	public Fox crash;
 
 	@BeforeEach
 	public void init() {
-		Babe = new Sheep();
-		Moomoo = new Cow();
-		Crash = new Fox();
+		babe = new Sheep();
+		moomoo = new Cow();
+		crash = new Fox();
 	}
 
 	@Test // sheep health update test passed 21/04/2020
 	void sheepHealthTest() {
-		Babe.updateHealth(5);
-		assertEquals(10, Babe.getHealth());
+		babe.updateHealth(5);
+		assertEquals(10, babe.getHealth());
 	}
 
 	@Test // sheep happiness update test passed 21/04/2020
 	void sheepHappyTest() {
-		Babe.updateHappiness(5);
-		assertEquals(10, Babe.getHappiness());
+		babe.updateHappiness(5);
+		assertEquals(10, babe.getHappiness());
 	}
 
 	@Test // cow max happiness test passed 21/04/2020
 	void cowHappyBoundTest() {
-		Moomoo.updateHappiness(50);
-		assertEquals(25, Moomoo.getHappiness());
+		moomoo.updateHappiness(50);
+		assertEquals(25, moomoo.getHappiness());
 	}
 
 	@Test // fox price test passed 21/04/2020
 	void foxPriceTest() {
-		assertEquals(400, Crash.getPurchasePrice());
+		assertEquals(400, crash.getPurchasePrice());
 	}
 
 	@Test // passed 30/04/2020
 	void toStringTest() {
-		assertEquals("SHEEP health 5 happiness 5", Babe.toString());
+		assertEquals("SHEEP health 5 happiness 5", babe.toString());
 	}
 
 	@Test // passed 02/05/2020
 	void bonusTest() {
-		assertEquals(100, Moomoo.bonus());
-		Moomoo.updateHealth(10);
-		assertEquals(104, Moomoo.bonus());
+		assertEquals(100, moomoo.bonus());
+		moomoo.updateHealth(10);
+		assertEquals(104, moomoo.bonus());
 	}
 }

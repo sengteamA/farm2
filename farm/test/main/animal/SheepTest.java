@@ -9,42 +9,46 @@ import main.animals.Sheep;
 import main.farms.Farm;
 
 class SheepTest {
-	
+
 	public Farm farm;
 	public Sheep babe;
-	
+
 	@BeforeEach
 	public void init() {
 		farm = new Farm("", "");
 		babe = new Sheep();
-		
+
 	}
 	@Test // test passed 19/04/2020
-	void happiness_test() {
-		assertEquals(5, babe.getHappiness());
+	void happinessTest() {
+		assertEquals(50, babe.getHappiness());
 	}
-	
+
 	@Test // test passed 19/04/2020
-	void health_test() { 
-		assertEquals(5, babe.getHealth());
+	void healthTest() {
+		assertEquals(50, babe.getHealth());
 	}
-	
+
 	@Test // test passed 19/04/2020
-	void health_upper_bound() {
-		babe.updateHealth(11);
-		assertEquals(10, babe.getHealth());
+	void healthUpperBound() {
+		babe.updateHealth(51);
+		assertEquals(100, babe.getHealth());
 	}
-	
+
 	@Test
-	void health_up() {
-		babe.updateHealth(5);
-		assertEquals(15, babe.getHealth());
+	void healthUp() {
+		int currentHealth = babe.getHealth();
+		int toAdd = 5;
+		babe.updateHealth(toAdd);
+		assertEquals(currentHealth + toAdd, babe.getHealth());
 	}
-	
+
 	@Test //??? why can subclass pass while parent fails???
-	void default_get_happy() {
-		babe.updateHappiness(5);
-		assertEquals(10, babe.getHappiness());
+	void defaultGetHappy() {
+		int currentHappiness = babe.getHappiness();
+		int toAdd = 5;
+		babe.updateHappiness(toAdd);
+		assertEquals(currentHappiness + toAdd, babe.getHappiness());
 	}
 
 }

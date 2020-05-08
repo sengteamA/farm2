@@ -12,11 +12,12 @@ public class TrumpRanch extends Farm {
 				+ "10% bonus on all sales\n"
 				+ "Starts game with 20% more cash");
 	}
-	
+
+	@Override
 	public int getBankBalance() {
 		return bankBalance;
 	}
-	
+
 	public void updateBankbalance(int amount) {
 		bankBalance += amount;
 	}

@@ -137,7 +137,7 @@ public class Farm {
 	public void addCap(int amount) {
 		farmCap += amount;
 	}
-	
+
 	public int getDailyBonusMoney() {
 		int money = 0;
 		for (Animal animal: animals) {
@@ -155,7 +155,7 @@ public class Farm {
 	public boolean hasEnoughMoney(int toDeduct) {
 		return getBankBalance() - toDeduct >= 0;
 	}
-	
+
 	public boolean hasAnimals() {
 		boolean result = true;
 		if (this.showAnimals().isEmpty()) {
@@ -172,7 +172,7 @@ public class Farm {
 		return result;
 		//counts.keySet() this gives us a list of animals
 	}
-	
+
 	public boolean hasCrops() {
 		boolean result = true;
 		if (this.showCrops().isEmpty()) {
@@ -180,7 +180,7 @@ public class Farm {
 		}
 		return result;
 	}
-	
+
 	public boolean hasPlantItems() {
 		boolean result = true;
 		Map<String, Long> counts = this.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));

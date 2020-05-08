@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class TomaccoLandTest {
 
 	@Test //test passed 16/04/2020
-	void growth_speed_test() {
+	void growthSpeedTest() {
 		TomaccoLand homer = new TomaccoLand();
 		float days = 10 * homer.cropGrowth;
 		assertEquals(days, 12);

@@ -1,44 +1,32 @@
 package main;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
+import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.SwingConstants;
-import java.awt.BorderLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpringLayout;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.JInternalFrame;
-import com.jgoodies.forms.layout.FormSpecs;
-import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import java.awt.Color;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class GameSetupWindow {
 
@@ -52,6 +40,7 @@ public class GameSetupWindow {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					GameSetupWindow window = new GameSetupWindow();
@@ -78,44 +67,46 @@ public class GameSetupWindow {
 		frmSetUpGame.setTitle("Set up game");
 		frmSetUpGame.setBounds(100, 100, 450, 348);
 		frmSetUpGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JLabel lblGameDuration = new JLabel("Game duration:");
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(8, 5, 10, 1));
-		
+
 		JLabel lblWhatIsYour = new JLabel("Your name:");
-		
+
 		JLabel lblYourAge = new JLabel("Your age:");
-		
+
 		txtJohn = new JTextField();
 		txtJohn.setText("John");
 		txtJohn.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setText("47");
 		textField_1.setColumns(10);
-		
+
 		JLabel lblSelectAFarm = new JLabel("Select a farm:");
-		
+
 		JComboBox comboBox = new JComboBox();
-		
+
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Dialog", Font.PLAIN, 10));
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Farm information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panel.setToolTipText("");
-		
+
 		JLabel lblSetAName = new JLabel("Name your farm:");
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("Start!");
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("blep");
 			}
 		});
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GroupLayout groupLayout = new GroupLayout(frmSetUpGame.getContentPane());
@@ -181,7 +172,7 @@ public class GameSetupWindow {
 					.addContainerGap())
 		);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		JLabel lblAnyErrorsWill = new JLabel("Any errors will go here");
 		lblAnyErrorsWill.setForeground(Color.RED);
 		lblAnyErrorsWill.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -194,11 +185,11 @@ public class GameSetupWindow {
 				RowSpec.decode("max(20dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				RowSpec.decode("default:grow"),}));
-		
+
 		JLabel lblSelectedFarm = new JLabel("Something Farm");
 		lblSelectedFarm.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblSelectedFarm, "2, 1, center, center");
-		
+
 		JLabel lblFlavourText = new JLabel("Flavour text here Moo mooo Moooo");
 		lblFlavourText.setVerticalAlignment(SwingConstants.TOP);
 		lblFlavourText.setFont(new Font("Dialog", Font.PLAIN, 12));

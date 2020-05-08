@@ -17,12 +17,11 @@ import main.items.Item;
 public class Game {
 	private Farmer farmer;
 	private Farm farm;
-	private int money; // TODO move this somewhere else
 	private Store store;
 	private int dayNumber = 0;
 	private int maxDays = 0;
 	private int score = 0; // TODO figure out how to calculate score
-	private int actionsLeft = 2;
+	private int actionsLeft = 2; // TODO is this even used?
 
 	private void setGameDuration(Scanner sc) {
 		System.out.print("For how many days (from 5 to 10) would you like to play? ");
@@ -299,7 +298,7 @@ public class Game {
 		System.out.println("==========");
 		System.out.println("Farm name: " + farm.getName());
 		System.out.println("Game duration: " + dayNumber);
-		System.out.println("Profit: " + money);
+		System.out.println("Profit: " + farm.getBankBalance());
 		System.out.println("Final score:" + score);
 	}
 

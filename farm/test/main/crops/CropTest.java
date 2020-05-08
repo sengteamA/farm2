@@ -1,48 +1,49 @@
 package main.crops;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.crops;
-
-import main.crops.Crop;
-
 class CropTest {
-	private Crop my_crop;
+	private Crop myCrop;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		my_crop = new Crop("Bacon", 100, 2000);
+		myCrop = new Crop("Bacon", 100, 2000, 150);
 	}
 
 	@Test
 	void testName() {
-		assertEquals("Bacon", my_crop.getName());
+		assertEquals("Bacon", myCrop.getName());
 	}
-	
+
 	@Test
 	void testDaysToHarvest() {
-		assertEquals(2000, my_crop.getDaysToHarvest());
+		assertEquals(2000, myCrop.getDaysToHarvest());
 	}
-	
+
 	@Test
 	void testDaysElapsed() {
-		assertEquals(0, my_crop.getDaysElapsed());
+		assertEquals(0, myCrop.getDaysElapsed());
 	}
 
 	@Test
 	void testPurchasePrice() {
-		assertEquals(100, my_crop.getPurchasePrice());
+		assertEquals(100, myCrop.getPurchasePrice());
 	}
-	
+
 	@Test // done 03/05/2020
 	void daysTillHarvestTest() {
-		my_crop.updateDaysElapsed(500);
-		assertEquals(1500, my_crop.getDaysLeft());
-		my_crop.updateDaysElapsed(2000);
-		assertEquals(0, my_crop.getDaysLeft());
+		myCrop.updateDaysElapsed(500);
+		assertEquals(1500, myCrop.getDaysLeft());
+		myCrop.updateDaysElapsed(2000);
+		assertEquals(0, myCrop.getDaysLeft());
+	}
+
+	@Test
+	void testSellingPrice() {
+		assertEquals(150, myCrop.getPrice());
 	}
 
 }

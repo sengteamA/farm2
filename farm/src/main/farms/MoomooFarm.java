@@ -24,7 +24,7 @@ public class MoomooFarm extends Farm {
 		}
 		return outcome;
 	}
-	
+
 	public float getCowFactor() {
 		if (this.hasCow() == true) {
 			cow_factor = (float)1.2;
