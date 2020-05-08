@@ -44,8 +44,7 @@ public class Store {
 		items = new TreeMap<String,Item>();
 		initialiseAnimals();
 		initialiseCrops();
-		// TODO: remove once Nick finalises how Items will look
-		// initialiseItems();
+		initialiseItems();
 	}
 
 	private void addAnimal(String name, Animal animal) {
