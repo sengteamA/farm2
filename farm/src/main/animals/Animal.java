@@ -53,4 +53,12 @@ public class Animal extends Asset {
 		return getName() + " - " + getPurchasePrice() + " (happiness " +
 				getHappiness() + ", health " + getHealth() + ")";
 	}
+	//methods required for deep copy
+		public int getMaxHealth() {
+			return maxHealth;
+		}
+		
+		public int getMaxHappy() {
+			return maxHappiness;
+		}
 }

@@ -105,13 +105,16 @@ public class Farm {
 	public void setType(String chosenFarm) {
 		farmType = chosenFarm;
 	}
-
+	
+	//animals & crops need to be deep copied. Item does not as no attributes are modified. 
 	public void addAnimal(Animal newAnimal) {
-		animals.add(newAnimal);
+		Animal clone = new Animal(newAnimal.getName(), newAnimal.getHealth(), newAnimal.getHappiness(), newAnimal.getMaxHealth(), newAnimal.getMaxHappy(), newAnimal.getPurchasePrice());
+		animals.add(clone);
 	}
 
 	public void addCrop(Crop newCrop) {
-		crops.add(newCrop);
+		Crop copy = new Crop(newCrop.getName(), newCrop.getPurchasePrice(), newCrop.getDaysToHarvest(), newCrop.getPrice());
+		crops.add(copy);
 	}
 
 	public void addItem(Item newItem) {
