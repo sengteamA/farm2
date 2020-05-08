@@ -22,19 +22,19 @@ public class AnimalTest {
 	@Test // sheep health update test passed 21/04/2020
 	void sheepHealthTest() {
 		babe.updateHealth(5);
-		assertEquals(10, babe.getHealth());
+		assertEquals(55, babe.getHealth());
 	}
 
 	@Test // sheep happiness update test passed 21/04/2020
 	void sheepHappyTest() {
 		babe.updateHappiness(5);
-		assertEquals(10, babe.getHappiness());
+		assertEquals(55, babe.getHappiness());
 	}
 
 	@Test // cow max happiness test passed 21/04/2020
 	void cowHappyBoundTest() {
-		moomoo.updateHappiness(50);
-		assertEquals(25, moomoo.getHappiness());
+		moomoo.updateHappiness(300);
+		assertEquals(250, moomoo.getHappiness());
 	}
 
 	@Test // fox price test passed 21/04/2020
@@ -44,7 +44,7 @@ public class AnimalTest {
 
 	@Test // passed 30/04/2020
 	void toStringTest() {
-		assertEquals("SHEEP health 5 happiness 5", babe.toString());
+		assertEquals("SHEEP health 50 happiness 50", babe.toString());
 	}
 
 	@Test // passed 02/05/2020
