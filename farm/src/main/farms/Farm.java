@@ -1,11 +1,13 @@
-package main;
+package main.farms;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.*;
-import main.animal.*;
-import main.crops.*;
-import main.items.*;
+import java.util.stream.Collectors;
+
+import main.animals.Animal;
+import main.crops.Crop;
+import main.items.Item;
 
 public class Farm {
 	private String name;

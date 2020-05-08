@@ -1,7 +1,7 @@
-package main;
+package main.farms;
 
-import main.animal.Animal;
-import main.animal.Cow;
+import main.animals.Animal;
+import main.animals.Cow;
 
 public class MoomooFarm extends Farm {
 	

@@ -1,4 +1,4 @@
-package main.animal;
+package main.animals;
 
 public class Sheep extends Animal {
 	public Sheep() {

@@ -1,4 +1,4 @@
-package main.animal;
+package main.animals;
 
 import main.Asset;
 

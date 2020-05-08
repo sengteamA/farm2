@@ -6,24 +6,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import main.animal.Animal;
-import main.animal.Cow;
-import main.animal.Fox;
-import main.animal.Sheep;
-import main.crops.Carrot;
-import main.crops.Crop;
-import main.crops.Hipotke;
-import main.crops.Mushroom;
-import main.crops.Tomacco;
-import main.crops.Wasabi;
-import main.crops.Wheat;
-import main.items.ChemicalSpray;
-import main.items.Compost;
-import main.items.InstantGroLite;
-import main.items.InstantGroPro;
-import main.items.Item;
-import main.items.PandaGummy;
-import main.items.Stockfeed;
+import main.animals.*;
+import main.crops.*;
+import main.farms.Farm;
+import main.items.*;
 
 /**
  * Handles the purchase of animals, crops and items to a Farm (which

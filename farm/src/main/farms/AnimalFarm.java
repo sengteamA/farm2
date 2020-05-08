@@ -1,4 +1,4 @@
-package main;
+package main.farms;
 
 public class AnimalFarm extends Farm {
 	public float animal_bonus =(float)0.2;

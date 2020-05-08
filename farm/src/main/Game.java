@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import main.animal.Animal;
+import main.animals.Animal;
 import main.crops.Crop;
+import main.farms.*;
 import main.items.Item;
 
 /**

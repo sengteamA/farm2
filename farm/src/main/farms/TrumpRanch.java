@@ -1,4 +1,4 @@
-package main;
+package main.farms;
 
 public class TrumpRanch extends Farm {
 	public float discount = (float)0.9; //10% discount on all purchases

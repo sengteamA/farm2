@@ -3,6 +3,8 @@ package main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import main.farms.Farm;
+
 /**
  * Handles daily actions made to the farm by the player.
  * Also stores name and age of player.

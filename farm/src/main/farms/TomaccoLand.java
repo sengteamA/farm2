@@ -1,4 +1,4 @@
-package main;
+package main.farms;
 
 public class TomaccoLand extends Farm {
 	public float cropGrowth = (float)1.2;
