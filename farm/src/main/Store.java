@@ -317,7 +317,6 @@ public class Store {
 						break optionLoop;
 					case 5:
 						System.out.println("Returning...");
-						sc.nextLine();
 						break outerLoop;
 					}
 				} catch (InputMismatchException e) {

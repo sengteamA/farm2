@@ -18,7 +18,7 @@ public class Game {
 	private Farmer farmer;
 	private Farm farm;
 	private Store store;
-	private int dayNumber = 0;
+	private int dayNumber = 1;
 	private int maxDays = 0;
 	private int score = 0; // TODO figure out how to calculate score
 	private int actionsLeft = 2; // TODO is this even used?
@@ -97,7 +97,7 @@ public class Game {
 		sc.nextLine();
 		// printing the type of farm is optional
 		System.out.printf("Farm %s successfully created!\n", farm.getType());
-		System.out.printf("Farm info: %s", farm.getFlavour());
+		System.out.printf("Farm info: %s\n", farm.getFlavour());
 	}
 
 	/**
@@ -156,14 +156,17 @@ public class Game {
 					case 1:
 						System.out.println("Viewing crops...");
 						viewCrops();
+						sc.nextLine();
 						break optionLoop;
 					case 2:
 						System.out.println("Viewing animals...");
 						viewAnimals();
+						sc.nextLine();
 						break optionLoop;
 					case 3:
 						System.out.println("Viewing items...");
 						viewItems();
+						sc.nextLine();
 						break optionLoop;
 					case 4:
 						System.out.println("Returning...");
@@ -175,7 +178,6 @@ public class Game {
 				}
 			}
 		}
-		sc.nextLine();
 	}
 
 	/**
@@ -261,7 +263,6 @@ public class Game {
 	 */
 	private void mainGameLoop(Scanner sc) {
 		outerLoop: while (dayNumber <= maxDays) {
-			++dayNumber;
 			System.out.printf("Day number: %d\n", dayNumber);
 			System.out.println("Please type a number from 1-9 below.");
 			System.out.println("1. View status or visit store.");
@@ -276,10 +277,9 @@ public class Game {
 					promptAction(sc);
 					break optionLoop;
 				case 3:
-					// change name later to reflect what
-					// the actual function is called
 					System.out.println("Receiving bonus money...");
 					farm.getDailyBonusMoney();
+					++dayNumber;
 					continue outerLoop; // should skip to next day
 				default:
 					System.out.println("Please type a valid number.");
