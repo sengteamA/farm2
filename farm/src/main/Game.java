@@ -48,6 +48,7 @@ public class Game {
 	 * the farmer.
 	 */
 	private void setFarmerDetails(Scanner sc) {
+		Farm farm = new Farm("type", "text");
 		farmer = new Farmer(farm);
 		farmer.setDetails(sc);
 	}
