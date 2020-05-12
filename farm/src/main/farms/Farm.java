@@ -31,6 +31,16 @@ public class Farm {
 		farmType = myFarmType;
 		flavour = myFlavour;
 	}
+	
+	// 2nd type of constructor
+	public Farm(String myFarmType, String myFlavour, int myBank) {
+		animals = new ArrayList<Animal>();
+		crops = new ArrayList<Crop>();
+		items = new ArrayList<Item>();
+		farmType = myFarmType;
+		flavour = myFlavour;
+		bankBalance = myBank;
+	}
 
 	public String getName() {
 		return name;
