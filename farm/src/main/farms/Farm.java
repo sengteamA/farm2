@@ -202,4 +202,15 @@ public class Farm {
 		}
 		return result;
 	}
+	
+	// tests if a specific crop is within the list
+	public boolean inStock(Crop subject) {
+		boolean outcome = false;
+		for (Crop crop: this.showCrops()) {
+			if (crop.getName().equals(subject.getName())) {
+				outcome = true;
+			}
+		}
+		return outcome;
+	}
 }
