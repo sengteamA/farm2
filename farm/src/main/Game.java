@@ -283,8 +283,10 @@ public class Game {
 					promptAction(sc);
 					break optionLoop;
 				case 3:
+					//my apologies, get dailybonus() actually calculates the bonus but doesn't add it to bank account! - Nick
 					System.out.println("Receiving bonus money...");
-					farm.getDailyBonusMoney();
+					int income = farm.getDailyBonusMoney();
+					farm.updateBankBalance(income);
 					++dayNumber;
 					continue outerLoop; // should skip to next day
 				default:
