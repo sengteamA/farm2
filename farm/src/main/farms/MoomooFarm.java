@@ -16,8 +16,8 @@ public class MoomooFarm extends Farm {
 
 	public boolean hasCow() {
 		boolean outcome = false;
-		for (Animal animal : this.showAnimals()) {
-			if (animal instanceof Cow) {
+		for (Animal animal: this.showAnimals()) {
+			if (animal.getName().equals("Cow")) {
 				outcome = true;
 			}
 		}

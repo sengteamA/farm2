@@ -169,6 +169,22 @@ class FarmerTest {
 		assertEquals(0, farm.showCrops().get(1).getDaysLeft());
 		assertEquals(18, farm.showCrops().get(0).getDaysLeft());
 	}
+	
+	@Test //test completed 13/05/2020
+	void moomooFarmCropTests() {
+		MoomooFarm seacow = new MoomooFarm();
+		Farmer hachi = new Farmer(seacow);
+		assertFalse(seacow.hasCow());
+		Cow moomoo = new Cow();
+		Carrot carrot = new Carrot();
+		seacow.addCrop(carrot);
+		hachi.tendToCrops("watering plants", carrot, null);
+		assertEquals(5, seacow.showCrops().get(0).getDaysLeft());
+		seacow.addAnimal(moomoo);
+		assertTrue(seacow.hasCow());
+		hachi.tendToCrops("watering plants", carrot, null);
+		assertEquals(2, seacow.showCrops().get(0).getDaysLeft());
+	}
 }
 
 
