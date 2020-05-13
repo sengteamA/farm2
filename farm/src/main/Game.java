@@ -46,11 +46,13 @@ public class Game {
 	/**
 	 * Initializes farmer attribute, prompts the user for and sets the name of
 	 * the farmer.
-	 */
+	This method creats another instance of farm, which prevents attribute of objects from being updated correctly. Removed - Nick
 	private void setFarmerDetails(Scanner sc) {
+		Farm farm = new Farm("type", "text");
 		farmer = new Farmer(farm);
 		farmer.setDetails(sc);
 	}
+	 */
 
 	/**
 	 * Creates a new Store instance for the game.
@@ -74,15 +76,19 @@ public class Game {
 				switch (sc.nextInt()) {
 				case 1:
 					farm = new AnimalFarm();
+					farmer = new Farmer(farm);
 					break farmSelectLoop; // breaks out of the while loop
 				case 2:
 					farm = new TrumpRanch();
+					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				case 3:
 					farm = new TomaccoLand();
+					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				case 4:
 					farm = new MoomooFarm();
+					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				default:
 					System.out.println("Number must be from 1 to 4.");
@@ -106,9 +112,9 @@ public class Game {
 	private void startGame(Scanner sc) {
 		System.out.println("Welcome to the game.");
 		setGameDuration(sc);
-		setFarmerDetails(sc);
 		selectFarm(sc);
 		farm.setName(sc);
+		farmer.setDetails(sc);
 		// set up store, now that we have a farm
 		// (this could go anywhere to be honest)
 		createStore();
@@ -277,8 +283,10 @@ public class Game {
 					promptAction(sc);
 					break optionLoop;
 				case 3:
+					//my apologies, get dailybonus() actually calculates the bonus but doesn't add it to bank account! - Nick
 					System.out.println("Receiving bonus money...");
-					farm.getDailyBonusMoney();
+					int income = farm.getDailyBonusMoney();
+					farm.updateBankBalance(income);
 					++dayNumber;
 					continue outerLoop; // should skip to next day
 				default:
@@ -297,7 +305,7 @@ public class Game {
 		System.out.println("Thank you for playing.");
 		System.out.println("==========");
 		System.out.println("Farm name: " + farm.getName());
-		System.out.println("Game duration: " + dayNumber);
+		System.out.println("Game duration: " + (dayNumber-1));
 		System.out.println("Profit: " + farm.getBankBalance());
 		System.out.println("Final score:" + score);
 	}

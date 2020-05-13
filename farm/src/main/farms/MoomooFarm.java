@@ -6,29 +6,21 @@ import main.animals.Cow;
 public class MoomooFarm extends Farm {
 
 	public float cow_discount = (float)0.8;
-	public float cow_factor = 1;
 
 	public MoomooFarm() {
 		super("Moo Moo Farm",
 				"Cows be thy god\n"
 				+ "cows can be purchased with 20% discount\n"
-				+ "tend crops 20% more effective when farm has cows");
+				+ "tending to crops makes them mature 2 day faster if farm has a cow");
 	}
 
 	public boolean hasCow() {
 		boolean outcome = false;
-		for (Animal animal : this.showAnimals()) {
-			if (animal instanceof Cow) {
+		for (Animal animal: this.showAnimals()) {
+			if (animal.getName().equals("Cow")) {
 				outcome = true;
 			}
 		}
 		return outcome;
-	}
-
-	public float getCowFactor() {
-		if (this.hasCow() == true) {
-			cow_factor = (float)1.2;
-		}
-		return cow_factor;
 	}
 }

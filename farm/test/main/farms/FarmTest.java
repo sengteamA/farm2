@@ -34,19 +34,6 @@ class FarmTest {
 		assertEquals(1, testFarm.getActionsLeft());
 	}
 
-	@Test //passed on 15/04/2020 - Nick
-	void nameLengthTest() {
-		Scanner sc = new Scanner(System.in);
-		testFarm.setName(sc);
-		/* first name will be less than 3 char long
-		 * second name will be more than 15 char long
-		 * 3rd name will contain symbols
-		 * finally, enter abc, which will be a legal name
-		 */
-		assertEquals("abc", testFarm.getName());
-		sc.close();
-	}
-
 	@Test
 	void validNamesTest() {
 		assertTrue(testFarm.isValidName("Rimuru Tempest"));
@@ -83,29 +70,7 @@ class FarmTest {
 		testFarm.addAnimal(moomoo);
 		testFarm.addAnimal(crash);
 		assertEquals(3, testFarm.showAnimals().size());
-		assertTrue(testFarm.showAnimals().contains(blackie));
-		testFarm.delAnimal(moomoo);
-		assertFalse(testFarm.showAnimals().contains(moomoo));
-	}
-
-	@Test //completed 30/04/2020
-	void cropsListTest() {
-		Carrot carrot = new Carrot();
-		Hipotke slime = new Hipotke();
-		Mushroom magic = new Mushroom();
-		Tomacco tomacco = new Tomacco();
-		Wasabi volcano = new Wasabi();
-		Wheat mccain = new Wheat();
-		testFarm.addCrop(carrot);
-		testFarm.addCrop(magic);
-		testFarm.addCrop(volcano);
-		assertEquals(3, testFarm.showCrops().size());
-		assertTrue(testFarm.showCrops().contains(magic));
-		assertFalse(testFarm.showCrops().contains(slime));
-		assertFalse(testFarm.showCrops().contains(tomacco));
-		assertFalse(testFarm.showCrops().contains(mccain));
-		testFarm.delCrop(magic);
-		assertFalse(testFarm.showCrops().contains(magic));
+		assertEquals("Sheep", testFarm.showAnimals().get(0).getName());
 	}
 
 	@Test //completed 30/04/2020
@@ -124,26 +89,6 @@ class FarmTest {
 		assertFalse(testFarm.showItems().contains(igPro));
 		assertFalse(testFarm.showItems().contains(po));
 		assertFalse(testFarm.showItems().contains(stockfeed));
-		testFarm.delItem(bleach);
-		assertFalse(testFarm.showItems().contains(bleach));
-	}
-
-	@Test //tests completed 02/05/2020
-	void animalBonusTest() {
-		Sheep blackie = new Sheep();
-		Cow moomoo = new Cow();
-		Fox crash = new Fox();
-		testFarm.addAnimal(blackie);
-		assertEquals(40, testFarm.getDailyBonusMoney());
-		blackie.updateHappiness(50);
-		blackie.updateHealth(20);
-		assertEquals(68, testFarm.getDailyBonusMoney());
-		testFarm.addAnimal(crash);
-		assertEquals(228, testFarm.getDailyBonusMoney());
-		testFarm.delAnimal(crash);
-		assertEquals(68, testFarm.getDailyBonusMoney());
-		testFarm.addAnimal(moomoo);
-		assertEquals(168, testFarm.getDailyBonusMoney());
 	}
 
 	@Test //test completed 08/05/2020
@@ -152,8 +97,6 @@ class FarmTest {
 		Sheep blackie = new Sheep();
 		testFarm.addAnimal(blackie);
 		assertTrue(testFarm.hasAnimals());
-		testFarm.delAnimal(blackie);
-		assertFalse(testFarm.hasAnimals());
 	}
 
 	@Test // test completed 08/05/2020
@@ -165,20 +108,15 @@ class FarmTest {
 		assertFalse(testFarm.hasFoodItems());
 		testFarm.addItem(stock);
 		assertTrue(testFarm.hasFoodItems());
-		testFarm.delItem(compost);
-		assertTrue(testFarm.hasFoodItems());
-		testFarm.delItem(stock);
-		assertFalse(testFarm.hasFoodItems());
 	}
 
 	@Test // test completed 08/05/2020
 	void hasCropsTest() {
 		assertFalse(testFarm.hasCrops());
 		Tomacco marl = new Tomacco();
+		assertFalse(testFarm.hasCrops());
 		testFarm.addCrop(marl);
 		assertTrue(testFarm.hasCrops());
-		testFarm.delCrop(marl);
-		assertFalse(testFarm.hasCrops());
 	}
 
 	@Test // test completed 08/05/2020
@@ -190,7 +128,13 @@ class FarmTest {
 		assertFalse(testFarm.hasPlantItems());
 		testFarm.addItem(compost);
 		assertTrue(testFarm.hasPlantItems());
-		testFarm.delItem(compost);
-		assertFalse(testFarm.hasPlantItems());
+	}
+	
+	@Test // test completed 13/05/2020
+	void inStockTests() {
+		Carrot carrot = new Carrot();
+		assertFalse(testFarm.inStock(carrot));
+		testFarm.addCrop(carrot);
+		assertTrue(testFarm.inStock(carrot));
 	}
 }

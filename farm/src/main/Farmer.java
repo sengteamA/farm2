@@ -78,6 +78,51 @@ public class Farmer {
 		System.out.printf("Got it. You are %d years old.\n", age);
 	}
 	
+	/**
+	 * 	all benefits for each item hard coded. Item affects all items of specific type.
+	 * 	If watering plants is selected, then choice will be null
+	 * Tomaccoland crops should grow one day faster per action
+	 * MoomooFarm crops should grow 2 days faster per action if cow is in play
+	*/
+	public void tendToCrops(String action, Crop type, Item choice) {
+		float days = 0;
+		if (action.equals("watering plants")) {
+			days = 1;
+		}
+		
+		else if (action.equals("use item")) {
+			if (choice.getName().equals("Chemical Spray")) {
+				days = 4;
+			}
+			else if (choice.getName().equals("Compost")) {
+				days = 2;
+			}
+			else if (choice.getName().equals("Instant-Grow Lite®")) {
+				days = type.getDaysLeft() / 2;
+			}
+			else if (choice.getName().equals("Instant-Grow Pro®")) {
+				days = type.getDaysToHarvest();
+			}
+		}
+		
+		if (farm instanceof TomaccoLand) {
+			days += 1;
+		}
+		else if (farm instanceof MoomooFarm && ((MoomooFarm) farm).hasCow()) {
+			days += 2;
+		}
+		
+		for (Crop crop: farm.showCrops()) {
+			if (crop.getName().equals(type.getName())) {
+				crop.updateDaysElapsed((int)days);
+			}
+		}
+		if (choice != null) {
+			farm.delItem(choice);
+		}
+		farm.updateAP();
+	}
+	
 	public void feedAnimals(Item item) {
 		float health = 0;
 		if (item.getName().equals("Stockfeed")) {
@@ -133,10 +178,5 @@ public class Farmer {
 		}
 		farm.addCap(2);
 		farm.updateAP();
-	}
-	
-	public static void main(String[] args) {
-		PandaGummy panda = new PandaGummy();
-		Cow moomoo = new Cow();
 	}
 }

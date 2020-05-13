@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import main.Farmer;
 import main.animals.*;
 import main.crops.*;
 import main.items.*;
@@ -12,8 +13,9 @@ import org.junit.jupiter.api.Test;
 
 class FarmerTest {
 	
-	public Farmer brown;
+	
 	public Farm farm;
+	public Farmer brown;
 	@BeforeEach
 	
 	public void init() {
@@ -22,19 +24,19 @@ class FarmerTest {
 	}
 
 	@Test
-	void tend_land_test() {
+	void tendLandTest() {
 		Sheep blackie = new Sheep();
 		farm.addAnimal(blackie);
 		assertEquals(50, blackie.getHappiness());
 		assertEquals(10, farm.getFarmCap());
 		brown.tendToLand();
-		assertEquals(70, blackie.getHappiness());
+		assertEquals(70, farm.showAnimals().get(0).getHappiness());
 		assertEquals(12, farm.getFarmCap());
 		assertEquals(1, farm.getActionsLeft());
 	}
 	
 	@Test
-	void animal_farm_land_test() {
+	void animalFarmLandTest() {
 		Sheep blackie = new Sheep();
 		AnimalFarm snowball = new AnimalFarm();
 		Farmer duncan = new Farmer(snowball);
@@ -45,53 +47,51 @@ class FarmerTest {
 	}
 	
 	@Test // completed 03/05/2020
-	void harvest_test() {
+	void harvestTest() {
 		Tomacco tomacco = new Tomacco();
 		Tomacco tomacco2 = new Tomacco();
-		tomacco.updateDaysElapsed(10);
-		tomacco2.updateDaysElapsed(10);
 		farm.addCrop(tomacco);
 		farm.addCrop(tomacco2);
 		assertEquals(2, farm.showCrops().size());
+		InstantGroPro igp = new InstantGroPro();
+		farm.addItem(igp);
+		brown.tendToCrops("use item", tomacco, igp);
 		brown.harvestCrops();
 		assertEquals(0, farm.showCrops().size());
 		assertEquals(1130, farm.getBankBalance());
 	}
 	
 	@Test // completed 03/05/2020
-	void trump_harvest_test() {
+	void trumpHarvestTest() {
 		Carrot carrot = new Carrot();
 		Wheat wheat = new Wheat();
 		TrumpRanch tower = new TrumpRanch();
 		Farmer Donald = new Farmer(tower);
 		tower.addCrop(wheat);
 		tower.addCrop(carrot);
-		for (Crop crop: tower.showCrops()) {
-			crop.updateDaysElapsed(4);
-		}
-		assertEquals(2, carrot.getDaysLeft());
-		assertEquals(0, wheat.getDaysLeft());
+		assertEquals(2, tower.showCrops().size());
+		InstantGroPro igp = new InstantGroPro();
+		Donald.tendToCrops("use item", carrot, igp);
+		assertEquals(0, tower.showCrops().get(1).getDaysLeft());
 		Donald.harvestCrops();
 		assertEquals(1, tower.showCrops().size());
-		assertFalse(tower.showCrops().contains(wheat));
-		assertEquals(1213, tower.getBankBalance());
-		assertEquals(1, tower.getActionsLeft());
+		assertEquals(1226, tower.getBankBalance());
 	}
 	
 	@Test // completed 03/05/05/20202
-	void play_animals_test() {
+	void playAnimalsTest() {
 		Cow moomoo = new Cow();
 		Fox crash = new Fox();
 		farm.addAnimal(moomoo);
 		farm.addAnimal(crash);
 		brown.playWithAnimals();
-		assertEquals(155, moomoo.getHappiness());
-		assertEquals(230, crash.getHappiness());
+		assertEquals(155, farm.showAnimals().get(0).getHappiness());
+		assertEquals(230, farm.showAnimals().get(1).getHappiness());
 		assertEquals(1, farm.getActionsLeft());
 	}
 	
 	@Test
-	void animal_farm_play_test() {
+	void animalFarmPlayTest() {
 		Cow moomoo = new Cow();
 		Fox crash = new Fox();
 		AnimalFarm pigsy = new AnimalFarm();
@@ -99,8 +99,8 @@ class FarmerTest {
 		pigsy.addAnimal(moomoo);
 		pigsy.addAnimal(crash);
 		napoleon.playWithAnimals();
-		assertEquals(161, moomoo.getHappiness());
-		assertEquals(236, crash.getHappiness());
+		assertEquals(161, pigsy.showAnimals().get(0).getHappiness());
+		assertEquals(236, pigsy.showAnimals().get(1).getHappiness());
 	}
 	
 	@Test //test completed 08/05/2020
@@ -113,11 +113,78 @@ class FarmerTest {
 		farm.addAnimal(moomoo);
 		brown.feedAnimals(stockfeed);
 		assertFalse(farm.hasFoodItems());
-		assertEquals(175, moomoo.getHealth());
+		assertEquals(175, farm.showAnimals().get(0).getHealth());
 		farm.addItem(panda);
 		farm.addAnimal(bubu);
 		brown.feedAnimals(panda);
-		assertEquals(250, moomoo.getHealth());
-		assertEquals(225, bubu.getHealth());
+		assertEquals(250, farm.showAnimals().get(0).getHealth());
+		assertEquals(225, farm.showAnimals().get(1).getHealth());
+	}
+	
+	@Test //test completed 08/05/2020
+	void cropTendingTest() {
+		Carrot carrot = new Carrot();
+		Hipotke hip = new Hipotke();
+		InstantGroLite igl = new InstantGroLite();
+		farm.addCrop(carrot);
+		farm.addCrop(hip);
+		farm.addItem(igl);
+		brown.tendToCrops("watering plants", carrot, null);
+		assertEquals(5, farm.showCrops().get(0).getDaysLeft());
+	}
+	
+	@Test //tests completed 08/05/2020
+	void TomaccoCropTest() {
+		Tomacco cig = new Tomacco();
+		Tomacco cig2 = new Tomacco();
+		Tomacco cig3 = new Tomacco();
+		TomaccoLand spring = new TomaccoLand();
+		Farmer homer = new Farmer(spring);
+		InstantGroLite igl = new InstantGroLite();
+		spring.addCrop(cig);
+		spring.addCrop(cig2);
+		spring.addCrop(cig3);
+		spring.addItem(igl);
+		homer.tendToCrops("use item", cig, igl);
+		assertFalse(spring.hasPlantItems());
+		assertEquals(4, spring.showCrops().get(0).getDaysLeft());
+		assertEquals(4, spring.showCrops().get(1).getDaysLeft());
+		assertEquals(4, spring.showCrops().get(2).getDaysLeft());
+		homer.tendToCrops("watering plants", cig, null);
+		assertEquals(2, spring.showCrops().get(0).getDaysLeft());
+		assertEquals(2, spring.showCrops().get(1).getDaysLeft());
+		assertEquals(2, spring.showCrops().get(2).getDaysLeft());
+	}
+	
+	@Test
+	void moreCropItemsTests() {
+		InstantGroPro igp = new InstantGroPro();
+		Carrot carrot = new Carrot();
+		Hipotke hip = new Hipotke();
+		farm.addItem(igp);
+		farm.addCrop(hip);
+		farm.addCrop(carrot);
+		farm.addCrop(carrot);
+		brown.tendToCrops("use item", carrot, igp);
+		assertEquals(0, farm.showCrops().get(1).getDaysLeft());
+		assertEquals(18, farm.showCrops().get(0).getDaysLeft());
+	}
+	
+	@Test //test completed 13/05/2020
+	void moomooFarmCropTests() {
+		MoomooFarm seacow = new MoomooFarm();
+		Farmer hachi = new Farmer(seacow);
+		assertFalse(seacow.hasCow());
+		Cow moomoo = new Cow();
+		Carrot carrot = new Carrot();
+		seacow.addCrop(carrot);
+		hachi.tendToCrops("watering plants", carrot, null);
+		assertEquals(5, seacow.showCrops().get(0).getDaysLeft());
+		seacow.addAnimal(moomoo);
+		assertTrue(seacow.hasCow());
+		hachi.tendToCrops("watering plants", carrot, null);
+		assertEquals(2, seacow.showCrops().get(0).getDaysLeft());
 	}
 }
+
+

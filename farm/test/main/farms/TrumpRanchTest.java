@@ -16,21 +16,9 @@ class TrumpRanchTest {
 
 	@Test //test passed 16/04/2020
 	void bankBalanceTest() {
-		Don.updateBankbalance(-100);
-		Don.updateBankbalance(200);
+		Don.updateBankBalance(-100);
+		Don.updateBankBalance(200);
 		assertEquals(1300, Don.getBankBalance());
-	}
-
-	@Test //test passed 16/04/2020
-	void discountTest() {
-		float purchase = 100 * Don.discount;
-		assertEquals(90, purchase);
-	}
-
-	@Test //test passed 16/04/2020
-	void bonusTest() {
-		float revenue = 100 * Don.bonus;
-		assertEquals(110, revenue);
 	}
 
 }

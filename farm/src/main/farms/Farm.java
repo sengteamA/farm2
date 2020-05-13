@@ -31,6 +31,16 @@ public class Farm {
 		farmType = myFarmType;
 		flavour = myFlavour;
 	}
+	
+	// 2nd type of constructor
+	public Farm(String myFarmType, String myFlavour, int myBank) {
+		animals = new ArrayList<Animal>();
+		crops = new ArrayList<Crop>();
+		items = new ArrayList<Item>();
+		farmType = myFarmType;
+		flavour = myFlavour;
+		bankBalance = myBank;
+	}
 
 	public String getName() {
 		return name;
@@ -191,5 +201,16 @@ public class Farm {
 			result = false;
 		}
 		return result;
+	}
+	
+	// tests if a specific crop is within the list
+	public boolean inStock(Crop subject) {
+		boolean outcome = false;
+		for (Crop crop: this.showCrops()) {
+			if (crop.getName().equals(subject.getName())) {
+				outcome = true;
+			}
+		}
+		return outcome;
 	}
 }
