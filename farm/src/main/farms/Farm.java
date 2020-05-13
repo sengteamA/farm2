@@ -204,7 +204,7 @@ public class Farm {
 	}
 	
 	// tests if a specific crop is within the list
-	public boolean inStock(Crop subject) {
+	public boolean plantInStock(Crop subject) {
 		boolean outcome = false;
 		for (Crop crop: this.showCrops()) {
 			if (crop.getName().equals(subject.getName())) {
@@ -212,5 +212,10 @@ public class Farm {
 			}
 		}
 		return outcome;
+	}
+	//refresh AP at end of each day
+	//this command to be used at end of each day
+	public void refreshAP() {
+		this.actionsLeft = 2;
 	}
 }
