@@ -133,8 +133,8 @@ class FarmTest {
 	@Test // test completed 13/05/2020
 	void inStockTests() {
 		Carrot carrot = new Carrot();
-		assertFalse(testFarm.inStock(carrot));
+		assertFalse(testFarm.plantInStock(carrot));
 		testFarm.addCrop(carrot);
-		assertTrue(testFarm.inStock(carrot));
+		assertTrue(testFarm.plantInStock(carrot));
 	}
 }

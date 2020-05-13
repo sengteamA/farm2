@@ -204,7 +204,7 @@ public class Farm {
 	}
 	
 	// tests if a specific crop is within the list
-	public boolean inStock(Crop subject) {
+	public boolean plantInStock(Crop subject) {
 		boolean outcome = false;
 		for (Crop crop: this.showCrops()) {
 			if (crop.getName().equals(subject.getName())) {
