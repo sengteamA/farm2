@@ -5,8 +5,6 @@ import main.animals.Cow;
 
 public class MoomooFarm extends Farm {
 
-	public float cow_discount = (float)0.8;
-
 	public MoomooFarm() {
 		super("Moo Moo Farm",
 				"Cows be thy god\n"

@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import main.animals.*;
 import main.crops.*;
-import main.farms.Farm;
+import main.farms.*;
 import main.items.*;
 
 /**
@@ -144,11 +144,27 @@ public class Store {
 		}
 		try {
 			Animal newAnimal = mapAnimal.getClass().getDeclaredConstructor().newInstance();
-			if (!farm.hasEnoughMoney(newAnimal.getPurchasePrice())) {
+			float price = newAnimal.getPurchasePrice();
+			//Trump bonus implemented & tested
+			if (farm instanceof TrumpRanch) {
+				price = price * (float)0.9;
+			}
+			//Moomoo Farm bonus implemented & tested
+			else if (farm instanceof MoomooFarm && newAnimal.getName().equals("Cow")) {
+				price = price * (float)0.8;
+			}
+			if (!farm.hasEnoughMoney((int)price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-newAnimal.getPurchasePrice());
+			farm.updateBankBalance(-(int)price);
+			//animal farm bonus implemented & tested
+			if (farm instanceof AnimalFarm) {
+				float health = newAnimal.getHealth() * ((AnimalFarm)farm).animal_bonus;
+				float happy = newAnimal.getHappiness() * ((AnimalFarm)farm).animal_bonus;
+				newAnimal.updateHealth((int)health);
+				newAnimal.updateHappiness((int)happy);
+			}
 			farm.addAnimal(newAnimal);
 			System.out.printf("Purchased %s successfully.\n", newAnimal.getName());
 			return true;
@@ -200,11 +216,16 @@ public class Store {
 		}
 		try {
 			Crop newCrop = mapCrop.getClass().getDeclaredConstructor().newInstance();
-			if (!farm.hasEnoughMoney(newCrop.getPurchasePrice())) {
+			//implemented Trump bonus
+			float price = newCrop.getPurchasePrice();
+			if (farm instanceof TrumpRanch) {
+				price = price * (float)0.9;
+			}
+			if (!farm.hasEnoughMoney((int)price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-newCrop.getPurchasePrice());
+			farm.updateBankBalance(-(int)price);
 			farm.addCrop(newCrop);
 			System.out.printf("Purchased %s successfully.\n", newCrop.getName());
 			return true;
@@ -244,11 +265,16 @@ public class Store {
 		}
 		try {
 			Item newItem = mapItem.getClass().getDeclaredConstructor().newInstance();
-			if (!farm.hasEnoughMoney(newItem.getPurchasePrice())) {
+			//implemented TrumpRanch bonus and tested
+			float price = newItem.getPurchasePrice();
+			if (farm instanceof TrumpRanch) {
+				price = price * (float)0.9;
+			}
+			if (!farm.hasEnoughMoney((int)price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-newItem.getPurchasePrice());
+			farm.updateBankBalance(-(int)price);
 			farm.addItem(newItem);
 			System.out.printf("Purchased %s successfully.\n", newItem.getName());
 			return true;
