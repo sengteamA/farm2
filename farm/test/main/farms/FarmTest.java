@@ -137,4 +137,14 @@ class FarmTest {
 		testFarm.addCrop(carrot);
 		assertTrue(testFarm.plantInStock(carrot));
 	}
+	
+	@Test //test completed 13/05/2020
+	void farmCapTests() {
+		assertTrue(testFarm.hasSpace());
+		Carrot carrot = new Carrot();
+		for (int i=0; i <=9; i++) {
+			testFarm.addCrop(carrot);
+		}
+		assertFalse(testFarm.hasSpace());
+	}
 }

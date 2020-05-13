@@ -218,4 +218,13 @@ public class Farm {
 	public void refreshAP() {
 		this.actionsLeft = 2;
 	}
+	
+	//a necessary check before each crop is purchased
+	public boolean hasSpace() {
+		boolean outcome = true;
+		if (crops.size() >= this.getFarmCap()) {
+			outcome = false;
+		}
+		return outcome;
+	}
 }
