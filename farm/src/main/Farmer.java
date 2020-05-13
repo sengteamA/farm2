@@ -35,6 +35,18 @@ public class Farmer {
 	}
 
 	/**
+	 * Set name of farmer to newName.
+	 * @param newName - name to set the farmer name to
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public void setAge(int newAge) {
+		age = newAge;
+	}
+
+	/**
 	 * Will be used by Farmer.setDetails() to check whether a name is valid.
 	 * (This is not implemented yet.)
 	 *
@@ -62,12 +74,12 @@ public class Farmer {
 	 */
 	public void setDetails(Scanner sc) {
 		System.out.print("Type your own name here: ");
-		name = sc.nextLine();
-		System.out.println("Hello " + name + "!");
+		setName(sc.nextLine());
+		System.out.println("Hello " + getName() + "!");
 		System.out.print("Type your age: ");
 		while (true) {
 			try {
-				age = sc.nextInt();
+				setAge(sc.nextInt());
 				sc.nextLine();
 				break;
 			} catch (InputMismatchException e) {
@@ -75,9 +87,9 @@ public class Farmer {
 				sc.next();
 			}
 		}
-		System.out.printf("Got it. You are %d years old.\n", age);
+		System.out.printf("Got it. You are %d years old.\n", getAge());
 	}
-	
+
 	/**
 	 * 	all benefits for each item hard coded. Item affects all items of specific type.
 	 * 	If watering plants is selected, then choice will be null
