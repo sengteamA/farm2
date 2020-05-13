@@ -213,4 +213,9 @@ public class Farm {
 		}
 		return outcome;
 	}
+	//refresh AP at end of each day
+	//this command to be used at end of each day
+	public void refreshAP() {
+		this.actionsLeft = 2;
+	}
 }

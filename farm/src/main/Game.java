@@ -226,27 +226,777 @@ public class Game {
 		System.out.println("5. Tend to farm land.");
 		System.out.println("6. Go back.");
 		optionLoop: while (true) {
+			if (farm.getActionsLeft() == 0) {
+				System.out.println("You have no actions left for today.");
+				break optionLoop;
+			}
 			try {
 				switch (sc.nextInt()) {
 				case 1:
+					
 					System.out.println("Tending to the crops...");
-					// Farmer.tendToCrops()
-					break optionLoop;
+					if (farm.hasCrops() == false) {
+						System.out.println("You have no crops.");
+						break optionLoop;
+					}
+					else {
+						for (Crop crop: farm.showCrops()) {
+							System.out.println(crop);
+						}
+						System.out.println("Enter 1 to tend to Carrots");
+						System.out.println("Enter 2 to tend to Hipotkes");
+						System.out.println("Enter 3 to tend to Mushrooms");
+						System.out.println("Enter 4 to tend to Tomaccos");
+						System.out.println("Enter 5 to tend to Wasabi");
+						System.out.println("Enter 6 to tend to Wheat");
+						System.out.println("Enter 7 to exit");
+						innerLoop1: while (true) {
+							try {
+								switch (sc.nextInt()) {
+								case 1:
+									Carrot carrot = new Carrot();
+									if (farm.plantInStock(carrot) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", carrot, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", carrot, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", carrot, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", carrot, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", carrot, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+								case 2:
+									Hipotke hip = new Hipotke();
+									if (farm.plantInStock(hip) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", hip, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", hip, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", hip, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", hip, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", hip, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+								case 3:
+									Mushroom mush = new Mushroom();
+									if (farm.plantInStock(mush) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", mush, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", mush, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", mush, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", mush, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", mush, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+									
+								case 4:
+									Tomacco tomacco = new Tomacco();
+									if (farm.plantInStock(tomacco) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", tomacco, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", tomacco, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", tomacco, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", tomacco, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", tomacco, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}
+														
+														}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+								case 5:
+									Wasabi wasabi = new Wasabi();
+									if (farm.plantInStock(wasabi) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", wasabi, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wasabi, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wasabi, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wasabi, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wasabi, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+									
+								case 6:
+									Wheat wheat = new Wheat();
+									if (farm.plantInStock(wheat) == false) {
+										System.out.println("You do not have this crop");
+										break innerLoop1;
+									}
+									else {
+										System.out.println("Enter 1: water plants");
+										System.out.println("Enter 2: use an item");
+										System.out.println("Enter 3: exit");
+										actionLoop: while (true) {
+											try {
+												switch (sc.nextInt()) {
+												case 1:
+													farmer.tendToCrops("watering plants", wheat, null);
+													System.out.println("Watered crops...");
+													break actionLoop;
+												
+												case 2:
+													if (farm.hasPlantItems() == false) {
+														System.out.println("You do not have crop items in stock");
+														break actionLoop;
+													}
+													else {
+														Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+														for (Map.Entry<String, Long> entry: counts.entrySet()) {
+															System.out.println(entry.getKey() + ": " + entry.getValue());
+														}
+														System.out.println("Enter 1: use chemical spray");
+														System.out.println("Enter 2: use compost");
+														System.out.println("Enter 3: use Instant-Grow Lite®");
+														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 5: exit");
+														itemLoop: while (true) {
+														try {
+															switch (sc.nextInt()) {
+															case 1:
+																ChemicalSpray spray = new ChemicalSpray();
+																if (farm.itemInHand(spray) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wheat, spray);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 2:
+																Compost compost = new Compost();
+																if (farm.itemInHand(compost) == false) {
+																	System.out.println("You do not have this item in stock");
+																}
+																else {
+																	farmer.tendToCrops("use item", wheat, compost);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 3:
+																InstantGroLite igl = new InstantGroLite();
+																if (farm.itemInHand(igl) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wheat, igl);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 4:
+																InstantGroPro igp = new InstantGroPro();
+																if (farm.itemInHand(igp) == false) {
+																	System.out.println("You do not have this item in stock");
+																	break itemLoop;
+																}
+																else {
+																	farmer.tendToCrops("use item", wheat, igp);
+																	System.out.println("Item used...");
+																	break itemLoop;
+																}
+																
+															case 5:
+																System.out.println("Returning...");
+																break itemLoop;
+															default:
+																System.out.println("Please type a valid number.");
+																sc.next();
+															}
+															
+													}catch (InputMismatchException e) {
+														System.out.println("Please type a valid number.");
+														sc.next();
+													}}
+														}
+															
+											}}catch (InputMismatchException e) {
+											System.out.println("Please type a valid number.");
+											sc.next();
+										}
+											break actionLoop;
+									}
+										break innerLoop1;
+									}
+									
+								case 7:
+									System.out.println("Returning");
+									break innerLoop1;
+									
+								default:
+									System.out.println("Please type a valid number.");
+									sc.next();
+								}
+								
+						} catch (InputMismatchException e) {
+							System.out.println("Please type a valid number.");
+							sc.next();
+						}
+					}
+				}
+				break optionLoop;
+				
 				case 2:
 					System.out.println("Feeding the animals...");
-					// Farmer.feedAnimals()
+					if (farm.hasAnimals() == false) {
+						System.out.println("You have no animals to feed.");
+						break optionLoop;
+					}
+					
+					else if (farm.hasFoodItems() == false) {
+						System.out.println("You have no food for your animals");
+						break optionLoop;
+					}
+					else {
+						Map<String, Long> counts = farm.showItems().stream().filter(e -> e.getType().equals("Animal")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+						for (Map.Entry<String, Long> entry: counts.entrySet()) {
+							System.out.println(entry.getKey() + ": " + entry.getValue());
+						}
+						System.out.println("Enter 1: use Stockfeed");
+						System.out.println("Enter 2: use Panda Gummy");
+						System.out.println("Enter 3: Go back");
+						innerLoop: while (true) {
+							try {
+								switch (sc.nextInt()) {
+								case 1:
+									if (counts.containsKey("Stockfeed") == false) {
+										System.out.println("You do not have this item in stock");
+										break innerLoop;
+									}
+									else {
+										System.out.println("Gave Stockfeed to animals");
+										Stockfeed stock = new Stockfeed();
+										farmer.feedAnimals(stock);
+										break innerLoop;
+									}
+								case 2:
+									if (counts.containsKey("Panda Gummy") == false) {
+										System.out.println("You do not have this item in stock");
+										break innerLoop;
+									}
+									else {
+										System.out.println("Gave Panda Gummy to animals");
+										PandaGummy panda = new PandaGummy();
+										farmer.feedAnimals(panda);
+										break innerLoop;
+									}
+								case 3:
+									System.out.println("Returning...");
+									break innerLoop;
+								
+								default:
+									System.out.println("Please type a valid number.");
+									sc.next();
+								}
+								
+								
+							}catch (InputMismatchException e) {
+								System.out.println("Please type a valid number.");
+								sc.next();
+						}
+					}}
 					break optionLoop;
+						
 				case 3:
-					System.out.println("Playing with the animals...");
-					// farmer.playWithAnimals()
-					break optionLoop;
+					if (farm.hasAnimals() == false) {
+						System.out.println("You have no animals to play with.");
+						break optionLoop;
+					}
+					else {
+						System.out.println("Playing with the animals...");
+						farmer.playWithAnimals(); //completed
+						break optionLoop;
+					}
+					
 				case 4:
-					System.out.println("Harvesting the crops...");
-					// farmer.harvestCrops()
-					break optionLoop;
+					if (farm.hasCrops() == false) {
+						System.out.println("You have no crops.");
+						break optionLoop;
+					}
+					else if (farm.showCrops().stream().allMatch(e -> e.getDaysLeft() > 0)) {
+						System.out.println("No crops are ready for harvest");
+						break optionLoop;
+					}
+					else {
+						System.out.println("Harvesting the crops...");
+						farmer.harvestCrops(); //completed
+						break optionLoop;
+					}
+					
 				case 5:
 					System.out.println("Tending to the farm land...");
-					// farmer.tendToLand()
+					farmer.tendToLand(); //completed
 					break optionLoop;
 				case 6:
 					System.out.println("Returning...");
@@ -287,6 +1037,7 @@ public class Game {
 					System.out.println("Receiving bonus money...");
 					int income = farm.getDailyBonusMoney();
 					farm.updateBankBalance(income);
+					farm.refreshAP();
 					++dayNumber;
 					continue outerLoop; // should skip to next day
 				default:
