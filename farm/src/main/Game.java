@@ -1038,6 +1038,10 @@ public class Game {
 					int income = farm.getDailyBonusMoney();
 					farm.updateBankBalance(income);
 					farm.refreshAP();
+					// ensure crops mature by each day
+					for (Crop crop: farm.showCrops()) {
+						crop.updateDaysElapsed(1);
+					}
 					++dayNumber;
 					continue outerLoop; // should skip to next day
 				default:
