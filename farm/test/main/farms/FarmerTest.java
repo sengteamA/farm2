@@ -185,6 +185,30 @@ class FarmerTest {
 		hachi.tendToCrops("watering plants", carrot, null);
 		assertEquals(2, seacow.showCrops().get(0).getDaysLeft());
 	}
+	
+	@Test
+	void itemDeletionTest() {
+		Stockfeed stock = new Stockfeed();
+		Cow moomoo = new Cow();
+		farm.addAnimal(moomoo);
+		farm.addItem(stock);
+		farm.addItem(stock);
+		farm.addItem(stock);
+		brown.feedAnimals(stock);
+		assertEquals(2, farm.showItems().size());
+	}
+	
+	@Test
+	void itemDeletionTest2() {
+		Carrot carrot = new Carrot();
+		Compost compost = new Compost();
+		Compost compost2 = new Compost();
+		farm.addCrop(carrot);
+		farm.addItem(compost);
+		farm.addItem(compost2);
+		brown.tendToCrops("use item", carrot, compost2);
+		assertEquals(1, farm.showItems().size());
+	}
 }
 
 

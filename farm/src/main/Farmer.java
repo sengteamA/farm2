@@ -129,8 +129,15 @@ public class Farmer {
 				crop.updateDaysElapsed((int)days);
 			}
 		}
+		
+		//corrected item deletion
 		if (choice != null) {
-			farm.delItem(choice);
+			for (Item item: farm.showItems()) {
+				if (item.getName().equals(choice.getName())) {
+					farm.delItem(item);
+					break;
+				}
+			}
 		}
 		farm.updateAP();
 	}
@@ -149,7 +156,13 @@ public class Farmer {
 		for (Animal animal: farm.showAnimals()) {
 			animal.updateHealth((int)health);
 		}
-		farm.delItem(item);
+		//corrected item deletion process
+		for (Item item: farm.showItems()) {
+			if (item.getName() == choice.getName()) {
+				farm.delItem(item);
+				break;
+			}
+		}
 		farm.updateAP();
 	}
 	
