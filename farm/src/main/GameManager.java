@@ -19,8 +19,7 @@ import main.items.Item;
  */
 public class GameManager {
 	public void launchSetupScreen() {
-		// TODO: rename GameSetupWindow to SetupGUI or something sensible
-		GameSetupWindow setupWindow = new GameSetupWindow(this);
+		SetupGUI setupWindow = new SetupGUI(this);
 	}
 
 	public void launchFarmScreen() {
@@ -34,9 +33,9 @@ public class GameManager {
 
 	/**
 	 * Closes the setup screen and launches the Farm GUI window.
-	 * @param setupScreen - the GameSetupWindow instance.
+	 * @param setupScreen - the SetupGUI instance.
 	 */
-	public void closeSetupScreen(GameSetupWindow setupScreen) {
+	public void closeSetupScreen(SetupGUI setupScreen) {
 		setupScreen.closeWindow();
 		launchFarmScreen();
 	}

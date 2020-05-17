@@ -30,7 +30,7 @@ import java.util.TreeMap;
 
 import javax.swing.JFormattedTextField;
 
-public class GameSetupWindow {
+public class SetupGUI {
 	private GameManager manager;
 
 	private JFrame window;
@@ -48,7 +48,7 @@ public class GameSetupWindow {
 	/**
 	 * Create the application.
 	 */
-	public GameSetupWindow(GameManager myManager) {
+	public SetupGUI(GameManager myManager) {
 		manager = myManager;
 		initialise();
 	}
