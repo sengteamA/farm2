@@ -3,7 +3,10 @@ package main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import main.farms.Farm;
+import main.animals.*;
+import main.crops.*;
+import main.farms.*;
+import main.items.*;
 
 /**
  * Handles daily actions made to the farm by the player.
@@ -101,7 +104,7 @@ public class Farmer {
 		if (action.equals("watering plants")) {
 			days = 1;
 		}
-		
+
 		else if (action.equals("use item")) {
 			if (choice.getName().equals("Chemical Spray")) {
 				days = 4;
@@ -109,27 +112,27 @@ public class Farmer {
 			else if (choice.getName().equals("Compost")) {
 				days = 2;
 			}
-			else if (choice.getName().equals("Instant-Grow Lite®")) {
+			else if (choice.getName().equals("Instant-Grow Lite(R)")) {
 				days = type.getDaysLeft() / 2;
 			}
-			else if (choice.getName().equals("Instant-Grow Pro®")) {
+			else if (choice.getName().equals("Instant-Grow Pro(R)")) {
 				days = type.getDaysToHarvest();
 			}
 		}
-		
+
 		if (farm instanceof TomaccoLand) {
 			days += 1;
 		}
 		else if (farm instanceof MoomooFarm && ((MoomooFarm) farm).hasCow()) {
 			days += 2;
 		}
-		
+
 		for (Crop crop: farm.showCrops()) {
 			if (crop.getName().equals(type.getName())) {
 				crop.updateDaysElapsed((int)days);
 			}
 		}
-		
+
 		//corrected item deletion
 		if (choice != null) {
 			for (Item item: farm.showItems()) {
@@ -141,7 +144,7 @@ public class Farmer {
 		}
 		farm.updateAP();
 	}
-	
+
 	public void feedAnimals(Item item) {
 		float health = 0;
 		if (item.getName().equals("Stockfeed")) {
@@ -151,7 +154,7 @@ public class Farmer {
 			health = 100;
 		}
 		if (farm instanceof AnimalFarm) {
-			health += health * ((AnimalFarm) farm).animal_bonus; 
+			health += health * ((AnimalFarm) farm).animal_bonus;
 		}
 		for (Animal animal: farm.showAnimals()) {
 			animal.updateHealth((int)health);
@@ -165,7 +168,7 @@ public class Farmer {
 		}
 		farm.updateAP();
 	}
-	
+
 	public void playWithAnimals() {
 		for (Animal animal: farm.showAnimals()) {
 			float happy = 30;
@@ -176,7 +179,7 @@ public class Farmer {
 		}
 		farm.updateAP();
 	}
-	
+
 	public void harvestCrops() {
 		float revenue = 0;
 		for (Crop crop: farm.showCrops()) {
@@ -192,7 +195,7 @@ public class Farmer {
 		farm.showCrops().removeIf(crop -> crop.getDaysLeft() == 0);
 		farm.updateAP();
 	}
-	
+
 	public void tendToLand() {
 		for (Animal animal: farm.showAnimals()) {
 			float happy = 20;
