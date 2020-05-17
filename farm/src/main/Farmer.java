@@ -151,10 +151,11 @@ public class Farmer {
 
 		//corrected item deletion
 		if (choice != null) {
-			for (Item item: farm.showItems()) {
+			ListIterator<Item> iterator = farm.showItems().listIterator();
+			while (iterator.hasNext()) {
+				Item item = iterator.next();
 				if (item.getName().equals(choice.getName())) {
-					farm.delItem(item);
-					break;
+					iterator.remove();
 				}
 			}
 		}
@@ -176,10 +177,12 @@ public class Farmer {
 			animal.updateHealth((int)health);
 		}
 		//corrected item deletion process
-		for (Item item: farm.showItems()) {
-			if (item.getName() == choice.getName()) {
-				farm.delItem(item);
-				break;
+		ListIterator<Item> iterator = farm.showItems().listIterator();
+		
+		while (iterator.hasNext()) {
+			Item item = iterator.next();
+			if (item.getName().equals(choice.name)) {
+				iterator.remove();
 			}
 		}
 		farm.updateAP();
