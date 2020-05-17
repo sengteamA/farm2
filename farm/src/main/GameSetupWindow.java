@@ -7,33 +7,53 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
+import main.farms.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.TreeMap;
+
+import javax.swing.JFormattedTextField;
+
 public class GameSetupWindow {
 
 	private JFrame frmSetUpGame;
-	private JTextField txtJohn;
-	private JTextField textField_1;
-	private JTextField textField;
+
+	// private TreeMap<String,Farm> farms = new TreeMap<String,Farm>();
+	// note: List.of only works in Java 9 or above
+	// if this doesn't work, replace with Arrays.asList
+	private List<Farm> farms = List.of(new AnimalFarm(), new MoomooFarm(), new TomaccoLand(), new TrumpRanch());
+
+	/**
+	 * Initialise instances of each type of farm for the user to select from
+	 * later. (We need instances to already exist because we will be printing
+	 * flavour text for each type of farm.)
+	 */
+	/*private void initialiseFarms() {
+		AnimalFarm animalFarm = new AnimalFarm();
+		TrumpRanch trumpRanch = new TrumpRanch();
+		TomaccoLand tomaccoLand = new TomaccoLand();
+		MoomooFarm moomooFarm = new MoomooFarm();
+		farms.put(animalFarm.getType(), animalFarm);
+		farms.put(trumpRanch.getType(), trumpRanch);
+		farms.put(tomaccoLand.getType(), tomaccoLand);
+		farms.put(moomooFarm.getType(), moomooFarm);
+	}*/
 
 	/**
 	 * Launch the application.
@@ -60,140 +80,273 @@ public class GameSetupWindow {
 	}
 
 	/**
+	 * Checks a text box to see if it follows the naming requirements of
+	 * farmers and farms. If it does not, set the contents of errorBar to an
+	 * appropriate error message for the user.
+	 *
+	 * @param textBox - the text box to check the input of
+	 * @param errorBar - the JLabel component to set any errors in
+	 * @param textBoxName - the name of the text box, used in error messages
+	 * @return whether the input in the text box is valid
+	 */
+	public boolean validate(JTextField textBox, JLabel errorBar, String textBoxName) {
+		String name = textBox.getText();
+		Color validBackground = Color.WHITE;
+		Color errorBackground = Color.decode("#ffaaaa"); // a lighter red
+		if (name.length() < 3 || name.length() > 15) {
+			errorBar.setText(textBoxName + " name needs to be between 3 and 15 characters, inclusive.");
+			textBox.setBackground(errorBackground);
+			return false;
+		} else if (!name.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
+			errorBar.setText(textBoxName + " name cannot contain numbers or " +
+					" symbols, or start/end in a space.");
+			textBox.setBackground(errorBackground);
+			return false;
+		} else {
+			// valid input
+			errorBar.setText("");
+			textBox.setBackground(validBackground);
+			return true;
+		}
+	}
+
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmSetUpGame = new JFrame();
 		frmSetUpGame.setTitle("Set up game");
-		frmSetUpGame.setBounds(100, 100, 450, 348);
+		frmSetUpGame.setBounds(100, 100, 475, 425);
 		frmSetUpGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JLabel lblError = new JLabel("");
+		lblError.setForeground(Color.RED);
+		lblError.setFont(new Font("Dialog", Font.PLAIN, 12));
 
 		JLabel lblGameDuration = new JLabel("Game duration:");
 
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(8, 5, 10, 1));
+		JSpinner selectGameDuration = new JSpinner();
+		selectGameDuration.setModel(new SpinnerNumberModel(8, 5, 10, 1));
 
-		JLabel lblWhatIsYour = new JLabel("Your name:");
+		JLabel lblFarmerName = new JLabel("Your name (3-15 chars, A-Z or spaces only):");
 
-		JLabel lblYourAge = new JLabel("Your age:");
+		JTextField txtFarmerName = new JTextField();
+		txtFarmerName.setColumns(10);
 
-		txtJohn = new JTextField();
-		txtJohn.setText("John");
-		txtJohn.setColumns(10);
-
-		textField_1 = new JTextField();
-		textField_1.setText("47");
-		textField_1.setColumns(10);
-
-		JLabel lblSelectAFarm = new JLabel("Select a farm:");
-
-		JComboBox comboBox = new JComboBox();
-
-		JPanel panel = new JPanel();
-		panel.setFont(new Font("Dialog", Font.PLAIN, 10));
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Farm information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		panel.setToolTipText("");
-
-		JLabel lblSetAName = new JLabel("Name your farm:");
-
-		textField = new JTextField();
-		textField.setColumns(10);
-
-		JButton btnNewButton = new JButton("Start!");
-		btnNewButton.addActionListener(new ActionListener() {
+		txtFarmerName.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("blep");
+			public void changedUpdate(DocumentEvent e) {
+				validate(txtFarmerName, lblError, "Farmer");
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				validate(txtFarmerName, lblError, "Farmer");
+			}
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				validate(txtFarmerName, lblError, "Farmer");
 			}
 		});
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		JLabel lblFarmerAge = new JLabel("Your age:");
+
+		JSpinner selectFarmerAge = new JSpinner();
+		selectFarmerAge.setModel(new SpinnerNumberModel(20, null, null, 1));
+
+		JLabel lblSelectFarm = new JLabel("Select a farm:");
+
+		JComboBox selectFarm = new JComboBox();
+		for (Farm farm : farms) {
+			selectFarm.addItem(farm);
+		}
+
+
+		JLabel lblSelectedFarm = new JLabel("Something Farm.");
+		lblSelectedFarm.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JTextArea lblFlavourText = new JTextArea("Flavour text.");
+		lblFlavourText.setWrapStyleWord(true);
+		lblFlavourText.setFont(new Font("Dialog", Font.PLAIN, 12));
+		lblFlavourText.setEditable(false);
+		lblFlavourText.setBackground(lblSelectedFarm.getBackground());
+		lblFlavourText.setBorder(null);
+
+		selectFarm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedIndex = selectFarm.getSelectedIndex();
+				System.out.println("Selected " + selectedIndex);
+				Farm selectedFarm = farms.get(selectedIndex);
+				lblSelectedFarm.setText(selectedFarm.getType());
+				lblFlavourText.setText(selectedFarm.getFlavour());
+			}
+		});
+		// selects first one automatically
+		selectFarm.setSelectedIndex(0);
+		// selectFarm.setRenderer(farmRenderer);
+
+		JPanel panelFarms = new JPanel();
+		panelFarms.setFont(new Font("Dialog", Font.PLAIN, 10));
+
+		panelFarms.setBorder(new TitledBorder(
+				new LineBorder(new Color(192, 192, 192)),
+				"Farm information",
+				TitledBorder.LEADING,
+				TitledBorder.TOP,
+				null,
+				new Color(51, 51, 51)
+		));
+		panelFarms.setToolTipText("");
+
+		JLabel lblSetFarmName = new JLabel("Name your farm: (3-15 chars, A-Z or spaces only)");
+
+		JTextField txtFarmName = new JTextField();
+		txtFarmName.setColumns(10);
+		txtFarmName.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				validate(txtFarmName, lblError, "Farm");
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				validate(txtFarmName, lblError, "Farm");
+			}
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				validate(txtFarmName, lblError, "Farm");
+			}
+		});
+
+		JPanel panelError = new JPanel();
+		panelError.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+
+		panelError.add(lblError);
+
+		JButton btnStart = new JButton("Start!");
+
+		btnStart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// There are only two text boxes that need to be validated --
+				// the others are designed such that the user cannot feasibly input
+				// something invalid
+				boolean farmerNameValidation = validate(txtFarmerName, lblError, "Farmer");
+				boolean farmNameValidation = validate(txtFarmName, lblError, "Farm");
+				if (!farmerNameValidation || !farmNameValidation) {
+					JOptionPane.showMessageDialog(frmSetUpGame,
+							"Cannot create a new game because the name of your farm and/or " +
+							"farmer is invalid.\n" +
+							"Please fix them, then try again.");
+					return;
+				} else {
+					int selectedIndex = selectFarm.getSelectedIndex();
+					System.out.println("Start button pressed!");
+					System.out.printf("Game duration: %d days\n", selectGameDuration.getValue());
+					System.out.println("Farmer name (len " + txtFarmerName.getText().length() + ": " + txtFarmerName.getText());
+					System.out.println("Farmer age: " + selectFarmerAge.getValue());
+					// System.out.println("Selected farm: " + selectFarm.getSelectedItem());
+					System.out.println("Farm name (len " + txtFarmName.getText().length() + ": " + txtFarmName.getText());
+					System.out.println("Farm selected: " + farms.get(selectedIndex));
+					System.out.println("Panel errors: " + lblError.getText());
+				}
+			}
+		});
+
 		GroupLayout groupLayout = new GroupLayout(frmSetUpGame.getContentPane());
+
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+						.addComponent(panelError, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+						.addComponent(panelFarms, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblGameDuration)
-							.addPreferredGap(ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
-							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblWhatIsYour)
-							.addPreferredGap(ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
-							.addComponent(txtJohn, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
+							.addComponent(selectGameDuration, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(lblFarmerName)
+							.addPreferredGap(ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+							.addComponent(txtFarmerName, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblYourAge)
-								.addComponent(lblSelectAFarm))
-							.addPreferredGap(ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textField_1)))
+								.addComponent(lblFarmerAge)
+								.addComponent(lblSelectFarm))
+							.addPreferredGap(ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(selectFarm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(selectFarmerAge, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblSetAName)
-							.addPreferredGap(ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnNewButton))
+							.addComponent(lblSetFarmName)
+							.addPreferredGap(ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+							.addComponent(txtFarmName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnStart))
 					.addContainerGap())
 		);
+
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGameDuration)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(selectGameDuration, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblWhatIsYour)
-						.addComponent(txtJohn, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblFarmerName)
+						.addComponent(txtFarmerName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblYourAge)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblFarmerAge)
+						.addComponent(selectFarmerAge, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblSelectAFarm)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblSelectFarm)
+						.addComponent(selectFarm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+					.addComponent(panelFarms, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSetAName)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblSetFarmName)
+						.addComponent(txtFarmName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton)
+					.addComponent(btnStart)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelError, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JLabel lblAnyErrorsWill = new JLabel("Any errors will go here");
-		lblAnyErrorsWill.setForeground(Color.RED);
-		lblAnyErrorsWill.setFont(new Font("Dialog", Font.PLAIN, 12));
-		panel_1.add(lblAnyErrorsWill);
-		panel.setLayout(new FormLayout(new ColumnSpec[] {
+
+		panelError.setLayout(new GridLayout(0, 1, 0, 0));
+
+		panelFarms.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("default:grow"),
 				ColumnSpec.decode("250px"),
 				ColumnSpec.decode("default:grow"),},
 			new RowSpec[] {
 				RowSpec.decode("max(20dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),}));
 
-		JLabel lblSelectedFarm = new JLabel("Something Farm");
-		lblSelectedFarm.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblSelectedFarm, "2, 1, center, center");
+		panelFarms.add(lblSelectedFarm, "2, 1, center, center");
 
-		JLabel lblFlavourText = new JLabel("Flavour text here Moo mooo Moooo");
-		lblFlavourText.setVerticalAlignment(SwingConstants.TOP);
-		lblFlavourText.setFont(new Font("Dialog", Font.PLAIN, 12));
-		panel.add(lblFlavourText, "1, 2, 3, 1, left, center");
+		// Putting the flavour text box (JTextArea) into JScrollPane,
+		// which in turn is in a GroupLayout, magically fixes my problems
+		// with JTextArea not behaving like a CSS flexbox element would
+		// (expanding to maximum width possible, then taking up only as much
+		// height as necessary)
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		panelFarms.add(scrollPane, "1, 2, 3, 1, fill, fill");
+
+		scrollPane.setViewportView(lblFlavourText);
+
 		frmSetUpGame.getContentPane().setLayout(groupLayout);
+
+		// Validate the name text boxes before the user types anything,
+		// so they know they need to fill it in.
+		validate(txtFarmerName, lblError, "Farmer");
+		validate(txtFarmName, lblError, "Farm");
 	}
 }
