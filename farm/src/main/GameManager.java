@@ -23,6 +23,7 @@ public class GameManager {
 	public Store store;
 	public int dayNumber = 1;
 	public int maxDays = 0;
+	public int score = 0;
 
 	public void launchSetupScreen() {
 		SetupGUI setupWindow = new SetupGUI(this);
@@ -32,10 +33,6 @@ public class GameManager {
 		FarmGUI farmWindow = new FarmGUI(this);
 	}
 
-	public void closeFarmScreen(FarmGUI farmWindow) {
-		farmWindow.closeWindow();
-		// TODO: create a window to output player score?
-	}
 
 	/**
 	 * Closes the setup screen and launches the Farm GUI window.
@@ -44,6 +41,11 @@ public class GameManager {
 	public void closeSetupScreen(SetupGUI setupScreen) {
 		setupScreen.closeWindow();
 		launchFarmScreen();
+	}
+
+	public void closeFarmScreen(FarmGUI farmWindow) {
+		farmWindow.closeWindow();
+		// TODO: create a window to output player score?
 	}
 
 	public static void main(String[] args) {

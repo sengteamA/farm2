@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -32,7 +33,6 @@ import javax.swing.JFormattedTextField;
 
 public class SetupGUI {
 	private GameManager manager;
-
 	private JFrame window;
 
 	// private TreeMap<String,Farm> farms = new TreeMap<String,Farm>();
@@ -51,6 +51,7 @@ public class SetupGUI {
 	public SetupGUI(GameManager myManager) {
 		manager = myManager;
 		initialise();
+		window.setVisible(true);
 	}
 
 	/**
@@ -66,6 +67,37 @@ public class SetupGUI {
 	 */
 	public void finishedWindow() {
 		manager.closeSetupScreen(this);
+	}
+
+	/**
+	 * Initialises all the variables used by the game with their values in the
+	 * setup screen.
+	 *
+	 * @param gameDuration - duration of game in days (5-10 days inclusive)
+	 * @param farmerName - farmer name (validated by the validate method)
+	 * @param farmerAge - farmer age (no restrictions)
+	 * @param farmName - farm name (validated by the validate method)
+	 * @param selectedFarm - an instance of one of the four Farm child classes
+	 */
+	public void initialiseGame(int gameDuration, String farmerName,
+			int farmerAge, String farmName, Farm selectedFarm) {
+		manager.maxDays = gameDuration;
+		try {
+			// Create a new farm instance from the existing instance
+			// https://stackoverflow.com/q/53257073
+			manager.farm = selectedFarm.getClass()
+					.getDeclaredConstructor().newInstance();
+			manager.farm.setName(farmName);
+			manager.farmer = new Farmer(manager.farm, farmerName, farmerAge);
+
+			// finished initialising, hand things over to GameManager
+			finishedWindow();
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| SecurityException | NoSuchMethodException e) {
+			// handle potential errors by just giving up
+			throw new IllegalArgumentException(e.getMessage());
+		}
 	}
 
 	/**
@@ -88,7 +120,7 @@ public class SetupGUI {
 			return false;
 		} else if (!name.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
 			errorBar.setText(textBoxName + " name cannot contain numbers or " +
-					" symbols, or start/end in a space.");
+					" symbols, or have extra spaces.");
 			textBox.setBackground(errorBackground);
 			return false;
 		} else {
@@ -100,7 +132,7 @@ public class SetupGUI {
 	}
 
 	/**
-	 * Initialise the contents of the frame.
+	 * Initialise the contents of the window.
 	 */
 	private void initialise() {
 		window = new JFrame();
@@ -120,6 +152,7 @@ public class SetupGUI {
 		JLabel lblFarmerName = new JLabel("Your name (3-15 chars, A-Z or spaces only):");
 
 		JTextField txtFarmerName = new JTextField();
+		txtFarmerName.setText("Farmer name");
 		txtFarmerName.setColumns(10);
 
 		txtFarmerName.getDocument().addDocumentListener(new DocumentListener() {
@@ -149,7 +182,6 @@ public class SetupGUI {
 			selectFarm.addItem(farm.getType());
 		}
 
-
 		JLabel lblSelectedFarm = new JLabel("Something Farm.");
 		lblSelectedFarm.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -171,7 +203,6 @@ public class SetupGUI {
 		});
 		// selects first one automatically
 		selectFarm.setSelectedIndex(0);
-		// selectFarm.setRenderer(farmRenderer);
 
 		JPanel panelFarms = new JPanel();
 		panelFarms.setFont(new Font("Dialog", Font.PLAIN, 10));
@@ -189,6 +220,7 @@ public class SetupGUI {
 		JLabel lblSetFarmName = new JLabel("Name your farm: (3-15 chars, A-Z or spaces only)");
 
 		JTextField txtFarmName = new JTextField();
+		txtFarmName.setText("My Farm");
 		txtFarmName.setColumns(10);
 		txtFarmName.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
@@ -228,14 +260,22 @@ public class SetupGUI {
 					return;
 				} else {
 					int selectedIndex = selectFarm.getSelectedIndex();
-					System.out.println("Start button pressed!");
-					System.out.printf("Game duration: %d days\n", selectGameDuration.getValue());
-					System.out.println("Farmer name (len " + txtFarmerName.getText().length() + ": " + txtFarmerName.getText());
-					System.out.println("Farmer age: " + selectFarmerAge.getValue());
+					// debug code
+					// System.out.println("Start button pressed!");
+					// System.out.printf("Game duration: %d days\n", selectGameDuration.getValue());
+					// System.out.println("Farmer name (len " + txtFarmerName.getText().length() + ": " + txtFarmerName.getText());
+					// System.out.println("Farmer age: " + selectFarmerAge.getValue());
 					// System.out.println("Selected farm: " + selectFarm.getSelectedItem());
-					System.out.println("Farm name (len " + txtFarmName.getText().length() + ": " + txtFarmName.getText());
-					System.out.println("Farm selected: " + farms.get(selectedIndex));
-					System.out.println("Panel errors: " + lblError.getText());
+					// System.out.println("Farm name (len " + txtFarmName.getText().length() + ": " + txtFarmName.getText());
+					// System.out.println("Farm selected: " + farms.get(selectedIndex));
+					// System.out.println("Panel errors: " + lblError.getText());
+					initialiseGame(
+							(int)selectGameDuration.getValue(),
+							txtFarmerName.getText(),
+							(int)selectFarmerAge.getValue(),
+							txtFarmName.getText(),
+							farms.get(selectedIndex)
+					);
 				}
 			}
 		});
