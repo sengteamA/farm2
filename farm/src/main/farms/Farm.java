@@ -232,6 +232,16 @@ public class Farm {
 		}
 		return outcome;
 	}
+	
+	public boolean itemInHand(Item subject) { 
+		boolean outcome = false;
+		for (Item item: this.showItems()) {
+			if (item.getName().equals(subject.getName())) {
+				outcome = true;
+			}
+		}
+		return outcome;
+	}
 	//refresh AP at end of each day
 	//this command to be used at end of each day
 	public void refreshAP() {
