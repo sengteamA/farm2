@@ -21,14 +21,29 @@ public class Farmer {
 
 	/**
 	 * Initialises Farmer using an existing farm.
-	 * @param my_farm
+	 * @param myFarm - the farm to use
 	 */
-	Farmer(Farm my_farm) {
-		farm = my_farm;
+	Farmer(Farm myFarm) {
+		farm = myFarm;
 	}
 
-	// TODO: add some errors if not initialised yet?
-	// or force user to initialise name and age in the constructor?
+	/**
+	 * Initialises Farmer using an existing farm, in addition to a
+	 * name and an age for the farmer.
+	 *
+	 * This constructor assumes that all validation (checking if name
+	 * is valid, for instance) has already been done.
+	 *
+	 * @param myFarm - the farm to use
+	 * @param myName - name of farmer
+	 * @param myAge - age of farmer
+	 */
+	Farmer(Farm myFarm, String myName, int myAge) {
+		farm = myFarm;
+		name = myName;
+		age = myAge;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -38,7 +53,8 @@ public class Farmer {
 	}
 
 	/**
-	 * Set name of farmer to newName.
+	 * Set name of farmer to newName. Used in command-line interface only.
+	 *
 	 * @param newName - name to set the farmer name to
 	 */
 	public void setName(String newName) {

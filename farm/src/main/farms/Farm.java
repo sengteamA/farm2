@@ -31,7 +31,7 @@ public class Farm {
 		farmType = myFarmType;
 		flavour = myFlavour;
 	}
-	
+
 	// 2nd type of constructor
 	public Farm(String myFarmType, String myFlavour, int myBank) {
 		animals = new ArrayList<Animal>();
@@ -46,6 +46,20 @@ public class Farm {
 		return name;
 	}
 
+	/**
+	 * Sets the name of the farm to myName.
+	 * Used by SetupGUI.
+	 *
+	 * @param myName - new name of the farm
+	 */
+	public void setName(String myName) {
+		name = myName;
+	}
+
+	/**
+	 * Retrieves farm's bank balance.
+	 * @return bank balance
+	 */
 	public int getBankBalance() {
 		return bankBalance;
 	}
@@ -70,6 +84,11 @@ public class Farm {
 		bankBalance += amount;
 	}
 
+	/**
+	 * TODO: Remove this function as it is only used in command-line
+	 * interface.
+	 * @param sc - Scanner object
+	 */
 	public void setName(Scanner sc) {
 		while (true) {
 			String s;
@@ -115,8 +134,8 @@ public class Farm {
 	public void setType(String chosenFarm) {
 		farmType = chosenFarm;
 	}
-	
-	//animals & crops need to be deep copied. Item does not as no attributes are modified. 
+
+	//animals & crops need to be deep copied. Item does not as no attributes are modified.
 	public void addAnimal(Animal newAnimal) {
 		Animal clone = new Animal(newAnimal.getName(), newAnimal.getHealth(), newAnimal.getHappiness(), newAnimal.getMaxHealth(), newAnimal.getMaxHappy(), newAnimal.getPurchasePrice());
 		animals.add(clone);
@@ -202,7 +221,7 @@ public class Farm {
 		}
 		return result;
 	}
-	
+
 	// tests if a specific crop is within the list
 	public boolean plantInStock(Crop subject) {
 		boolean outcome = false;
@@ -218,7 +237,7 @@ public class Farm {
 	public void refreshAP() {
 		this.actionsLeft = 2;
 	}
-	
+
 	//a necessary check before each crop is purchased
 	public boolean hasSpace() {
 		boolean outcome = true;
