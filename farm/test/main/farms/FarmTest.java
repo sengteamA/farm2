@@ -147,4 +147,15 @@ class FarmTest {
 		}
 		assertFalse(testFarm.hasSpace());
 	}
+	
+	@Test//test completed 17/05/2020
+	void itemFilterTest() {
+		Compost compost = new Compost();
+		Stockfeed stock = new Stockfeed();
+		testFarm.addItem(stock);
+		testFarm.addItem(stock);
+		testFarm.addItem(compost);
+		assertEquals(1, testFarm.getItemType("Crop").size());
+		assertEquals(2, testFarm.getItemType("Animal").size());
+	}
 }

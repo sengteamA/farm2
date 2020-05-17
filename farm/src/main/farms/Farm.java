@@ -256,4 +256,19 @@ public class Farm {
 		}
 		return outcome;
 	}
+	
+	///extracts types of items from the item list
+	public ArrayList<String> getItemType(String Type) {
+		ArrayList<String> iList = new ArrayList<String>();
+		for (Item item: this.showItems()) {
+			if (item.getType().equals(Type)) {
+				iList.add(item.getName());
+			}
+		}
+		return iList;
+	}
+	
+	public static void main(String[] args) {
+		
+	}
 }
