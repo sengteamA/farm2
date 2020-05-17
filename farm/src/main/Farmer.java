@@ -204,9 +204,9 @@ public class Farmer {
 			}
 		}
 		if (farm instanceof TrumpRanch) {
-			revenue = revenue * ((TrumpRanch) farm).bonus;
-			((TrumpRanch) farm).updateBankbalance((int)revenue);
+			revenue = revenue * (float)1.1;
 		}
+		
 		farm.updateBankBalance((int)revenue);
 		farm.showCrops().removeIf(crop -> crop.getDaysLeft() == 0);
 		farm.updateAP();
