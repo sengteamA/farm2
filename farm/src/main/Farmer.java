@@ -161,12 +161,12 @@ public class Farmer {
 		farm.updateAP();
 	}
 
-	public void feedAnimals(Item item) {
+	public void feedAnimals(Item choice) {
 		float health = 0;
-		if (item.getName().equals("Stockfeed")) {
+		if (choice.getName().equals("Stockfeed")) {
 			health = 50;
 			}
-		else if (item.getName().contentEquals("Panda Gummy")) {
+		else if (choice.getName().contentEquals("Panda Gummy")) {
 			health = 100;
 		}
 		if (farm instanceof AnimalFarm) {

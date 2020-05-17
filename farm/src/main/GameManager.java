@@ -36,6 +36,11 @@ public class GameManager {
 	public void launchStore() {
 		StoreGUI storeWindow = new StoreGUI(this);
 	}
+	
+	// a new window where players can use items.
+	public void useItems() {
+		UseItemGUI useItems = new UseItemGUI(this)
+	}
 
 
 
