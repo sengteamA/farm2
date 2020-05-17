@@ -31,52 +31,41 @@ import java.util.TreeMap;
 import javax.swing.JFormattedTextField;
 
 public class GameSetupWindow {
+	private GameManager manager;
 
-	private JFrame frmSetUpGame;
+	private JFrame window;
 
 	// private TreeMap<String,Farm> farms = new TreeMap<String,Farm>();
 	// note: List.of only works in Java 9 or above
 	// if this doesn't work, replace with Arrays.asList
-	private List<Farm> farms = List.of(new AnimalFarm(), new MoomooFarm(), new TomaccoLand(), new TrumpRanch());
-
-	/**
-	 * Initialise instances of each type of farm for the user to select from
-	 * later. (We need instances to already exist because we will be printing
-	 * flavour text for each type of farm.)
-	 */
-	/*private void initialiseFarms() {
-		AnimalFarm animalFarm = new AnimalFarm();
-		TrumpRanch trumpRanch = new TrumpRanch();
-		TomaccoLand tomaccoLand = new TomaccoLand();
-		MoomooFarm moomooFarm = new MoomooFarm();
-		farms.put(animalFarm.getType(), animalFarm);
-		farms.put(trumpRanch.getType(), trumpRanch);
-		farms.put(tomaccoLand.getType(), tomaccoLand);
-		farms.put(moomooFarm.getType(), moomooFarm);
-	}*/
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					GameSetupWindow window = new GameSetupWindow();
-					window.frmSetUpGame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private List<Farm> farms = List.of(
+			new AnimalFarm(),
+			new MoomooFarm(),
+			new TomaccoLand(),
+			new TrumpRanch()
+	);
 
 	/**
 	 * Create the application.
 	 */
-	public GameSetupWindow() {
-		initialize();
+	public GameSetupWindow(GameManager myManager) {
+		manager = myManager;
+		initialise();
+	}
+
+	/**
+	 * Closes this window (GameSetupWindow instance).
+	 */
+	public void closeWindow() {
+		window.dispose();
+	}
+
+	/**
+	 * Calls the parent game manager, which closes this window and creates
+	 * the next one that's needed.
+	 */
+	public void finishedWindow() {
+		manager.closeSetupScreen(this);
 	}
 
 	/**
@@ -111,13 +100,13 @@ public class GameSetupWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
-	private void initialize() {
-		frmSetUpGame = new JFrame();
-		frmSetUpGame.setTitle("Set up game");
-		frmSetUpGame.setBounds(100, 100, 475, 425);
-		frmSetUpGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void initialise() {
+		window = new JFrame();
+		window.setTitle("Set up game");
+		window.setBounds(100, 100, 475, 425);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
@@ -155,9 +144,9 @@ public class GameSetupWindow {
 
 		JLabel lblSelectFarm = new JLabel("Select a farm:");
 
-		JComboBox selectFarm = new JComboBox();
+		JComboBox<String> selectFarm = new JComboBox<String>();
 		for (Farm farm : farms) {
-			selectFarm.addItem(farm);
+			selectFarm.addItem(farm.getType());
 		}
 
 
@@ -175,7 +164,6 @@ public class GameSetupWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int selectedIndex = selectFarm.getSelectedIndex();
-				System.out.println("Selected " + selectedIndex);
 				Farm selectedFarm = farms.get(selectedIndex);
 				lblSelectedFarm.setText(selectedFarm.getType());
 				lblFlavourText.setText(selectedFarm.getFlavour());
@@ -233,7 +221,7 @@ public class GameSetupWindow {
 				boolean farmerNameValidation = validate(txtFarmerName, lblError, "Farmer");
 				boolean farmNameValidation = validate(txtFarmName, lblError, "Farm");
 				if (!farmerNameValidation || !farmNameValidation) {
-					JOptionPane.showMessageDialog(frmSetUpGame,
+					JOptionPane.showMessageDialog(window,
 							"Cannot create a new game because the name of your farm and/or " +
 							"farmer is invalid.\n" +
 							"Please fix them, then try again.");
@@ -252,7 +240,7 @@ public class GameSetupWindow {
 			}
 		});
 
-		GroupLayout groupLayout = new GroupLayout(frmSetUpGame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(window.getContentPane());
 
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -342,7 +330,7 @@ public class GameSetupWindow {
 
 		scrollPane.setViewportView(lblFlavourText);
 
-		frmSetUpGame.getContentPane().setLayout(groupLayout);
+		window.getContentPane().setLayout(groupLayout);
 
 		// Validate the name text boxes before the user types anything,
 		// so they know they need to fill it in.
