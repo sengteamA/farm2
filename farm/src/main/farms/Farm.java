@@ -268,7 +268,65 @@ public class Farm {
 		return iList;
 	}
 	
-	public static void main(String[] args) {
+	// returns a string, which will contain crops farm currently has in stock
+	// manually tested as unable to reconfigure JUNIT pathing
+	public ArrayList<String> getCropType() {
+		ArrayList<String> cList = new ArrayList<String>();
+		Carrot carrot = new Carrot();
+		Hipotke hip = new Hipotke();
+		Mushroom mush = new Mushroom();
+		Tomacco tomacco = new Tomacco();
+		Wasabi wasabi = new Wasabi();
+		Wheat wheat = new Wheat();
 		
+		//test carrot membership
+		if (this.plantInStock(carrot) == true && !cList.contains(carrot.getName())) {
+			cList.add(carrot.getName());
+		}
+		else if (!this.plantInStock(carrot) && cList.contains(carrot.getName())) {
+			cList.remove(carrot.getName());
+			
+		}
+		//test hipotke membership
+		if (this.plantInStock(hip) == true && !cList.contains(hip.getName())) {
+			cList.add(hip.getName());
+		}
+		else if (!this.plantInStock(hip) && cList.contains(hip.getName())) {
+			cList.remove(hip.getName());
+		}
+		
+		//test mushroom membership
+		if (this.plantInStock(mush) == true && !cList.contains(mush.getName())) {
+			cList.add(mush.getName());
+		}
+		else if (!this.plantInStock(mush) && cList.contains(mush.getName())) {
+			cList.remove(mush.getName());
+		}
+		
+		//test tomacco membership
+		if (this.plantInStock(tomacco) == true && !cList.contains(tomacco.getName())) {
+			cList.add(tomacco.getName());
+		}
+		else if (!this.plantInStock(tomacco) && cList.contains(tomacco.getName())) {
+			cList.remove(tomacco.getName());
+		}
+		
+		//test wasabi membership
+		if (this.plantInStock(wasabi) == true && !cList.contains(wasabi.getName())) {
+			cList.add(wasabi.getName());
+		}
+		else if (!this.plantInStock(wasabi) && cList.contains(wasabi.getName())) {
+			cList.remove(wasabi.getName());
+		}
+		
+		//test wheat membership
+		if (this.plantInStock(wheat) == true && !cList.contains(wheat.getName())) {
+			cList.add(wheat.getName());
+		}
+		else if (!this.plantInStock(wheat) && cList.contains(wheat.getName())) {
+			cList.remove(wheat.getName());
+		}
+		
+		return cList;
 	}
 }
