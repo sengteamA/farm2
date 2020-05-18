@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.border.SoftBevelBorder;
@@ -28,6 +29,7 @@ import javax.swing.border.BevelBorder;
 public class FarmGUI {
 
 	private JFrame frmFarmOverview;
+	private ArrayList<Item> iList;
 	private GameManager manager;
 	private JTextField txtDays;
 	private JTextField textField;
@@ -48,6 +50,14 @@ public class FarmGUI {
 		manager = myManager;
 		initialize();
 		frmFarmOverview.setVisible(true);
+		Compost compost = new Compost();
+		Stockfeed stock = new Stockfeed();
+		Wheat wheat = new Wheat();		
+		Sheep sheep = new Sheep();
+		manager.farm.addAnimal(sheep);
+		manager.farm.addItem(compost);;
+		manager.farm.addItem(stock);
+		manager.farm.addCrop(wheat);
 	}
 	
 	/**
@@ -65,6 +75,10 @@ public class FarmGUI {
 		manager.closeFarmScreen(this);
 	}
 	
+	public void launchStore() {
+		manager.launchStore();
+	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -74,7 +88,7 @@ public class FarmGUI {
 		frmFarmOverview = new JFrame();
 		frmFarmOverview.setTitle("Farm Overview");
 		frmFarmOverview.getContentPane().setLayout(null);
-		frmFarmOverview.setBounds(100, 100, 600, 450);
+		frmFarmOverview.setBounds(100, 100, 600, 477);
 		
 		JLabel lblLandCap = new JLabel("Land Capacity: " + manager.farm.getFarmCap());
 		lblLandCap.setHorizontalAlignment(SwingConstants.LEFT);
@@ -100,47 +114,69 @@ public class FarmGUI {
 		lblActions.setBounds(417, 179, 137, 42);
 		frmFarmOverview.getContentPane().add(lblActions);
 		
-		JButton btnCrops = new JButton("Tend to Crops");
-		btnCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCrops.setBounds(31, 28, 155, 48);
-		frmFarmOverview.getContentPane().add(btnCrops);
-		
-		JButton btnPlayWithAnimals = new JButton("Play with Animals");
-		btnPlayWithAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnPlayWithAnimals.setBounds(31, 84, 155, 48);
-		frmFarmOverview.getContentPane().add(btnPlayWithAnimals);
-		
-		JButton btnFeedAnimals = new JButton("Feed Animals");
-		btnFeedAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnFeedAnimals.setBounds(31, 142, 155, 48);
-		frmFarmOverview.getContentPane().add(btnFeedAnimals);
-		
-		JButton button = new JButton("Tend to Crops");
-		button.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button.setBounds(196, 28, 155, 48);
-		frmFarmOverview.getContentPane().add(button);
+		JButton tendLand = new JButton("Tend to Land");
+		tendLand.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					manager.farmer.tendToLand();
+					lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+					lblLandCap.setText("Land Capacity: " + manager.farm.getFarmCap());
+				}
+			}
+		});
+		tendLand.setFont(new Font("Tahoma", Font.BOLD, 12));
+		tendLand.setBounds(196, 28, 155, 48);
+		frmFarmOverview.getContentPane().add(tendLand);
 		
 		JButton btnHarvestCrops = new JButton("Harvest Crops");
+		btnHarvestCrops.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (manager.farm.hasCrops() == false) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no crops. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (manager.farm.showCrops().stream().allMatch(c -> c.getDaysLeft() > 0)) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "No crops available for harvest.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					manager.farmer.harvestCrops();
+					JOptionPane.showMessageDialog(frmFarmOverview, "Crop(s) were harvested and sold.");
+				}
+				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
+				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+			}
+		});
 		btnHarvestCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnHarvestCrops.setBounds(196, 84, 155, 48);
 		frmFarmOverview.getContentPane().add(btnHarvestCrops);
 		
 		JButton btnVisitStore = new JButton("Visit Store");
+		btnVisitStore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				launchStore();
+			}
+		});
 		btnVisitStore.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVisitStore.setBounds(196, 142, 155, 48);
 		frmFarmOverview.getContentPane().add(btnVisitStore);
 
 		String assets[] = {"", "Animals", "Crops", "Items"};
 		JComboBox comboBox = new JComboBox(assets);
-		comboBox.setBounds(31, 267, 111, 34);
+		comboBox.setBounds(31, 298, 111, 34);
 		frmFarmOverview.getContentPane().add(comboBox);
 		
 		JList listsDisplay = new JList();
 		listsDisplay.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		listsDisplay.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		listsDisplay.setBounds(152, 226, 199, 157);
+		listsDisplay.setBounds(152, 256, 199, 173);
 		frmFarmOverview.getContentPane().add(listsDisplay);
 		
+		//will not automatically update unless "pressed" again
 		JButton btnViewAssets = new JButton("View Assets");
 		btnViewAssets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,7 +203,7 @@ public class FarmGUI {
 		});
 		
 		btnViewAssets.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnViewAssets.setBounds(31, 226, 111, 42);
+		btnViewAssets.setBounds(31, 257, 111, 42);
 		frmFarmOverview.getContentPane().add(btnViewAssets);
 		
 		
@@ -177,6 +213,32 @@ public class FarmGUI {
 		FarmStatus.setBounds(417, 40, 137, 34);
 		frmFarmOverview.getContentPane().add(FarmStatus);
 		
+		
+		JButton btnPlayWithAnimals = new JButton("Play with Animals");
+		btnPlayWithAnimals.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (!manager.farm.hasAnimals()) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no animals. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					manager.farmer.playWithAnimals();
+					lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+					JOptionPane.showMessageDialog(frmFarmOverview, "Your animals are happier for your attention.");
+					if (comboBox.getSelectedItem() == "Animals") {
+						DefaultListModel<Animal> animalListModel = new DefaultListModel<>();
+						animalListModel.addAll(manager.farm.showAnimals());
+						listsDisplay.setModel(animalListModel);
+					}
+				}
+			}
+		});
+		
+		btnPlayWithAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnPlayWithAnimals.setBounds(31, 84, 155, 48);
+		frmFarmOverview.getContentPane().add(btnPlayWithAnimals);
 		JButton btnDayEnd = new JButton("End Day");
 		btnDayEnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,9 +263,59 @@ public class FarmGUI {
 			}
 		});
 		btnDayEnd.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnDayEnd.setBounds(399, 335, 155, 48);
+		btnDayEnd.setBounds(399, 359, 155, 48);
 		frmFarmOverview.getContentPane().add(btnDayEnd);
 		
+		JLabel lblCentralDisplay = new JLabel("Asset Display");
+		lblCentralDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCentralDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblCentralDisplay.setBounds(152, 214, 199, 32);
+		frmFarmOverview.getContentPane().add(lblCentralDisplay);
+		
+		JButton btnfeedAnimals = new JButton("Feed Animals");
+		btnfeedAnimals.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				else if (!manager.farm.hasAnimals()) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no animals. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				else if(!manager.farm.hasFoodItems()) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no food. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					manager.launchFeedingScreen();	
+				}
+				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+				
+			}
+		});
+		
+		btnfeedAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnfeedAnimals.setBounds(31, 142, 155, 48);
+		frmFarmOverview.getContentPane().add(btnfeedAnimals);
+		
+		JButton tendtoCrops = new JButton("Tend to Crops");
+		tendtoCrops.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (manager.farm.hasCrops() == false) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no crops. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					//to be implemented
+				}
+			}
+		});
+		tendtoCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
+		tendtoCrops.setBounds(31, 28, 155, 48);
+		frmFarmOverview.getContentPane().add(tendtoCrops);
+
 		
 		
 	}
