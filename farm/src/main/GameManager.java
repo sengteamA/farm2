@@ -32,11 +32,11 @@ public class GameManager {
 	public void launchFarmScreen() {
 		FarmGUI farmWindow = new FarmGUI(this);
 	}
-	
-	public void launchStore() {
+
+	public void launchStoreScreen() {
 		StoreGUI storeWindow = new StoreGUI(this);
 	}
-	
+
 	// a new window where players can use items.
 	public void useItems() {
 		UseItemGUI useItems = new UseItemGUI(this)
@@ -57,7 +57,7 @@ public class GameManager {
 		farmWindow.closeWindow();
 		// TODO: create a window to output player score?
 	}
-	
+
 	public void closeStoreScreen(StoreGUI storeWindow) {
 		storeWindow.closeWindow();
 	}

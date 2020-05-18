@@ -52,21 +52,21 @@ public class FarmGUI {
 		frmFarmOverview.setVisible(true);
 		Compost compost = new Compost();
 		Stockfeed stock = new Stockfeed();
-		Wheat wheat = new Wheat();		
+		Wheat wheat = new Wheat();
 		Sheep sheep = new Sheep();
 		manager.farm.addAnimal(sheep);
 		manager.farm.addItem(compost);;
 		manager.farm.addItem(stock);
 		manager.farm.addCrop(wheat);
 	}
-	
+
 	/**
 	 * Closes this window (GameSetupWindow instance).
 	 */
 	public void closeWindow() {
 		frmFarmOverview.dispose();
 	}
-	
+
 	/**
 	 * Calls the parent game manager, which closes this window and creates
 	 * the next one that's needed.
@@ -74,48 +74,49 @@ public class FarmGUI {
 	public void finishedWindow() {
 		manager.closeFarmScreen(this);
 	}
-	
+
 	public void launchStore() {
-		manager.launchStore();
+		manager.launchStoreScreen();
 	}
-	
+
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	
+
 	private void initialize() {
 		frmFarmOverview = new JFrame();
 		frmFarmOverview.setTitle("Farm Overview");
 		frmFarmOverview.getContentPane().setLayout(null);
 		frmFarmOverview.setBounds(100, 100, 600, 477);
-		
+
 		JLabel lblLandCap = new JLabel("Land Capacity: " + manager.farm.getFarmCap());
 		lblLandCap.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLandCap.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblLandCap.setBounds(417, 84, 137, 34);
 		frmFarmOverview.getContentPane().add(lblLandCap);
-		
+
 		JLabel lblDay = new JLabel("Day: " + manager.dayNumber + "/" + manager.maxDays);
 		lblDay.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDay.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDay.setBounds(417, 119, 137, 34);
 		frmFarmOverview.getContentPane().add(lblDay);
-		
+
 		JLabel lblFarmMoney = new JLabel("$ " + manager.farm.getBankBalance());
 		lblFarmMoney.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFarmMoney.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFarmMoney.setBounds(417, 149, 137, 34);
 		frmFarmOverview.getContentPane().add(lblFarmMoney);
-		
+
 		JLabel lblActions = new JLabel("Actions Left: " + manager.farm.getActionsLeft());
 		lblActions.setHorizontalAlignment(SwingConstants.LEFT);
 		lblActions.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblActions.setBounds(417, 179, 137, 42);
 		frmFarmOverview.getContentPane().add(lblActions);
-		
+
 		JButton tendLand = new JButton("Tend to Land");
 		tendLand.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (manager.farm.getActionsLeft() == 0) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
@@ -130,9 +131,10 @@ public class FarmGUI {
 		tendLand.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tendLand.setBounds(196, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendLand);
-		
+
 		JButton btnHarvestCrops = new JButton("Harvest Crops");
 		btnHarvestCrops.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (manager.farm.getActionsLeft() == 0) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
@@ -154,9 +156,10 @@ public class FarmGUI {
 		btnHarvestCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnHarvestCrops.setBounds(196, 84, 155, 48);
 		frmFarmOverview.getContentPane().add(btnHarvestCrops);
-		
+
 		JButton btnVisitStore = new JButton("Visit Store");
 		btnVisitStore.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				launchStore();
 			}
@@ -169,16 +172,17 @@ public class FarmGUI {
 		JComboBox comboBox = new JComboBox(assets);
 		comboBox.setBounds(31, 298, 111, 34);
 		frmFarmOverview.getContentPane().add(comboBox);
-		
+
 		JList listsDisplay = new JList();
 		listsDisplay.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		listsDisplay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		listsDisplay.setBounds(152, 256, 199, 173);
 		frmFarmOverview.getContentPane().add(listsDisplay);
-		
+
 		//will not automatically update unless "pressed" again
 		JButton btnViewAssets = new JButton("View Assets");
 		btnViewAssets.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedItem().equals("Animals")) {
 					DefaultListModel<Animal> animalListModel = new DefaultListModel<>();
@@ -201,21 +205,22 @@ public class FarmGUI {
 				}
 			}
 		});
-		
+
 		btnViewAssets.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnViewAssets.setBounds(31, 257, 111, 42);
 		frmFarmOverview.getContentPane().add(btnViewAssets);
-		
-		
+
+
 		JLabel FarmStatus = new JLabel("Farm Status");
 		FarmStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		FarmStatus.setFont(new Font("Tahoma", Font.BOLD, 18));
 		FarmStatus.setBounds(417, 40, 137, 34);
 		frmFarmOverview.getContentPane().add(FarmStatus);
-		
-		
+
+
 		JButton btnPlayWithAnimals = new JButton("Play with Animals");
 		btnPlayWithAnimals.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (manager.farm.getActionsLeft() == 0) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
@@ -235,12 +240,13 @@ public class FarmGUI {
 				}
 			}
 		});
-		
+
 		btnPlayWithAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPlayWithAnimals.setBounds(31, 84, 155, 48);
 		frmFarmOverview.getContentPane().add(btnPlayWithAnimals);
 		JButton btnDayEnd = new JButton("End Day");
 		btnDayEnd.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				++manager.dayNumber;
 				if (manager.dayNumber > (manager.maxDays)) {
@@ -265,41 +271,43 @@ public class FarmGUI {
 		btnDayEnd.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnDayEnd.setBounds(399, 359, 155, 48);
 		frmFarmOverview.getContentPane().add(btnDayEnd);
-		
+
 		JLabel lblCentralDisplay = new JLabel("Asset Display");
 		lblCentralDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCentralDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCentralDisplay.setBounds(152, 214, 199, 32);
 		frmFarmOverview.getContentPane().add(lblCentralDisplay);
-		
+
 		JButton btnfeedAnimals = new JButton("Feed Animals");
 		btnfeedAnimals.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (manager.farm.getActionsLeft() == 0) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				else if (!manager.farm.hasAnimals()) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no animals. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				else if(!manager.farm.hasFoodItems()) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no food. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					manager.launchFeedingScreen();	
+					manager.launchFeedingScreen();
 				}
 				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
-				
+
 			}
 		});
-		
+
 		btnfeedAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnfeedAnimals.setBounds(31, 142, 155, 48);
 		frmFarmOverview.getContentPane().add(btnfeedAnimals);
-		
+
 		JButton tendtoCrops = new JButton("Tend to Crops");
 		tendtoCrops.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (manager.farm.getActionsLeft() == 0) {
 					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
@@ -316,7 +324,7 @@ public class FarmGUI {
 		tendtoCrops.setBounds(31, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendtoCrops);
 
-		
-		
+
+
 	}
 }
