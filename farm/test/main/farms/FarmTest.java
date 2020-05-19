@@ -2,6 +2,7 @@ package main.farms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -112,9 +113,8 @@ class FarmTest {
 	@Test
 	void farmCapTests() {
 		assertTrue(testFarm.hasSpace());
-		Carrot carrot = new Carrot();
 		for (int i=0; i <=9; i++) {
-			testFarm.addCrop(carrot);
+			testFarm.addCrop(new Carrot());
 		}
 		assertFalse(testFarm.hasSpace());
 	}
@@ -154,5 +154,50 @@ class FarmTest {
 	@Test
 	void getCropTypeEmptyTest() {
 		assertEquals(true, testFarm.getCropType().isEmpty());
+	}
+
+	@Test
+	void animalDupeTest() {
+		Cow cow = new Cow();
+		IllegalArgumentException thrown = assertThrows(
+				IllegalArgumentException.class,
+				() -> {
+					testFarm.addAnimal(cow);
+					testFarm.addAnimal(cow);
+				}, "Expected adding two of the same animal instance to " +
+					"fail, it did not");
+		assertTrue(thrown.getMessage().contentEquals(
+				"Cannot add two identical instances (duplicates) of an animal"
+		));
+	}
+
+	@Test
+	void cropDupeTest() {
+		Carrot carrot = new Carrot();
+		IllegalArgumentException thrown = assertThrows(
+				IllegalArgumentException.class,
+				() -> {
+					testFarm.addCrop(carrot);
+					testFarm.addCrop(carrot);
+				}, "Expected adding two of the same crop instance to fail, " +
+				    "it did not");
+		assertTrue(thrown.getMessage().contentEquals(
+				"Cannot add two identical instances (duplicates) of a crop"
+		));
+	}
+
+	@Test
+	void itemDupeTest() {
+		Stockfeed stockfeed = new Stockfeed();
+		IllegalArgumentException thrown = assertThrows(
+				IllegalArgumentException.class,
+				() -> {
+					testFarm.addItem(stockfeed);
+					testFarm.addItem(stockfeed);
+				}, "Expected adding two of the same item instance to fail, " +
+				    "it did not");
+		assertTrue(thrown.getMessage().contentEquals(
+				"Cannot add two identical instances (duplicates) of an item"
+		));
 	}
 }

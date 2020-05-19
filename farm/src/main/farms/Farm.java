@@ -163,6 +163,15 @@ public class Farm {
 	 * @param animal Animal to add to the farm
 	 */
 	public void addAnimal(Animal animal) {
+		// User forgot to clone item before trying to add it
+		// To clarify, two different Cow instances are fine. However, if the
+		// two Cow variables point to the same place in memory, there will be
+		// an error.
+		if (animals.contains(animal)) {
+			throw new IllegalArgumentException(
+					"Cannot add two identical instances (duplicates) of an animal"
+			);
+		}
 		animals.add(animal);
 	}
 
@@ -174,6 +183,11 @@ public class Farm {
 	 * @param crop Crop to add to the farm
 	 */
 	public void addCrop(Crop crop) {
+		if (crops.contains(crop)) {
+			throw new IllegalArgumentException(
+					"Cannot add two identical instances (duplicates) of a crop"
+			);
+		}
 		crops.add(crop);
 	}
 
@@ -182,6 +196,11 @@ public class Farm {
 	 * @param item Item to add to the farm.
 	 */
 	public void addItem(Item item) {
+		if (items.contains(item)) {
+			throw new IllegalArgumentException(
+					"Cannot add two identical instances (duplicates) of an item"
+			);
+		}
 		items.add(item);
 	}
 
