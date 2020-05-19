@@ -1,3 +1,8 @@
+/**
+ * A child of item.
+ * Use to speed harvest by 2 days
+ */
+
 package main.items;
 
 public class Compost extends Item {
