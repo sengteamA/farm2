@@ -1,3 +1,8 @@
+/**
+ * The reckless disregard for human safety has resulted in miracles.
+ * Crops mature faster when being tended to.
+ */
+
 package main.farms;
 
 public class TomaccoLand extends Farm {
