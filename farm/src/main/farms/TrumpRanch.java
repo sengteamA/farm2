@@ -1,3 +1,9 @@
+/**
+ * The name says it all. This farmer is a sharp cookie when it comes to trading.
+ * 10% discount on all purchase, 10% bonus on sale of harvested crops.
+ * Also, starts with extra cash.
+ */
+
 package main.farms;
 
 public class TrumpRanch extends Farm {
