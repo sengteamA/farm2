@@ -256,7 +256,7 @@ public class Farm {
 
 	/**
 	 * TODO:
-	 * @return
+	 * @return whether the farmer has food for animals
 	 */
 	public boolean hasFoodItems() {
 		boolean result = true;
@@ -284,7 +284,7 @@ public class Farm {
 
 	/**
 	 * TODO:
-	 * @return
+	 * @return whether farmer has crop items
 	 */
 	public boolean hasPlantItems() {
 		boolean result = true;
