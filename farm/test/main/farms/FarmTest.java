@@ -34,34 +34,6 @@ class FarmTest {
 		assertEquals(1, testFarm.getActionsLeft());
 	}
 
-	// TODO: move this to StoreGUITest
-	@Test
-	void validNamesTest() {
-		assertTrue(testFarm.isValidName("Rimuru Tempest"));
-		assertTrue(testFarm.isValidName("abc"));
-		assertTrue(testFarm.isValidName("D V Dyke"));
-		assertTrue(testFarm.isValidName("MiXeD cApS nAmE"));
-		assertTrue(testFarm.isValidName("NICK LEE"));
-	}
-
-	@Test
-	void invalidNamesTest() {
-		assertFalse(testFarm.isValidName(""));
-		assertFalse(testFarm.isValidName("a"));
-		assertFalse(testFarm.isValidName("ab"));
-		assertFalse(testFarm.isValidName("My 1st Name"));
-		assertFalse(testFarm.isValidName("abcdefghijklmnop"));
-		assertFalse(testFarm.isValidName("tHis name Is tOo long"));
-		assertFalse(testFarm.isValidName("Ke$ha"));
-		assertFalse(testFarm.isValidName("Two  spaces h"));
-	}
-
-	@Test //
-	void farmTypeTest() {
-		testFarm.setType("Moomoo Farm");
-		assertEquals("Moomoo Farm", testFarm.getType());
-	}
-
 	@Test //completed 30/04/2020
 	void animalListTest() {
 		Sheep blackie = new Sheep();
