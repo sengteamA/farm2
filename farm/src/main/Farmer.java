@@ -50,6 +50,19 @@ public class Farmer {
 	public int getAge() {
 		return age;
 	}
+	
+	/**
+	 * Set name of farmer to newName. Used in command-line interface only.
+	 *
+	 * @param newName - name to set the farmer name to
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public void setAge(int newAge) {
+		age = newAge;
+	}
 
 	/**
 	 * All benefits for each item hard coded. Item affects all items of specific type.
