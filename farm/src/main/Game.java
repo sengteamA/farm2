@@ -1062,7 +1062,7 @@ public class Game {
 		System.out.println("Farm name: " + farm.getName());
 		System.out.println("Game duration: " + (dayNumber-1));
 		System.out.println("Profit: " + farm.getBankBalance());
-		System.out.println("Final score:" + score);
+		System.out.println("Final score:" + farm.getScore());
 	}
 
 	/**

@@ -407,4 +407,12 @@ public class Farm {
 		Collections.sort(farmCropTypes);
 		return farmCropTypes;
 	}
+	
+	/**
+	 * 
+	 * @return the score of the game
+	 */
+	public int getScore() {
+		return this.getBankBalance() + (this.showAnimals().size() + this.showCrops().size()) * 100;
+	}
 }

@@ -257,7 +257,7 @@ public class FarmGUI {
 				if (manager.dayNumber > (manager.maxDays)) {
 					finishedWindow();
 					JOptionPane.showMessageDialog(frmFarmOverview, "==========\nYou have completed the farm simulator!\nThank you for playing.\n==========\n"
-							+ "Farm name: " + manager.farm.getName() + "\n" + "Game duration: " + (manager.dayNumber-1) + "\n" + "Profit: $" + manager.farm.getBankBalance());
+							+ "Farm name: " + manager.farm.getName() + "\n" + "Game duration: " + (manager.dayNumber-1) + "\n" + "Profit: $" + manager.farm.getBankBalance() + "\n" + "Final score:" + manager.farm.getScore());
 				}
 				manager.farm.refreshAP();
 				int income = manager.farm.getDailyBonusMoney();
@@ -328,5 +328,8 @@ public class FarmGUI {
 		tendtoCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tendtoCrops.setBounds(31, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendtoCrops);
+
+		
+		
 	}
 }
