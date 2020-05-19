@@ -1,3 +1,8 @@
+/**
+ * A child of item
+ * Use to half time required to harvest
+ */
+
 package main.items;
 
 public class InstantGroLite extends Item {
