@@ -217,6 +217,7 @@ public class StoreGUI {
 
 	/**
 	 * Initialises the StoreGUI instance with the given GameManager.
+	 * @param myManager Game manager instance
 	 */
 	public StoreGUI(GameManager myManager) {
 		manager = myManager;

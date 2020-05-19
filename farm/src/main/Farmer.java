@@ -65,11 +65,15 @@ public class Farmer {
 	}
 
 	/**
-	 * 	all benefits for each item hard coded. Item affects all items of specific type.
-	 * 	If watering plants is selected, then choice will be null
-	 * Tomaccoland crops should grow one day faster per action
-	 * MoomooFarm crops should grow 2 days faster per action if cow is in play
-	*/
+	 * All benefits for each item hard coded. Item affects all items of specific type.
+	 * If watering plants is selected, then choice will be null.
+	 * Tomacco Land crops should grow one day faster per action.
+	 * Moo Moo Farm crops should grow 2 days faster per action if cow is in play.
+	 *
+	 * @param action The action to perform
+	 * @param type TODO
+	 * @param choice TODO
+	 */
 	public void tendToCrops(String action, Crop type, Item choice) {
 		float days = 0;
 		if (action.equals("watering plants")) {
