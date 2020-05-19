@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,6 @@ import main.animals.*;
 import main.crops.*;
 import main.items.*;
 
-//animals, crops and items not yet implemented
 class FarmTest {
 
 	public Farm testFarm;
@@ -23,18 +23,18 @@ class FarmTest {
 		testFarm = new Farm("My new farm", "Flavour text");
 	}
 
-	@Test //passed on 15/04/2020 - Nick
+	@Test
 	void bankBalanceTest() {
 		assertEquals(1000, testFarm.getBankBalance());
 	}
 
-	@Test //passed on 15/04/2020 - Nick
+	@Test
 	void APTest() {
 		testFarm.updateAP();
 		assertEquals(1, testFarm.getActionsLeft());
 	}
 
-	@Test //completed 30/04/2020
+	@Test
 	void animalListTest() {
 		Sheep blackie = new Sheep();
 		Cow moomoo = new Cow();
@@ -46,7 +46,7 @@ class FarmTest {
 		assertEquals("Sheep", testFarm.showAnimals().get(0).getName());
 	}
 
-	@Test //completed 30/04/2020
+	@Test
 	void itemsListTest() {
 		ChemicalSpray bleach = new ChemicalSpray();
 		Compost compost = new Compost();
@@ -64,7 +64,7 @@ class FarmTest {
 		assertFalse(testFarm.showItems().contains(stockfeed));
 	}
 
-	@Test //test completed 08/05/2020
+	@Test
 	void hasAnimalTest() {
 		assertFalse(testFarm.hasAnimals());
 		Sheep blackie = new Sheep();
@@ -72,7 +72,7 @@ class FarmTest {
 		assertTrue(testFarm.hasAnimals());
 	}
 
-	@Test // test completed 08/05/2020
+	@Test
 	void hasFoodItems() {
 		assertFalse(testFarm.hasFoodItems());
 		Compost compost = new Compost();
@@ -83,7 +83,7 @@ class FarmTest {
 		assertTrue(testFarm.hasFoodItems());
 	}
 
-	@Test // test completed 08/05/2020
+	@Test
 	void hasCropsTest() {
 		assertFalse(testFarm.hasCrops());
 		Tomacco marl = new Tomacco();
@@ -92,7 +92,7 @@ class FarmTest {
 		assertTrue(testFarm.hasCrops());
 	}
 
-	@Test // test completed 08/05/2020
+	@Test
 	void hasPlantItems() {
 		assertFalse(testFarm.hasPlantItems());
 		Compost compost = new Compost();
@@ -103,7 +103,7 @@ class FarmTest {
 		assertTrue(testFarm.hasPlantItems());
 	}
 
-	@Test // test completed 13/05/2020
+	@Test
 	void inStockTests() {
 		Carrot carrot = new Carrot();
 		assertFalse(testFarm.plantInStock(carrot));
@@ -111,7 +111,7 @@ class FarmTest {
 		assertTrue(testFarm.plantInStock(carrot));
 	}
 
-	@Test //test completed 13/05/2020
+	@Test
 	void farmCapTests() {
 		assertTrue(testFarm.hasSpace());
 		Carrot carrot = new Carrot();
@@ -121,14 +121,40 @@ class FarmTest {
 		assertFalse(testFarm.hasSpace());
 	}
 
-	@Test//test completed 17/05/2020
+	@Test
 	void itemFilterTest() {
 		Compost compost = new Compost();
 		Stockfeed stock = new Stockfeed();
+		Stockfeed stock2 = new Stockfeed();
 		testFarm.addItem(stock);
-		testFarm.addItem(stock);
+		testFarm.addItem(stock2);
 		testFarm.addItem(compost);
 		assertEquals(1, testFarm.getItemType("Crop").size());
 		assertEquals(2, testFarm.getItemType("Animal").size());
+	}
+
+	@Test
+	void getCropTypeTest() {
+		testFarm.addCrop(new Wheat());
+		testFarm.addCrop(new Mushroom());
+		testFarm.addCrop(new Wasabi());
+		testFarm.addCrop(new Hipotke());
+		testFarm.addCrop(new Carrot());
+		testFarm.addCrop(new Tomacco());
+		testFarm.addCrop(new Tomacco());
+		testFarm.addCrop(new Tomacco());
+		ArrayList<String> types = testFarm.getCropType();
+		// testing an array for equality, the lazy way
+		assertEquals("Carrot", types.get(0));
+		assertEquals("Hipotke Grass", types.get(1));
+		assertEquals("Mushroom", types.get(2));
+		assertEquals("Tomacco", types.get(3));
+		assertEquals("Wasabi", types.get(4));
+		assertEquals("Wheat", types.get(5));
+	}
+
+	@Test
+	void getCropTypeEmptyTest() {
+		assertEquals(true, testFarm.getCropType().isEmpty());
 	}
 }
