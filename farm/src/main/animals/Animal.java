@@ -50,14 +50,16 @@ public class Animal extends Asset {
 
 	@Override
 	public String getInfo() {
-		return getName() + " - " + getPurchasePrice() + " (happiness " +
-				getHappiness() + ", health " + getHealth() + ")";
+		return name + ":\n" +
+				"Happiness: " + happiness + "\n" +
+				"Health " + health;
 	}
+
 	//methods required for deep copy
 		public int getMaxHealth() {
 			return maxHealth;
 		}
-		
+
 		public int getMaxHappy() {
 			return maxHappiness;
 		}
