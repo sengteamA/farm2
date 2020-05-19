@@ -51,21 +51,6 @@ public class FarmGUI {
 		manager = myManager;
 		initialize();
 		frmFarmOverview.setVisible(true);
-		
-		//these are all test inputs
-		Compost compost = new Compost();
-		Stockfeed stock = new Stockfeed();
-		Wheat wheat = new Wheat();	
-		Carrot carrot = new Carrot();
-		Hipotke hip = new Hipotke();
-		Sheep sheep = new Sheep();
-		manager.farm.addAnimal(sheep);
-		manager.farm.addItem(compost);;
-		manager.farm.addItem(stock);
-		manager.farm.addCrop(wheat);
-		manager.farm.addCrop(hip);
-		manager.farm.addCrop(carrot);
-		manager.farm.addCrop(carrot);
 	}
 	
 	/**
