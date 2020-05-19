@@ -2,13 +2,14 @@ package main;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-import main.animals.Animal;
-import main.crops.Crop;
+import main.animals.*;
+import main.crops.*;
 import main.farms.*;
-import main.items.Item;
-
+import main.items.*;
 /**
  * The class that runs the game loop, and handles every object in the game.
  * @author Grant
