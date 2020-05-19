@@ -1,3 +1,8 @@
+/**
+ * Child of item
+ * Instantly readies a crop type for harvest.
+ */
+
 package main.items;
 
 public class InstantGroPro extends Item {
