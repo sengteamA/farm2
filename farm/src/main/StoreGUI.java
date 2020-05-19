@@ -2,8 +2,6 @@ package main;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -138,7 +136,7 @@ public class StoreGUI {
 		try {
 			int price = getStorePrice(animal.getPurchasePrice(), animal.getName());
 			if (!manager.farm.hasEnoughMoney(price)) {
-				throw new IllegalStateException();
+				throw new IllegalStateException("Not enough money!");
 			}
 			Animal newAnimal = animal.getClass().getDeclaredConstructor().newInstance();
 			// Animal Farm bonus: 20% higher health and happiness
@@ -159,7 +157,8 @@ public class StoreGUI {
 				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
 			// handle potential errors by just stopping the entire method
 			e.printStackTrace();
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Something's wrong with this product. " +
+					"Buy something else instead?");
 		}
 	}
 
@@ -200,7 +199,7 @@ public class StoreGUI {
 		try {
 			int price = getStorePrice(item.getPurchasePrice(), item.getName());
 			if (!manager.farm.hasEnoughMoney(price)) {
-				throw new IllegalStateException();
+				throw new IllegalStateException("Not enough money!");
 			}
 			Item newItem = item.getClass().getDeclaredConstructor().newInstance();
 			manager.farm.updateBankBalance(-price);
@@ -211,7 +210,8 @@ public class StoreGUI {
 				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
 			// handle potential errors by just stopping the entire method
 			e.printStackTrace();
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Something's wrong with this product. " +
+					"Buy something else instead?");
 		}
 	}
 
@@ -277,7 +277,7 @@ public class StoreGUI {
 
 		String playerAssetCategories[] = {"My animals", "My crops", "My items"};
 
-		selectAssetType = new JComboBox<String>(playerAssetCategories);
+		selectAssetType = new JComboBox(playerAssetCategories);
 		selectAssetType.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		selectAssetType.setBounds(22, 77, 325, 33);
 		window.getContentPane().add(selectAssetType);
@@ -303,9 +303,10 @@ public class StoreGUI {
 		String storeAssetCategories[] = {
 				"Browse animals in store",
 				"Browse crops in store",
-				"Browse items in store"};
+				"Browse items in store"
+		};
 
-		JComboBox<String> selectAisle = new JComboBox<String>(storeAssetCategories);
+		JComboBox<String> selectAisle = new JComboBox(storeAssetCategories);
 		selectAisle.setBounds(380, 22, 394, 33);
 		window.getContentPane().add(selectAisle);
 
@@ -408,6 +409,7 @@ public class StoreGUI {
 		window.getContentPane().add(btnBuy);
 
 		JTextArea lblFarmBenefit = new JTextArea("Farm benefits.");
+		lblFarmBenefit.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFarmBenefit.setBounds(22, 517, 638, 33);
 		lblFarmBenefit.setWrapStyleWord(true);
 		lblFarmBenefit.setEditable(false);
@@ -415,15 +417,17 @@ public class StoreGUI {
 		window.getContentPane().add(lblFarmBenefit);
 
 		if (manager.farm instanceof AnimalFarm) {
-			lblFarmBenefit.setText("Your farm is an " + manager.farm.getType() + "!");
+			lblFarmBenefit.setText("Your farm is an " + manager.farm.getType() + ".");
 		} else if (manager.farm instanceof MoomooFarm) {
 			lblFarmBenefit.setText("Since your farm is a " + manager.farm.getType() +
 					", cows have been set to be 20% cheaper!");
+			lblFarmBenefit.setFont(new Font("Tahoma", Font.BOLD, 13));
 		} else if (manager.farm instanceof TomaccoLand) {
-			lblFarmBenefit.setText("Your farm is a " + manager.farm.getType() + "!");
+			lblFarmBenefit.setText("Your farm is a " + manager.farm.getType() + ".");
 		} else if (manager.farm instanceof TrumpRanch) {
 			lblFarmBenefit.setText("Since your farm is a " + manager.farm.getType() +
 					", everything has become 10% cheaper!");
+			lblFarmBenefit.setFont(new Font("Tahoma", Font.BOLD, 13));
 		}
 
 		btnBuy.addActionListener(new ActionListener() {
@@ -443,18 +447,14 @@ public class StoreGUI {
 					}
 					refreshMoneyLabel();
 				} catch (IllegalStateException err) {
-					// not enough money
-					JOptionPane.showMessageDialog(window,
-							"Cannot complete purchase: not enough money!"
-					);
+					// Not enough money
+					JOptionPane.showMessageDialog(window, err.getMessage());
 				} catch (IllegalArgumentException err) {
-					// an instance of the asset could not be obtained for
-					// some reason
-					JOptionPane.showMessageDialog(window,
-							"This product cannot be bought! " +
-							"Please choose a different one."
-					);
+					// Reached farm cap for crops, or some fatal error in
+					// the backend
+					JOptionPane.showMessageDialog(window, err.getMessage());
 				} catch (IndexOutOfBoundsException err) {
+					// Nothing selected
 					JOptionPane.showMessageDialog(window,
 							"Oops, please select something first!"
 					);
