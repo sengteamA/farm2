@@ -1,9 +1,9 @@
 package main;
 
-import main.animals.Animal;
-import main.crops.Crop;
+import main.animals.*;
+import main.crops.*;
 import main.farms.*;
-import main.items.Item;
+import main.items.*;
 
 /**
  * Game manager: the class that essentially runs the entire game by
@@ -18,6 +18,7 @@ import main.items.Item;
  *
  */
 public class GameManager {
+	public FarmGUI farmWindow;
 	public Farmer farmer;
 	public Farm farm;
 	public Store store;
@@ -30,19 +31,22 @@ public class GameManager {
 	}
 
 	public void launchFarmScreen() {
-		FarmGUI farmWindow = new FarmGUI(this);
+		farmWindow = new FarmGUI(this);
 	}
-
-	public void launchStoreScreen() {
+	
+	public void launchStore() {
 		StoreGUI storeWindow = new StoreGUI(this);
 	}
-
-	// a new window where players can use items.
-	public void useItems() {
-		UseItemGUI useItems = new UseItemGUI(this)
+	
+	//window for feeding animals
+	public void launchFeedingScreen() {
+		FeedingGUI feeder = new FeedingGUI(this);
 	}
-
-
+	
+	//window for tending to crops
+	public void launchCropsScreen() {
+		CropCareGUI planter = new CropCareGUI(this);
+	}
 
 	/**
 	 * Closes the setup screen and launches the Farm GUI window.
@@ -53,13 +57,23 @@ public class GameManager {
 		launchFarmScreen();
 	}
 
-	public void closeFarmScreen(FarmGUI farmWindow) {
+	public void closeFarmScreen() {
 		farmWindow.closeWindow();
 		// TODO: create a window to output player score?
 	}
-
+	
 	public void closeStoreScreen(StoreGUI storeWindow) {
 		storeWindow.closeWindow();
+	}
+	
+	public void closeFeedingScreen(FeedingGUI feeder) {
+		feeder.closeWindow();
+		farmWindow.updateActionLabel();
+	}
+	
+	public void closeCropScreen(CropCareGUI planter) {
+		planter.closeWindow();
+		farmWindow.updateActionLabel();
 	}
 
 	public static void main(String[] args) {
