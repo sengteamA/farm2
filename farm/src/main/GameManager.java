@@ -62,8 +62,9 @@ public class GameManager {
 		// TODO: create a window to output player score?
 	}
 
-	public void closeStoreScreen(StoreGUI storeWindow) {
-		storeWindow.closeWindow();
+	public void closeCropScreen(CropCareGUI planter) {
+		planter.closeWindow();
+		farmWindow.updateActionLabel();
 	}
 
 	public void closeFeedingScreen(FeedingGUI feeder) {

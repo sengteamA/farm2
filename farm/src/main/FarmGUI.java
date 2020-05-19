@@ -30,6 +30,7 @@ public class FarmGUI {
 
 	private JFrame frmFarmOverview;
 	private JLabel lblActions;
+	private JLabel lblFarmMoney;
 	private GameManager manager;
 	private JTextField txtDays;
 	private JTextField textField;
@@ -78,6 +79,10 @@ public class FarmGUI {
 		lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 	}
 	
+	public void updateBankBalance() {
+		lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
+	}
+	
 	
 	/**
 	 * Calls the parent game manager, which closes this window and creates
@@ -114,7 +119,7 @@ public class FarmGUI {
 		lblDay.setBounds(417, 119, 137, 34);
 		frmFarmOverview.getContentPane().add(lblDay);
 		
-		JLabel lblFarmMoney = new JLabel("$ " + manager.farm.getBankBalance());
+		lblFarmMoney = new JLabel("$ " + manager.farm.getBankBalance());
 		lblFarmMoney.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFarmMoney.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFarmMoney.setBounds(417, 149, 137, 34);
@@ -338,8 +343,5 @@ public class FarmGUI {
 		tendtoCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tendtoCrops.setBounds(31, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendtoCrops);
-
-		
-		
 	}
 }
