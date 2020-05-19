@@ -9,6 +9,10 @@ import main.animals.Animal;
 import main.crops.*;
 import main.items.Item;
 
+/** Represents a Farm. Handles all the animals, crops, items owned by the
+ * player, as well as money/bank balance.
+ * @author Grant and Nick
+ */
 public class Farm {
 	private String name;
 	private int bankBalance = 1000;
@@ -357,6 +361,10 @@ public class Farm {
 
 	// returns a string, which will contain crops farm currently has in stock
 	// manually tested as unable to reconfigure JUNIT pathing
+	/**
+	 * Returns a string, which will contain crops farm currently has in stock.
+	 * @return
+	 */
 	public ArrayList<String> getCropType() {
 		ArrayList<String> cList = new ArrayList<String>();
 		Carrot carrot = new Carrot();
