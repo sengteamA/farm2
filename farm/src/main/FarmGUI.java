@@ -145,29 +145,7 @@ public class FarmGUI {
 		tendLand.setBounds(196, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendLand);
 		
-		JButton btnHarvestCrops = new JButton("Harvest Crops");
-		btnHarvestCrops.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (manager.farm.getActionsLeft() == 0) {
-					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
-				}
-				else if (manager.farm.hasCrops() == false) {
-					JOptionPane.showMessageDialog(frmFarmOverview, "You have no crops. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
-				}
-				else if (manager.farm.showCrops().stream().allMatch(c -> c.getDaysLeft() > 0)) {
-					JOptionPane.showMessageDialog(frmFarmOverview, "No crops available for harvest.", "WARNING", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					manager.farmer.harvestCrops();
-					JOptionPane.showMessageDialog(frmFarmOverview, "Crop(s) were harvested and sold.");
-				}
-				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
-				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
-			}
-		});
-		btnHarvestCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnHarvestCrops.setBounds(196, 84, 155, 48);
-		frmFarmOverview.getContentPane().add(btnHarvestCrops);
+		
 		
 		JButton btnVisitStore = new JButton("Visit Store");
 		btnVisitStore.addActionListener(new ActionListener() {
@@ -220,6 +198,33 @@ public class FarmGUI {
 		btnViewAssets.setBounds(31, 257, 111, 42);
 		frmFarmOverview.getContentPane().add(btnViewAssets);
 		
+		JButton btnHarvestCrops = new JButton("Harvest Crops");
+		btnHarvestCrops.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manager.farm.getActionsLeft() == 0) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no actions left. Please end day to replenish.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (manager.farm.hasCrops() == false) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "You have no crops. Please see your local supplier.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (manager.farm.showCrops().stream().allMatch(c -> c.getDaysLeft() > 0)) {
+					JOptionPane.showMessageDialog(frmFarmOverview, "No crops available for harvest.", "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					manager.farmer.harvestCrops();
+					JOptionPane.showMessageDialog(frmFarmOverview, "Crop(s) were harvested and sold.");
+					DefaultListModel<Crop> cropListModel = new DefaultListModel<>();
+					cropListModel.addAll(manager.farm.showCrops());
+					listsDisplay.setModel(cropListModel);
+				}
+				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
+				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+			}
+		});
+		btnHarvestCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnHarvestCrops.setBounds(196, 84, 155, 48);
+		frmFarmOverview.getContentPane().add(btnHarvestCrops);
+		
 		
 		JLabel FarmStatus = new JLabel("Farm Status");
 		FarmStatus.setHorizontalAlignment(SwingConstants.LEFT);
@@ -253,6 +258,8 @@ public class FarmGUI {
 		btnPlayWithAnimals.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPlayWithAnimals.setBounds(31, 84, 155, 48);
 		frmFarmOverview.getContentPane().add(btnPlayWithAnimals);
+		
+		
 		JButton btnDayEnd = new JButton("End Day");
 		btnDayEnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
