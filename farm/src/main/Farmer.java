@@ -24,7 +24,7 @@ public class Farmer {
 	 * Initialises Farmer using an existing farm.
 	 * @param myFarm - the farm to use
 	 */
-	Farmer(Farm myFarm) {
+	public Farmer(Farm myFarm) {
 		farm = myFarm;
 	}
 
@@ -39,7 +39,7 @@ public class Farmer {
 	 * @param myName - name of farmer
 	 * @param myAge - age of farmer
 	 */
-	Farmer(Farm myFarm, String myName, int myAge) {
+	public Farmer(Farm myFarm, String myName, int myAge) {
 		farm = myFarm;
 		name = myName;
 		age = myAge;
@@ -179,7 +179,7 @@ public class Farmer {
 		}
 		//corrected item deletion process
 		ListIterator<Item> iterator = farm.showItems().listIterator();
-		
+
 		while (iterator.hasNext()) {
 			Item item = iterator.next();
 			if (item.getName().equals(choice.name)) {
@@ -210,7 +210,7 @@ public class Farmer {
 		if (farm instanceof TrumpRanch) {
 			revenue = revenue * (float)1.1;
 		}
-		
+
 		farm.updateBankBalance((int)revenue);
 		farm.showCrops().removeIf(crop -> crop.getDaysLeft() == 0);
 		farm.updateAP();
