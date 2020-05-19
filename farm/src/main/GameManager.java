@@ -1,9 +1,6 @@
 package main;
 
-import main.animals.*;
-import main.crops.*;
 import main.farms.*;
-import main.items.*;
 
 /**
  * Game manager: the class that essentially runs the entire game by
@@ -62,8 +59,8 @@ public class GameManager {
 		// TODO: create a window to output player score?
 	}
 
-	public void closeCropScreen(CropCareGUI planter) {
-		planter.closeWindow();
+	public void closeStoreScreen(StoreGUI storeScreen) {
+		storeScreen.closeWindow();
 		farmWindow.updateActionLabel();
 	}
 
