@@ -1,3 +1,8 @@
+/**
+ * a child of items
+ * Feed to animal for health benefits
+ */
+
 package main.items;
 
 public class Stockfeed extends Item {
