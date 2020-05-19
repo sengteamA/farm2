@@ -14,7 +14,7 @@ import main.items.*;
  * This is the GUI version of Game.java, which uses a command-line
  * interface.
  *
- * @author Grant
+ * @author Grant and Nick
  *
  */
 public class GameManager {
@@ -33,16 +33,16 @@ public class GameManager {
 	public void launchFarmScreen() {
 		farmWindow = new FarmGUI(this);
 	}
-	
+
 	public void launchStore() {
 		StoreGUI storeWindow = new StoreGUI(this);
 	}
-	
+
 	//window for feeding animals
 	public void launchFeedingScreen() {
 		FeedingGUI feeder = new FeedingGUI(this);
 	}
-	
+
 	//window for tending to crops
 	public void launchCropsScreen() {
 		CropCareGUI planter = new CropCareGUI(this);
@@ -61,16 +61,16 @@ public class GameManager {
 		farmWindow.closeWindow();
 		// TODO: create a window to output player score?
 	}
-	
+
 	public void closeStoreScreen(StoreGUI storeWindow) {
 		storeWindow.closeWindow();
 	}
-	
+
 	public void closeFeedingScreen(FeedingGUI feeder) {
 		feeder.closeWindow();
 		farmWindow.updateActionLabel();
 	}
-	
+
 	public void closeCropScreen(CropCareGUI planter) {
 		planter.closeWindow();
 		farmWindow.updateActionLabel();

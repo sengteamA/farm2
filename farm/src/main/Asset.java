@@ -23,11 +23,23 @@ public class Asset {
 	}
 
 	/**
-	 * Returns any relevant general information about the asset,
-	 * to be used in the description of the asset in the Store.
-	 * @return information about the asset, as a single-line string.
+	 * Returns any relevant general information about the asset, with
+	 * more detail than toString().
+	 *
+	 * @return information about the asset, as a multi-line string.
 	 */
 	public String getInfo() {
 		return getName() + " - " + getPurchasePrice();
+	}
+
+	/**
+	 * Returns brief information about the asset.
+	 * This will be overridden by Animal, Crop and Item.
+	 *
+	 * @return Brief information about the asset
+	 */
+	@Override
+	public String toString() {
+		return name + ": " + purchasePrice;
 	}
 }
