@@ -8,6 +8,15 @@ public class Animal extends Asset {
 	private int maxHealth;
 	private int maxHappiness;
 
+	/**
+	 * Creates a new Animal instance.
+	 * @param name - Name of animal
+	 * @param health - Default health level of animal
+	 * @param happiness - Default happiness level of animal
+	 * @param maxHealth - Maximum health level
+	 * @param maxHappiness - Maximum happiness level
+	 * @param purchasePrice - Default price in store (before any discounts)
+	 */
 	public Animal(String name, int health, int happiness, int maxHealth, int maxHappiness, int purchasePrice) {
 		super(name, purchasePrice);
 		this.health = health;
@@ -56,6 +65,7 @@ public class Animal extends Asset {
 	}
 
 	//methods required for deep copy
+	// TODO: consider removing these if they're not needed any more
 		public int getMaxHealth() {
 			return maxHealth;
 		}
