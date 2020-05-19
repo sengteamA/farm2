@@ -138,6 +138,7 @@ public class SetupGUI {
 		window = new JFrame();
 		window.setTitle("Set up game");
 		window.setBounds(100, 100, 475, 425);
+		// Exit the entire program when the X button is pressed
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblError = new JLabel("");

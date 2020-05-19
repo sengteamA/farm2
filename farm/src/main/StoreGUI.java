@@ -1,11 +1,12 @@
 package main;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.lang.reflect.InvocationTargetException;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -15,17 +16,18 @@ import javax.swing.event.ListSelectionListener;
 import main.animals.*;
 import main.items.*;
 import main.crops.*;
-import main.farms.AnimalFarm;
-import main.farms.MoomooFarm;
-import main.farms.TomaccoLand;
-import main.farms.TrumpRanch;
+import main.farms.*;
 
-import javax.swing.GroupLayout.Alignment;
 import java.awt.GridLayout;
 
 public class StoreGUI {
 	private JFrame window;
 	private GameManager manager;
+
+	// GUI components used by StoreGUI class methods
+	private JTextField txtPlayerMoney;
+	private JComboBox<String> selectAssetType;
+	private JList<String> assetList;
 
 	private ArrayList<Animal> animals;
 	private ArrayList<Crop> crops;
@@ -55,13 +57,20 @@ public class StoreGUI {
 	 * @param name - name of the asset
 	 * @return new price of asset when purchasing in store
 	 */
-	private float getStorePrice(int price, String name) {
+	private int getStorePrice(int price, String name) {
 		if (manager.farm instanceof TrumpRanch) {
-			return price * TRUMP_RANCH_DISCOUNT;
+			return (int)(price * TRUMP_RANCH_DISCOUNT);
 		} else if (manager.farm instanceof MoomooFarm && name.contentEquals("Cow")) {
-			return price * MOOMOO_FARM_DISCOUNT;
+			return (int)(price * MOOMOO_FARM_DISCOUNT);
 		}
 		return price;
+	}
+
+	/**
+	 * Refresh the label that states the player's current amount of money.
+	 */
+	private void refreshMoneyLabel() {
+		txtPlayerMoney.setText("$" + manager.farm.getBankBalance());
 	}
 
 	/**
@@ -69,12 +78,9 @@ public class StoreGUI {
 	 * available for purchase in the store.
 	 */
 	private void initialiseAnimals() {
-		Cow cow = new Cow();
-		Fox fox = new Fox();
-		Sheep sheep = new Sheep();
-		animals.add(cow);
-		animals.add(fox);
-		animals.add(sheep);
+		animals.add(new Cow());
+		animals.add(new Fox());
+		animals.add(new Sheep());
 	}
 
 	/**
@@ -82,18 +88,12 @@ public class StoreGUI {
 	 * available for purchase in the store.
 	 */
 	private void initialiseCrops() {
-		Carrot carrot = new Carrot();
-		Hipotke hipotke = new Hipotke();
-		Mushroom mushroom = new Mushroom();
-		Tomacco tomacco = new Tomacco();
-		Wasabi wasabi = new Wasabi();
-		Wheat wheat = new Wheat();
-		crops.add(carrot);
-		crops.add(hipotke);
-		crops.add(mushroom);
-		crops.add(tomacco);
-		crops.add(wasabi);
-		crops.add(wheat);
+		crops.add(new Carrot());
+		crops.add(new Hipotke());
+		crops.add(new Mushroom());
+		crops.add(new Tomacco());
+		crops.add(new Wasabi());
+		crops.add(new Wheat());
 	}
 
 	/**
@@ -101,30 +101,118 @@ public class StoreGUI {
 	 * available for purchase in the store.
 	 */
 	private void initialiseItems() {
-		ChemicalSpray chemicalSpray = new ChemicalSpray();
-		Compost compost = new Compost();
-		InstantGroLite instantGroLite = new InstantGroLite();
-		InstantGroPro instantGroPro = new InstantGroPro();
-		PandaGummy pandaGummy = new PandaGummy();
-		Stockfeed stockfeed = new Stockfeed();
-		items.add(chemicalSpray);
-		items.add(compost);
-		items.add(instantGroLite);
-		items.add(instantGroPro);
-		items.add(pandaGummy);
-		items.add(stockfeed);
+		items.add(new ChemicalSpray());
+		items.add(new Compost());
+		items.add(new InstantGroLite());
+		items.add(new InstantGroPro());
+		items.add(new PandaGummy());
+		items.add(new Stockfeed());
 	}
 
+	private void refreshAssetList() {
+		DefaultListModel<String> assetListModel = new DefaultListModel<>();
+		if (selectAssetType.getSelectedIndex() == ANIMAL_INDEX) {
+			for (Animal animal : manager.farm.showAnimals()) {
+				assetListModel.addElement(animal.toString());
+			}
+		}
+		else if (selectAssetType.getSelectedIndex() == CROP_INDEX) {
+			for (Crop crop : manager.farm.showCrops()) {
+				assetListModel.addElement(crop.toString());
+			}
+		}
+		else if (selectAssetType.getSelectedIndex() == ITEM_INDEX) {
+			for (Item item : manager.farm.showItems()) {
+				assetListModel.addElement(item.toString());
+			}
+		}
+		assetList.setModel(assetListModel);
+	}
+
+	/**
+	 * Purchase an animal, deduct the appropriate amount of money,
+	 * and update the player's list of animals.
+	 * @param animal - an instance of the Animal the player wants to buy
+	 */
 	private void purchaseAsset(Animal animal) {
-
+		try {
+			int price = getStorePrice(animal.getPurchasePrice(), animal.getName());
+			if (!manager.farm.hasEnoughMoney(price)) {
+				throw new IllegalStateException();
+			}
+			Animal newAnimal = animal.getClass().getDeclaredConstructor().newInstance();
+			// Animal Farm bonus: 20% higher health and happiness
+			//
+			// Note other bonuses have already been taken into account in
+			// getStorePrice()
+			if (manager.farm instanceof AnimalFarm) {
+				float health = newAnimal.getHealth() * manager.farm.getAnimalBonus();
+				float happy = newAnimal.getHappiness() * manager.farm.getAnimalBonus();
+				newAnimal.updateHealth((int)health);
+				newAnimal.updateHappiness((int)happy);
+			}
+			manager.farm.updateBankBalance(-price);
+			manager.farm.addAnimal(newAnimal);
+			refreshMoneyLabel();
+			refreshAssetList();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
+			// handle potential errors by just stopping the entire method
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		}
 	}
 
+	/**
+	 * Purchase a crop, deduct the appropriate amount of money,
+	 * and update the player's list of crops.
+	 * @param crop - an instance of the Crop the player wants to buy
+	 */
 	private void purchaseAsset(Crop crop) {
-
+		try {
+			int price = getStorePrice(crop.getPurchasePrice(), crop.getName());
+			if (!manager.farm.hasEnoughMoney(price)) {
+				throw new IllegalStateException("Not enough money!");
+			}
+			if (!manager.farm.hasSpace()) {
+				throw new IllegalArgumentException("Not enough space on the farm to add another crop!");
+			}
+			Crop newCrop = crop.getClass().getDeclaredConstructor().newInstance();
+			manager.farm.updateBankBalance(-price);
+			manager.farm.addCrop(newCrop);
+			refreshMoneyLabel();
+			refreshAssetList();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
+			// handle potential errors by just stopping the entire method
+			e.printStackTrace();
+			throw new IllegalArgumentException("Something's wrong with this product. " +
+					"Buy something else instead?");
+		}
 	}
 
+	/**
+	 * Purchase an animal, deduct the appropriate amount of money,
+	 * and update the player's list of animals.
+	 * @param item - an instance of the Item the player wants to buy
+	 */
 	private void purchaseAsset(Item item) {
-
+		try {
+			int price = getStorePrice(item.getPurchasePrice(), item.getName());
+			if (!manager.farm.hasEnoughMoney(price)) {
+				throw new IllegalStateException();
+			}
+			Item newItem = item.getClass().getDeclaredConstructor().newInstance();
+			manager.farm.updateBankBalance(-price);
+			manager.farm.addItem(newItem);
+			refreshMoneyLabel();
+			refreshAssetList();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
+			// handle potential errors by just stopping the entire method
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
@@ -143,11 +231,20 @@ public class StoreGUI {
 		window.setVisible(true);
 	}
 
+	/**
+	 * Closes the window.
+	 */
 	public void closeWindow() {
 		window.dispose();
 	}
 
-	public void closeFinishedScreen() {
+	/**
+	 * Runs when the user closes the window.
+	 *
+	 * Passes control back to GameManager, which will call StoreGUI.closeWindow()
+	 * and do whatever else it needs to do.
+	 */
+	public void finishedWindow() {
 		manager.closeStoreScreen(this);
 	}
 
@@ -158,27 +255,29 @@ public class StoreGUI {
 		window = new JFrame();
 		window.setTitle("Store");
 		window.setBounds(100, 100, 800, 600);
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		// Do nothing when the X button is pressed
+		// perhaps a lazy solution, but it keeps things easy to manage
+		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		window.getContentPane().setLayout(null);
 
 		JButton btnLeave = new JButton("Leave");
 		btnLeave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				closeFinishedScreen();
+				finishedWindow();
 			}
 		});
 		btnLeave.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLeave.setBounds(670, 517, 104, 33);
 		window.getContentPane().add(btnLeave);
 
-		JList assetList = new JList();
+		assetList = new JList<String>();
 		assetList.setBounds(22, 121, 325, 385);
 		window.getContentPane().add(assetList);
 
 		String playerAssetCategories[] = {"My animals", "My crops", "My items"};
 
-		JComboBox selectAssetType = new JComboBox(playerAssetCategories);
+		selectAssetType = new JComboBox<String>(playerAssetCategories);
 		selectAssetType.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		selectAssetType.setBounds(22, 77, 325, 33);
 		window.getContentPane().add(selectAssetType);
@@ -186,26 +285,12 @@ public class StoreGUI {
 		selectAssetType.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (selectAssetType.getSelectedIndex() == ANIMAL_INDEX) {
-					DefaultListModel<Animal> animalListModel = new DefaultListModel<>();
-					animalListModel.addAll(manager.farm.showAnimals());
-					assetList.setModel(animalListModel);
-				}
-				else if (selectAssetType.getSelectedIndex() == CROP_INDEX) {
-					DefaultListModel<Crop> cropListModel = new DefaultListModel<>();
-					cropListModel.addAll(manager.farm.showCrops());
-					assetList.setModel(cropListModel);
-				}
-				else if (selectAssetType.getSelectedIndex() == ITEM_INDEX) {
-					DefaultListModel<Item> itemListModel = new DefaultListModel<>();
-					itemListModel.addAll(manager.farm.showItems());
-					assetList.setModel(itemListModel);
-				}
+				refreshAssetList();
 			}
 		});
 		selectAssetType.setSelectedIndex(0);
 
-		JTextField txtPlayerMoney = new JTextField();
+		txtPlayerMoney = new JTextField();
 		txtPlayerMoney.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlayerMoney.setText("$: 0");
 		txtPlayerMoney.setEditable(false);
@@ -213,17 +298,18 @@ public class StoreGUI {
 		txtPlayerMoney.setBounds(22, 22, 325, 44);
 		window.getContentPane().add(txtPlayerMoney);
 		txtPlayerMoney.setColumns(10);
+		refreshMoneyLabel();
 
 		String storeAssetCategories[] = {
 				"Browse animals in store",
 				"Browse crops in store",
 				"Browse items in store"};
 
-		JComboBox selectAisle = new JComboBox(storeAssetCategories);
+		JComboBox<String> selectAisle = new JComboBox<String>(storeAssetCategories);
 		selectAisle.setBounds(380, 22, 394, 33);
 		window.getContentPane().add(selectAisle);
 
-		JList aisleAssetsList = new JList();
+		JList<String> aisleAssetsList = new JList<String>();
 		aisleAssetsList.setBounds(380, 66, 394, 270);
 		window.getContentPane().add(aisleAssetsList);
 
@@ -232,10 +318,13 @@ public class StoreGUI {
 		selectAisle.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel<String> assetModel = new DefaultListModel();
+				DefaultListModel<String> assetModel = new DefaultListModel<String>();
 				if (selectAisle.getSelectedIndex() == ANIMAL_INDEX) {
 					for (Animal animal : animals) {
-						float storePrice = getStorePrice(animal.getPurchasePrice(), animal.getName());
+						float storePrice = getStorePrice(
+								animal.getPurchasePrice(),
+								animal.getName()
+						);
 						assetModel.addElement(
 								animal.name + " - $" + storePrice
 						);
@@ -243,7 +332,10 @@ public class StoreGUI {
 				}
 				else if (selectAisle.getSelectedIndex() == CROP_INDEX) {
 					for (Crop crop : crops) {
-						float storePrice = getStorePrice(crop.getPurchasePrice(), crop.getName());
+						float storePrice = getStorePrice(
+								crop.getPurchasePrice(),
+								crop.getName()
+						);
 						assetModel.addElement(
 								crop.name + " - $" + storePrice
 						);
@@ -346,11 +438,21 @@ public class StoreGUI {
 						purchaseAsset(crops.get(selectedAsset));
 					} else if (selectedAssetCategory == ITEM_INDEX) {
 						purchaseAsset(items.get(selectedAsset));
+					} else {
+						throw new IndexOutOfBoundsException();
 					}
-				} catch (IllegalArgumentException err) {
+					refreshMoneyLabel();
+				} catch (IllegalStateException err) {
 					// not enough money
 					JOptionPane.showMessageDialog(window,
 							"Cannot complete purchase: not enough money!"
+					);
+				} catch (IllegalArgumentException err) {
+					// an instance of the asset could not be obtained for
+					// some reason
+					JOptionPane.showMessageDialog(window,
+							"This product cannot be bought! " +
+							"Please choose a different one."
 					);
 				} catch (IndexOutOfBoundsException err) {
 					JOptionPane.showMessageDialog(window,

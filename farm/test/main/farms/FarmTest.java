@@ -34,6 +34,7 @@ class FarmTest {
 		assertEquals(1, testFarm.getActionsLeft());
 	}
 
+	// TODO: move this to StoreGUITest
 	@Test
 	void validNamesTest() {
 		assertTrue(testFarm.isValidName("Rimuru Tempest"));
@@ -129,7 +130,7 @@ class FarmTest {
 		testFarm.addItem(compost);
 		assertTrue(testFarm.hasPlantItems());
 	}
-	
+
 	@Test // test completed 13/05/2020
 	void inStockTests() {
 		Carrot carrot = new Carrot();
@@ -137,7 +138,7 @@ class FarmTest {
 		testFarm.addCrop(carrot);
 		assertTrue(testFarm.plantInStock(carrot));
 	}
-	
+
 	@Test //test completed 13/05/2020
 	void farmCapTests() {
 		assertTrue(testFarm.hasSpace());
@@ -147,7 +148,7 @@ class FarmTest {
 		}
 		assertFalse(testFarm.hasSpace());
 	}
-	
+
 	@Test//test completed 17/05/2020
 	void itemFilterTest() {
 		Compost compost = new Compost();
