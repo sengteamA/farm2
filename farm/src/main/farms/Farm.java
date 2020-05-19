@@ -3,11 +3,12 @@ package main.farms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import main.animals.Animal;
+import main.animals.*;
 import main.crops.*;
-import main.items.Item;
+import main.items.*;
 
 /** Represents a Farm. Handles all the animals, crops, items owned by the
  * player, as well as money/bank balance.
@@ -131,7 +132,41 @@ public class Farm {
 	public void updateBankBalance(int amount) {
 		bankBalance += amount;
 	}
-
+	
+	/**
+	 * prompts user to entry a name
+	 * @param sc a scanner object to capture user entry
+	 */
+	public void setName(Scanner sc) {
+		while (true) {
+			String s;
+			System.out.println("Please enter a name between 3 to 15 characters long without numbers of symbols");
+			s = sc.nextLine();
+			name = s;
+			if (isValidName(name)) {
+				break;
+			} else {
+				name = null;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param name takes the entry from setName, a string
+	 * @return boolean to see if name is valid. 
+	 */
+	public boolean isValidName(String name) {
+		if (name.length() < 3 || name.length() > 15) {
+			System.out.println("Name is outside required length");
+			return false;
+		} else if (name.matches("^[A-Za-z]+( [A-Za-z]+)*$") == false) {
+			System.out.println("Name cannot contain numbers or symbols, or extra spaces");
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Decrement number of actions left (action points) by one for the day.
 	 */
