@@ -1,8 +1,8 @@
 package main.farms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import main.animals.Animal;
@@ -30,8 +30,8 @@ public class Farm {
 
 	/**
 	 * Creates a new farm.
-	 * @param myFarmType - Type of farm (e.g. Tomacco Land)
-	 * @param myFlavour - Flavour text
+	 * @param myFarmType Type of farm (e.g. Tomacco Land)
+	 * @param myFlavour Flavour text
 	 */
 	public Farm(String myFarmType, String myFlavour) {
 		animals = new ArrayList<Animal>();
@@ -43,9 +43,9 @@ public class Farm {
 
 	/**
 	 * Creates a new farm.
-	 * @param myFarmType - Type of farm (e.g. Tomacco Land)
-	 * @param myFlavour - Flavour text
-	 * @param myBank - Bank balance / amount of money to start with
+	 * @param myFarmType Type of farm (e.g. Tomacco Land)
+	 * @param myFlavour Flavour text
+	 * @param myBank Bank balance / amount of money to start with
 	 */
 	public Farm(String myFarmType, String myFlavour, int myBank) {
 		animals = new ArrayList<Animal>();
@@ -69,7 +69,7 @@ public class Farm {
 	 * Sets the name of the farm to myName.
 	 * Used by SetupGUI.
 	 *
-	 * @param myName - new name of the farm
+	 * @param myName new name of the farm
 	 */
 	public void setName(String myName) {
 		name = myName;
@@ -126,7 +126,7 @@ public class Farm {
 
 	/**
 	 * Increase the farm's money / bank balance by the specified amount.
-	 * @param amount - the amount to increase the farm balance by.
+	 * @param amount the amount to increase the farm balance by.
 	 */
 	public void updateBankBalance(int amount) {
 		bankBalance += amount;
@@ -136,7 +136,7 @@ public class Farm {
 	 * Decrement number of actions left (action points) by one for the day.
 	 */
 	public void updateAP() {
-		actionsLeft -= 1;
+		--actionsLeft;
 	}
 
 	/**
@@ -160,7 +160,7 @@ public class Farm {
 	 * Note that the instance itself is added to the farm, not a
 	 * deep copy of it.
 	 *
-	 * @param animal - Animal to add to the farm
+	 * @param animal Animal to add to the farm
 	 */
 	public void addAnimal(Animal animal) {
 		animals.add(animal);
@@ -171,7 +171,7 @@ public class Farm {
 	 * Note that the instance itself is added to the farm, not a
 	 * deep copy of it.
 	 *
-	 * @param crop - Crop to add to the farm
+	 * @param crop Crop to add to the farm
 	 */
 	public void addCrop(Crop crop) {
 		crops.add(crop);
@@ -179,7 +179,7 @@ public class Farm {
 
 	/**
 	 * Adds an Item instance to the farm.
-	 * @param item - Item to add to the farm.
+	 * @param item Item to add to the farm.
 	 */
 	public void addItem(Item item) {
 		items.add(item);
@@ -187,7 +187,7 @@ public class Farm {
 
 	/**
 	 * Deletes an Animal instance from the farm.
-	 * @param runAway - Animal to delete
+	 * @param runAway Animal to delete
 	 */
 	public void delAnimal(Animal runAway) {
 		animals.remove(runAway);
@@ -195,7 +195,7 @@ public class Farm {
 
 	/**
 	 * Deletes a Crop instance from the farm.
-	 * @param withered - Crop to delete
+	 * @param withered Crop to delete
 	 */
 	public void delCrop(Crop withered) {
 		crops.remove(withered);
@@ -203,7 +203,7 @@ public class Farm {
 
 	/**
 	 * Deletes an Item instance from the farm.
-	 * @param used - Item to delete
+	 * @param used Item to delete
 	 */
 	public void delItem(Item used) {
 		items.remove(used);
@@ -221,7 +221,7 @@ public class Farm {
 
 	/**
 	 * Increase farm cap by amount.
-	 * @param amount - Amount to increase farm cap by
+	 * @param amount Amount to increase farm cap by
 	 */
 	public void addCap(int amount) {
 		farmCap += amount;
@@ -233,7 +233,7 @@ public class Farm {
 	 */
 	public int getDailyBonusMoney() {
 		int money = 0;
-		for (Animal animal: animals) {
+		for (Animal animal : animals) {
 			money += animal.bonus();
 		}
 		return money;
@@ -243,7 +243,7 @@ public class Farm {
 	 * Returns whether deducting an amount would result in bank balance
 	 * going into debt.
 	 *
-	 * @param toDeduct - Amount to deduct
+	 * @param toDeduct Amount to deduct
 	 * @return Whether there will be enough money after deducting
 	 */
 	public boolean hasEnoughMoney(int toDeduct) {
@@ -259,11 +259,12 @@ public class Farm {
 	}
 
 	/**
-	 * TODO:
-	 * @return whether the farmer has food for animals
+	 * Returns whether the farmer has any items that can be used as food for
+	 * animals, i.e. items whose type is "Animal".
+	 *
+	 * @return Whether farmer has any animal food.
 	 */
 	public boolean hasFoodItems() {
-		boolean result = true;
 		Map<String, Long> counts = this.showItems().stream().filter(
 				e -> e.getType().equals("Animal")).collect(
 						Collectors.groupingBy(
@@ -272,9 +273,9 @@ public class Farm {
 						)
 				);
 		if (counts.isEmpty()) {
-			result = false;
+			return false;
 		}
-		return result;
+		return true;
 		//counts.keySet() this gives us a list of animals
 	}
 
@@ -287,46 +288,51 @@ public class Farm {
 	}
 
 	/**
-	 * TODO:
-	 * @return whether farmer has crop items
+	 * Returns whether the farmer has any items that can be used on crops,
+	 * i.e. items whose type is "Crop".
+	 *
+	 * @return Whether farmer has any items for crops.
 	 */
 	public boolean hasPlantItems() {
-		boolean result = true;
-		Map<String, Long> counts = this.showItems().stream().filter(e -> e.getType().equals("Crop")).collect(Collectors.groupingBy(e -> e.getName(), Collectors.counting()));
+		Map<String, Long> counts = this.showItems().stream().filter(
+				e -> e.getType().equals("Crop")).collect(
+						Collectors.groupingBy(
+								e -> e.getName(),
+								Collectors.counting()
+						)
+				);
 		if (counts.isEmpty()) {
-			result = false;
+			return false;
 		}
-		return result;
+		return true;
 	}
 
 	/**
 	 * Checks if a particular crop is on the farm.
-	 * @param subject - Crop to check
+	 * @param subject Crop to check
 	 * @return Whether subject is on the farm.
 	 */
 	public boolean plantInStock(Crop subject) {
-		boolean outcome = false;
 		for (Crop crop : this.showCrops()) {
 			if (crop.getName().equals(subject.getName())) {
-				outcome = true;
+				return true;
 			}
 		}
-		return outcome;
+		return false;
 	}
 
 	/**
 	 * Checks if a particular item is on the farm.
-	 * @param subject - Item to check
+	 * @param subject Item to check
 	 * @return Whether item is on the farm.
 	 */
 	public boolean itemInHand(Item subject) {
-		boolean outcome = false;
 		for (Item item : this.showItems()) {
 			if (item.getName().equals(subject.getName())) {
-				outcome = true;
+				return true;
 			}
 		}
-		return outcome;
+		return false;
 	}
 
 	/**
@@ -348,80 +354,38 @@ public class Farm {
 		return crops.size() < this.getFarmCap();
 	}
 
-	///extracts types of items from the item list
-	public ArrayList<String> getItemType(String Type) {
+	/**
+	 * Extracts items of a certain type from the list of items.
+	 * A type is what kind of asset the item can be used on.
+	 *
+	 * @param type "Animal" or "Crop".
+	 * @return A new list containing the items of the given type.
+	 */
+	public ArrayList<String> getItemType(String type) {
 		ArrayList<String> iList = new ArrayList<String>();
-		for (Item item: this.showItems()) {
-			if (item.getType().equals(Type)) {
+		for (Item item : this.showItems()) {
+			if (item.getType().equals(type)) {
 				iList.add(item.getName());
 			}
 		}
 		return iList;
 	}
 
-	// returns a string, which will contain crops farm currently has in stock
-	// manually tested as unable to reconfigure JUNIT pathing
 	/**
-	 * Returns a string, which will contain crops farm currently has in stock.
-	 * @return
+	 * Returns a string, which will contain all the kinds of crops the farm
+	 * currently has in stock, with duplicates removed and in alphabetical
+	 * order.
+	 *
+	 * @return A list of the kinds of crops on the farm.
 	 */
 	public ArrayList<String> getCropType() {
-		ArrayList<String> cList = new ArrayList<String>();
-		Carrot carrot = new Carrot();
-		Hipotke hip = new Hipotke();
-		Mushroom mush = new Mushroom();
-		Tomacco tomacco = new Tomacco();
-		Wasabi wasabi = new Wasabi();
-		Wheat wheat = new Wheat();
-
-		//test carrot membership
-		if (this.plantInStock(carrot) == true && !cList.contains(carrot.getName())) {
-			cList.add(carrot.getName());
+		ArrayList<String> farmCropTypes = new ArrayList<String>();
+		for (Crop crop : crops) {
+			if (!farmCropTypes.contains(crop.getName())) {
+				farmCropTypes.add(crop.getName());
+			}
 		}
-		else if (!this.plantInStock(carrot) && cList.contains(carrot.getName())) {
-			cList.remove(carrot.getName());
-
-		}
-		//test hipotke membership
-		if (this.plantInStock(hip) == true && !cList.contains(hip.getName())) {
-			cList.add(hip.getName());
-		}
-		else if (!this.plantInStock(hip) && cList.contains(hip.getName())) {
-			cList.remove(hip.getName());
-		}
-
-		//test mushroom membership
-		if (this.plantInStock(mush) == true && !cList.contains(mush.getName())) {
-			cList.add(mush.getName());
-		}
-		else if (!this.plantInStock(mush) && cList.contains(mush.getName())) {
-			cList.remove(mush.getName());
-		}
-
-		//test tomacco membership
-		if (this.plantInStock(tomacco) == true && !cList.contains(tomacco.getName())) {
-			cList.add(tomacco.getName());
-		}
-		else if (!this.plantInStock(tomacco) && cList.contains(tomacco.getName())) {
-			cList.remove(tomacco.getName());
-		}
-
-		//test wasabi membership
-		if (this.plantInStock(wasabi) == true && !cList.contains(wasabi.getName())) {
-			cList.add(wasabi.getName());
-		}
-		else if (!this.plantInStock(wasabi) && cList.contains(wasabi.getName())) {
-			cList.remove(wasabi.getName());
-		}
-
-		//test wheat membership
-		if (this.plantInStock(wheat) == true && !cList.contains(wheat.getName())) {
-			cList.add(wheat.getName());
-		}
-		else if (!this.plantInStock(wheat) && cList.contains(wheat.getName())) {
-			cList.remove(wheat.getName());
-		}
-
-		return cList;
+		Collections.sort(farmCropTypes);
+		return farmCropTypes;
 	}
 }
