@@ -1,12 +1,13 @@
+/**
+ * A child of the Farm class.
+ * This farm has an advantage in all things to do with animals
+ * 20% bonus happiness and health upon purchase. Playing and feeding animals also comes with 20% bonus. 
+ */
+
 package main.farms;
 
 public class AnimalFarm extends Farm {
 	public float animalBonus =(float)0.2;
-
-	// TODO: deprecated, will remove soon.
-	// please use getAnimalBonus() instead
-	public float animal_bonus =(float)0.2;
-
 	public AnimalFarm() {
 		super("Animal Farm",
 				"All Animals are equal, but some are more equal than others.\n"

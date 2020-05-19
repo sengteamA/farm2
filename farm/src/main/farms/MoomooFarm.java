@@ -1,3 +1,9 @@
+/**
+ * This farm is powered by cows. 
+ * Farmer gets discount when purchasing cows.
+ * A cow in play causes crops to grow faster. 
+ */
+
 package main.farms;
 
 import main.animals.Animal;
