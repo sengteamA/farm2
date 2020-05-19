@@ -92,7 +92,7 @@ public class Farmer {
 		}
 
 		if (farm instanceof TomaccoLand) {
-			days += 1;
+			++days;
 		}
 		else if (farm instanceof MoomooFarm && ((MoomooFarm) farm).hasCow()) {
 			days += 2;
@@ -111,6 +111,7 @@ public class Farmer {
 				Item item = iterator.next();
 				if (item.getName().equals(choice.getName())) {
 					iterator.remove();
+					break;
 				}
 			}
 		}
@@ -136,8 +137,9 @@ public class Farmer {
 
 		while (iterator.hasNext()) {
 			Item item = iterator.next();
-			if (item.getName().equals(choice.name)) {
+			if (item.getName().equals(choice.getName())) {
 				iterator.remove();
+				break;
 			}
 		}
 		farm.updateAP();

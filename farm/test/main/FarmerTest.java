@@ -101,7 +101,7 @@ class FarmerTest {
 		assertEquals(236, pigsy.showAnimals().get(1).getHappiness());
 	}
 
-	@Test //test completed 08/05/2020
+	@Test
 	void animal_feeding_items_test() {
 		Stockfeed stockfeed = new Stockfeed();
 		PandaGummy panda = new PandaGummy();
@@ -119,7 +119,7 @@ class FarmerTest {
 		assertEquals(225, farm.showAnimals().get(1).getHealth());
 	}
 
-	@Test //test completed 08/05/2020
+	@Test
 	void cropTendingTest() {
 		Carrot carrot = new Carrot();
 		Hipotke hip = new Hipotke();
@@ -131,7 +131,7 @@ class FarmerTest {
 		assertEquals(5, farm.showCrops().get(0).getDaysLeft());
 	}
 
-	@Test //tests completed 08/05/2020
+	@Test
 	void TomaccoCropTest() {
 		Tomacco cig = new Tomacco();
 		Tomacco cig2 = new Tomacco();
@@ -168,7 +168,7 @@ class FarmerTest {
 		assertEquals(18, farm.showCrops().get(0).getDaysLeft());
 	}
 
-	@Test //test completed 13/05/2020
+	@Test
 	void moomooFarmCropTests() {
 		MoomooFarm seacow = new MoomooFarm();
 		Farmer hachi = new Farmer(seacow);
@@ -190,17 +190,12 @@ class FarmerTest {
 		Compost compost = new Compost();
 		Cow moomoo = new Cow();
 		farm.addAnimal(moomoo);
-		farm.addItem(stock);
-		farm.addItem(stock);
-		farm.addItem(stock); // add the same instance three times
 		farm.addItem(compost);
-		farm.addItem(new Stockfeed()); // add a different instance
-		farm.addItem(new Stockfeed()); // add another different instance
-		// This should delete all three occurrences of the same Stockfeed
-		// instance, BUT leave the remaining two instances of Stockfeed
-		// (created via new Stockfeed()) intact.
+		farm.addItem(stock);
+		// add another different instance
+		farm.addItem(new Stockfeed());
 		brown.feedAnimals(stock);
-		assertEquals(3, farm.showItems().size());
+		assertEquals(2, farm.showItems().size());
 	}
 
 	@Test
