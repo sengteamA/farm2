@@ -12,12 +12,10 @@ import main.farms.*;
 import org.junit.jupiter.api.Test;
 
 class FarmerTest {
-	
-	
 	public Farm farm;
 	public Farmer brown;
+
 	@BeforeEach
-	
 	public void init() {
 		farm = new Farm("farm", "test");
 		brown = new Farmer(farm);
@@ -34,7 +32,7 @@ class FarmerTest {
 		assertEquals(12, farm.getFarmCap());
 		assertEquals(1, farm.getActionsLeft());
 	}
-	
+
 	@Test
 	void animalFarmLandTest() {
 		Sheep blackie = new Sheep();
@@ -45,8 +43,8 @@ class FarmerTest {
 		assertEquals("Sheep", snowball.showAnimals().get(0).getName());
 		assertEquals(74, snowball.showAnimals().get(0).getHappiness());
 	}
-	
-	@Test // completed 03/05/2020
+
+	@Test
 	void harvestTest() {
 		Tomacco tomacco = new Tomacco();
 		Tomacco tomacco2 = new Tomacco();
@@ -60,8 +58,8 @@ class FarmerTest {
 		assertEquals(0, farm.showCrops().size());
 		assertEquals(1130, farm.getBankBalance());
 	}
-	
-	@Test // completed 03/05/2020
+
+	@Test
 	void trumpHarvestTest() {
 		Carrot carrot = new Carrot();
 		Wheat wheat = new Wheat();
@@ -77,8 +75,8 @@ class FarmerTest {
 		assertEquals(1, tower.showCrops().size());
 		assertEquals(1226, tower.getBankBalance());
 	}
-	
-	@Test // completed 03/05/05/20202
+
+	@Test
 	void playAnimalsTest() {
 		Cow moomoo = new Cow();
 		Fox crash = new Fox();
@@ -89,7 +87,7 @@ class FarmerTest {
 		assertEquals(230, farm.showAnimals().get(1).getHappiness());
 		assertEquals(1, farm.getActionsLeft());
 	}
-	
+
 	@Test
 	void animalFarmPlayTest() {
 		Cow moomoo = new Cow();
@@ -102,7 +100,7 @@ class FarmerTest {
 		assertEquals(161, pigsy.showAnimals().get(0).getHappiness());
 		assertEquals(236, pigsy.showAnimals().get(1).getHappiness());
 	}
-	
+
 	@Test //test completed 08/05/2020
 	void animal_feeding_items_test() {
 		Stockfeed stockfeed = new Stockfeed();
@@ -120,7 +118,7 @@ class FarmerTest {
 		assertEquals(250, farm.showAnimals().get(0).getHealth());
 		assertEquals(225, farm.showAnimals().get(1).getHealth());
 	}
-	
+
 	@Test //test completed 08/05/2020
 	void cropTendingTest() {
 		Carrot carrot = new Carrot();
@@ -132,7 +130,7 @@ class FarmerTest {
 		brown.tendToCrops("watering plants", carrot, null);
 		assertEquals(5, farm.showCrops().get(0).getDaysLeft());
 	}
-	
+
 	@Test //tests completed 08/05/2020
 	void TomaccoCropTest() {
 		Tomacco cig = new Tomacco();
@@ -155,7 +153,7 @@ class FarmerTest {
 		assertEquals(2, spring.showCrops().get(1).getDaysLeft());
 		assertEquals(2, spring.showCrops().get(2).getDaysLeft());
 	}
-	
+
 	@Test
 	void moreCropItemsTests() {
 		InstantGroPro igp = new InstantGroPro();
@@ -169,7 +167,7 @@ class FarmerTest {
 		assertEquals(0, farm.showCrops().get(1).getDaysLeft());
 		assertEquals(18, farm.showCrops().get(0).getDaysLeft());
 	}
-	
+
 	@Test //test completed 13/05/2020
 	void moomooFarmCropTests() {
 		MoomooFarm seacow = new MoomooFarm();
@@ -185,19 +183,26 @@ class FarmerTest {
 		hachi.tendToCrops("watering plants", carrot, null);
 		assertEquals(2, seacow.showCrops().get(0).getDaysLeft());
 	}
-	
+
 	@Test
 	void itemDeletionTest() {
 		Stockfeed stock = new Stockfeed();
+		Compost compost = new Compost();
 		Cow moomoo = new Cow();
 		farm.addAnimal(moomoo);
 		farm.addItem(stock);
 		farm.addItem(stock);
-		farm.addItem(stock);
+		farm.addItem(stock); // add the same instance three times
+		farm.addItem(compost);
+		farm.addItem(new Stockfeed()); // add a different instance
+		farm.addItem(new Stockfeed()); // add another different instance
+		// This should delete all three occurrences of the same Stockfeed
+		// instance, BUT leave the remaining two instances of Stockfeed
+		// (created via new Stockfeed()) intact.
 		brown.feedAnimals(stock);
-		assertEquals(2, farm.showItems().size());
+		assertEquals(3, farm.showItems().size());
 	}
-	
+
 	@Test
 	void itemDeletionTest2() {
 		Carrot carrot = new Carrot();
