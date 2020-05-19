@@ -1,3 +1,9 @@
+/**
+ * a child of items
+ * This gives health benefit when fed to animals
+ */
+
+
 package main.items;
 
 public class PandaGummy extends Item {
