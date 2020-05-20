@@ -160,8 +160,8 @@ public class Store {
 			farm.updateBankBalance(-(int)price);
 			//animal farm bonus implemented & tested
 			if (farm instanceof AnimalFarm) {
-				float health = newAnimal.getHealth() * ((AnimalFarm)farm).animal_bonus;
-				float happy = newAnimal.getHappiness() * ((AnimalFarm)farm).animal_bonus;
+				float health = newAnimal.getHealth() * ((AnimalFarm)farm).animalBonus;
+				float happy = newAnimal.getHappiness() * ((AnimalFarm)farm).animalBonus;
 				newAnimal.updateHealth((int)health);
 				newAnimal.updateHappiness((int)happy);
 			}
