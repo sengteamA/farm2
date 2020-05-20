@@ -42,8 +42,8 @@ public class StoreGUI {
 	private final float TRUMP_RANCH_DISCOUNT = (float)0.9;
 
 	/**
-	 * The new price of cows if the farm is a Moo Moo Farm, as a proportion of
-	 * the original price.
+	 * The new price of cows if the farm is a Moo Moo Farm, as a proportion
+	 * of the original price.
 	 */
 	private final float MOOMOO_FARM_DISCOUNT = (float)0.8;
 
@@ -181,12 +181,13 @@ public class StoreGUI {
 			manager.farm.addCrop(newCrop);
 			refreshMoneyLabel();
 			refreshAssetList();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | SecurityException | NoSuchMethodException e) {
+		} catch (InstantiationException | IllegalAccessException |
+				IllegalArgumentException | InvocationTargetException |
+				SecurityException | NoSuchMethodException e) {
 			// handle potential errors by just stopping the entire method
 			e.printStackTrace();
-			throw new IllegalArgumentException("Something's wrong with this product. " +
-					"Buy something else instead?");
+			throw new IllegalArgumentException("Something's wrong with this " +
+					"product. Buy something else instead?");
 		}
 	}
 
