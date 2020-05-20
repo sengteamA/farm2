@@ -14,7 +14,6 @@ import main.crops.*;
 import main.items.*;
 
 class FarmTest {
-
 	public Farm testFarm;
 
 	@BeforeEach
@@ -22,9 +21,34 @@ class FarmTest {
 		testFarm = new Farm("My new farm", "Flavour text");
 	}
 
+	/**
+	 * Checks getName and setName are working properly.
+	 */
+	@Test
+	void nameTest() {
+		String myName = "bacon and eggs";
+		testFarm.setName(myName);
+		assertEquals(myName, testFarm.getName());
+	}
+
+	/**
+	 * Checks if bank balance is working.
+	 */
 	@Test
 	void bankBalanceTest() {
 		assertEquals(1000, testFarm.getBankBalance());
+	}
+
+	/**
+	 * Animal bonus should be 0 unless it's an Animal Farm, in which case
+	 * it is 20% (0.2).
+	 */
+	@Test
+	void animalBonusTest() {
+		assertEquals(0, testFarm.getAnimalBonus());
+		AnimalFarm animalFarm = new AnimalFarm();
+		assertEquals((float)0.2, animalFarm.getAnimalBonus());
+
 	}
 
 	@Test
@@ -102,6 +126,9 @@ class FarmTest {
 		assertTrue(testFarm.hasPlantItems());
 	}
 
+	/**
+	 * Checks if a crop is on the farm.
+	 */
 	@Test
 	void inStockTests() {
 		Carrot carrot = new Carrot();
@@ -110,6 +137,9 @@ class FarmTest {
 		assertTrue(testFarm.plantInStock(carrot));
 	}
 
+	/**
+	 * Check if we can reach the farm cap of ten.
+	 */
 	@Test
 	void farmCapTests() {
 		assertTrue(testFarm.hasSpace());
@@ -119,6 +149,9 @@ class FarmTest {
 		assertFalse(testFarm.hasSpace());
 	}
 
+	/**
+	 * Checks if getItemType works.
+	 */
 	@Test
 	void itemFilterTest() {
 		Compost compost = new Compost();
@@ -131,6 +164,9 @@ class FarmTest {
 		assertEquals(2, testFarm.getItemType("Animal").size());
 	}
 
+	/**
+	 * Test that adding every type of crop works.
+	 */
 	@Test
 	void getCropTypeTest() {
 		testFarm.addCrop(new Wheat());
@@ -151,11 +187,18 @@ class FarmTest {
 		assertEquals("Wheat", types.get(5));
 	}
 
+	/**
+	 * Checks if an empty farm has no crop types.
+	 */
 	@Test
 	void getCropTypeEmptyTest() {
 		assertEquals(true, testFarm.getCropType().isEmpty());
 	}
 
+	/**
+	 * Make sure the user can't add the same animal instance twice.
+	 * (A clone is fine though.)
+	 */
 	@Test
 	void animalDupeTest() {
 		Cow cow = new Cow();
@@ -171,6 +214,9 @@ class FarmTest {
 		));
 	}
 
+	/**
+	 * Checks that adding the same crop instance twice doesn't work.
+	 */
 	@Test
 	void cropDupeTest() {
 		Carrot carrot = new Carrot();
@@ -186,6 +232,9 @@ class FarmTest {
 		));
 	}
 
+	/**
+	 * Checks that adding the same item instance twice doesn't work.
+	 */
 	@Test
 	void itemDupeTest() {
 		Stockfeed stockfeed = new Stockfeed();
