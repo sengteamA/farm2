@@ -20,10 +20,6 @@ public class Farm {
 	private ArrayList<Animal> animals;
 	private ArrayList<Crop> crops;
 	private ArrayList<Item> items;
-	private float cropGrowthSpeed = 1;
-	private int initialCashBonus;
-	private float happinessMultiplier = 1;
-	private float healthMultiplier = 1;
 	private int actionsLeft = 2;
 	private int farmCap = 10;
 	private String flavour;
@@ -448,6 +444,6 @@ public class Farm {
 	 * @return the score of the game
 	 */
 	public int getScore() {
-		return this.getBankBalance() + (this.showAnimals().size() + this.showCrops().size()) * 100;
+		return this.getBankBalance() + (this.showAnimals().size() + this.showCrops().size()) * 10;
 	}
 }
