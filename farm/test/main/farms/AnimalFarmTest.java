@@ -28,6 +28,11 @@ class AnimalFarmTest {
 		assertTrue(snowball instanceof AnimalFarm);
 		assertTrue(snowball instanceof Farm);
 	}
+	
+	@Test 
+	void animalBonusTest() {
+		assertEquals((float)0.2, snowball.getAnimalBonus());
+	}
 
 
 }
