@@ -19,8 +19,8 @@ class AnimalFarmTest {
 	void flavourTest() {
 		String s = snowball.getFlavour();
 		assertEquals("All Animals are equal, but some are more equal than others.\n"
-				+ "All animals start 20% happier and healthier on purchase\n"
-				+ "Feeding and playing with animals is 20% more effective\n", s);
+				+ "All animals start 20% happier and healthier on purchase.\n"
+				+ "Feeding and playing with animals is 20% more effective.\n", s);
 	}
 
 	@Test // passed 02/05/2020
