@@ -15,18 +15,6 @@ class AnimalFarmTest {
 		snowball = new AnimalFarm();
 	}
 
-	@Test //passed 16/04/2020
-	void healthBonusTest() {
-		float health = 10 * snowball.animal_bonus;
-		assertEquals(2, health);
-	}
-
-	@Test //passed 16/04/2020
-	void happyBonusTest() {
-		float happy = 10 * snowball.animal_bonus;
-		assertEquals(2, happy);
-	}
-
 	@Test // passed 16/04/2020
 	void flavourTest() {
 		String s = snowball.getFlavour();
