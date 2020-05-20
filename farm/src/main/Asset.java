@@ -9,6 +9,12 @@ public class Asset {
 	protected String name;
 	protected int purchasePrice;
 
+	/**
+	 * Creates a new asset. This could be a crop, an animal, or an item.
+	 *
+	 * @param name name of the asset, used as a unique identifier for the item
+	 * @param purchasePrice the cost to purchase this in the store
+	 */
 	public Asset(String name, int purchasePrice) {
 		this.name = name;
 		this.purchasePrice = purchasePrice;
