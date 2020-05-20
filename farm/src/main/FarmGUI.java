@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.ListModel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
@@ -31,6 +32,8 @@ public class FarmGUI {
 	private JFrame frmFarmOverview;
 	private JLabel lblActions;
 	private JLabel lblFarmMoney;
+	private JComboBox comboBox;
+	private JList<String> listsDisplay;
 	private GameManager manager;
 	private JTextField txtDays;
 	private JTextField textField;
@@ -41,7 +44,11 @@ public class FarmGUI {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-
+	private JTextField viewAssets;
+	
+	private final int ANIMAL_INDEX = 1;
+	private final int CROP_INDEX = 2;
+	private final int ITEM_INDEX = 3;
 
 
 	/**
@@ -79,6 +86,26 @@ public class FarmGUI {
 	
 	public void launchStore() {
 		manager.launchStore();
+	}
+	
+	private void refreshAssetList() {
+		DefaultListModel<String> assetListModel = new DefaultListModel<>();
+		if (comboBox.getSelectedItem().equals("Animals")) {
+			for (Animal animal: manager.farm.showAnimals()) {
+				assetListModel.addElement(animal.toString());
+			}
+		}
+		else if (comboBox.getSelectedItem().equals("Crops")) {
+			for (Crop crop: manager.farm.showCrops()) {
+				assetListModel.addElement(crop.toString());
+			}
+		}
+		else if (comboBox.getSelectedItem().equals("Items")) {
+			for (Item item: manager.farm.showItems()) {
+				assetListModel.addElement(item.toString());
+			}
+		}
+		listsDisplay.setModel(assetListModel);
 	}
 	
 
@@ -147,46 +174,30 @@ public class FarmGUI {
 		btnVisitStore.setBounds(196, 142, 155, 48);
 		frmFarmOverview.getContentPane().add(btnVisitStore);
 
-		String assets[] = {"", "Animals", "Crops", "Items"};
-		JComboBox comboBox = new JComboBox(assets);
-		comboBox.setBounds(31, 298, 111, 34);
-		frmFarmOverview.getContentPane().add(comboBox);
 		
-		JList listsDisplay = new JList();
+		
+		//will not automatically update unless "pressed" again
+		JTextField ViewAssets = new JTextField("View Assets");
+		ViewAssets.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		listsDisplay = new JList();
 		listsDisplay.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		listsDisplay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		listsDisplay.setBounds(152, 256, 199, 173);
 		frmFarmOverview.getContentPane().add(listsDisplay);
+
 		
-		//will not automatically update unless "pressed" again
-		JButton btnViewAssets = new JButton("View Assets");
-		btnViewAssets.addActionListener(new ActionListener() {
+		String assets[] = {"", "Animals", "Crops", "Items"};
+		comboBox = new JComboBox(assets);
+		comboBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox.getSelectedItem().equals("Animals")) {
-					DefaultListModel<Animal> animalListModel = new DefaultListModel<>();
-					animalListModel.addAll(manager.farm.showAnimals());
-					listsDisplay.setModel(animalListModel);
-				}
-				else if (comboBox.getSelectedItem().equals("Crops")) {
-					DefaultListModel<Crop> cropListModel = new DefaultListModel<>();
-					cropListModel.addAll(manager.farm.showCrops());
-					listsDisplay.setModel(cropListModel);
-				}
-				else if (comboBox.getSelectedItem().equals("Items")) {
-					DefaultListModel<Item> itemListModel = new DefaultListModel<>();
-					itemListModel.addAll(manager.farm.showItems());
-					listsDisplay.setModel(itemListModel);
-				}
-				else {
-					DefaultListModel<String> placeHolder = new DefaultListModel<String>();
-					listsDisplay.setModel(placeHolder);
-				}
+				refreshAssetList();
 			}
 		});
-		
-		btnViewAssets.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnViewAssets.setBounds(31, 257, 111, 42);
-		frmFarmOverview.getContentPane().add(btnViewAssets);
+		comboBox.setSelectedIndex(0);
+		comboBox.setBounds(31, 298, 111, 34);
+		frmFarmOverview.getContentPane().add(comboBox);
 		
 		JButton btnHarvestCrops = new JButton("Harvest Crops");
 		btnHarvestCrops.addActionListener(new ActionListener() {
@@ -203,9 +214,7 @@ public class FarmGUI {
 				else {
 					manager.farmer.harvestCrops();
 					JOptionPane.showMessageDialog(frmFarmOverview, "Crop(s) were harvested and sold.");
-					DefaultListModel<Crop> cropListModel = new DefaultListModel<>();
-					cropListModel.addAll(manager.farm.showCrops());
-					listsDisplay.setModel(cropListModel);
+					refreshAssetList();
 				}
 				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
@@ -236,11 +245,7 @@ public class FarmGUI {
 					manager.farmer.playWithAnimals();
 					lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 					JOptionPane.showMessageDialog(frmFarmOverview, "Your animals are happier for your attention.");
-					if (comboBox.getSelectedItem() == "Animals") {
-						DefaultListModel<Animal> animalListModel = new DefaultListModel<>();
-						animalListModel.addAll(manager.farm.showAnimals());
-						listsDisplay.setModel(animalListModel);
-					}
+					refreshAssetList();
 				}
 			}
 		});
@@ -269,8 +274,7 @@ public class FarmGUI {
 				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 				comboBox.setSelectedIndex(0);
-				DefaultListModel<String> placeHolder = new DefaultListModel<String>();
-				listsDisplay.setModel(placeHolder);
+				refreshAssetList();
 			}
 		});
 		btnDayEnd.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -299,10 +303,7 @@ public class FarmGUI {
 				}
 				else {
 					manager.launchFeedingScreen();	
-					//observer required
 				}
-				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
-				
 			}
 		});
 		
@@ -321,13 +322,20 @@ public class FarmGUI {
 				}
 				else {
 					manager.launchCropsScreen();
-					//observer required??
 				}
 			}
 		});
 		tendtoCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tendtoCrops.setBounds(31, 28, 155, 48);
 		frmFarmOverview.getContentPane().add(tendtoCrops);
+		
+		viewAssets = new JTextField();
+		viewAssets.setText("View Assets");
+		viewAssets.setFont(new Font("Tahoma", Font.BOLD, 15));
+		viewAssets.setHorizontalAlignment(SwingConstants.CENTER);
+		viewAssets.setBounds(31, 256, 111, 34);
+		frmFarmOverview.getContentPane().add(viewAssets);
+		viewAssets.setColumns(10);
 
 		
 		
