@@ -1,49 +1,72 @@
-package main;
+package main.items;
 
 import static org.junit.jupiter.api.Assertions.*;
-import main.items.*;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * 
- * @author nickl
- * Tests that the general getter and setter functions are functionally correctly
- *
+ * Comprehensively tests the Item class.
+ * @author Nick
  */
-class ItemTests {
+class ItemTest {
 	/**
-	 * tests flavour text getter
+	 * Tests flavour text getter
 	 */
 	@Test
-	void chemical_spray_test() {
+	void chemicalSprayTest() {
 		ChemicalSpray Chemical = new ChemicalSpray();
 		assertEquals("kills bugs, and humans if you're not careful", Chemical.getFlavour());
 	}
-	
+
 	/**
-	 * tests that benefits are displayed correctly
+	 * Tests that benefits are displayed correctly
 	 */
 	@Test
-	void panda_gummy_test() {
+	void pandaGummyTest() {
 		PandaGummy panda = new PandaGummy();
 		assertEquals("Health + 100", panda.getBenefit());
 	}
-	
+
 	/**
-	 * tests name of product is correctly displayed
+	 * Tests name of product is correctly displayed
 	 */
 	@Test
-	void ig_pro_test() {
+	void instantGroProTest() {
 		InstantGroPro ig = new InstantGroPro();
 		assertEquals("Instant-Grow Pro(R)", ig.getName());
 	}
+
 	/**
-	 * test for price of item
+	 * Test for price of item
 	 */
 	@Test
-	void compost_test() {
+	void compostTest() {
 		Compost compost = new Compost();
 		assertEquals(150, compost.getPurchasePrice());
+	}
+
+	/**
+	 * Test toString works
+	 */
+	@Test
+	void toStringTest() {
+		String name = "Blue";
+		String benefit = "Benefit";
+		Item blue = new Item(name, 500, "Crop", benefit, "Flavour text");
+		assertEquals(name + ": " + benefit, blue.toString());
+	}
+
+	/**
+	 * Test getInfo works
+	 */
+	@Test
+	void getInfoTest() {
+		String name = "Pink";
+		String type = "Crop";
+		String benefit = "Benefit text";
+		String flavour = "Flavour text";
+		Item blue = new Item(name, 500, type, benefit, flavour);
+		assertEquals(name + ": (for " + type + ")\n" + benefit + "\n" + flavour,
+				blue.getInfo());
 	}
 }
