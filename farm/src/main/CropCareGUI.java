@@ -44,11 +44,11 @@ public class CropCareGUI {
 		initialize();
 		frmCropManagement.setVisible(true);
 	}
-	
+
 	public void closeWindow() {
 		frmCropManagement.dispose();
 	}
-	
+
 	public void finishedWindow() {
 		manager.closeCropScreen(this);
 	}
@@ -70,7 +70,7 @@ public class CropCareGUI {
 		cropListModel.addAll(manager.farm.getCropType());
 		plantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		plantList.setModel(cropListModel);
-		
+
 		JList ItemList = new JList();
 		ItemList.setBounds(453, 57, 218, 201);
 		ItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -78,31 +78,34 @@ public class CropCareGUI {
 		DefaultListModel<Item> itemListModel = new DefaultListModel<>();
 		itemListModel.addAll(manager.farm.getItemType("Crop"));
 		ItemList.setModel(itemListModel);
-		
+
 		playerPlants = new JTextField();
 		playerPlants.setText("Player plants");
 		playerPlants.setHorizontalAlignment(SwingConstants.CENTER);
 		playerPlants.setFont(new Font("Tahoma", Font.BOLD, 15));
 		playerPlants.setBounds(255, 12, 167, 35);
+		playerPlants.setEditable(false);
 		frmCropManagement.getContentPane().add(playerPlants);
 		playerPlants.setColumns(10);
-		
+
 		playerItems = new JTextField();
 		playerItems.setHorizontalAlignment(SwingConstants.CENTER);
 		playerItems.setText("Player Items");
 		playerItems.setFont(new Font("Tahoma", Font.BOLD, 15));
 		playerItems.setColumns(10);
 		playerItems.setBounds(453, 12, 218, 35);
+		playerPlants.setEditable(false);
 		frmCropManagement.getContentPane().add(playerItems);
-		
+
 		String acts[] = {"water plants", "use item"};
 		actBox = new JComboBox(acts);
 		actBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		actBox.setBounds(54, 102, 140, 45);
 		frmCropManagement.getContentPane().add(actBox);
-		
+
 		btnAction = new JButton("Confirm Action");
 		btnAction.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Carrot carrot = new Carrot();
 				Hipotke hip = new Hipotke();
@@ -110,12 +113,12 @@ public class CropCareGUI {
 				Tomacco tomacco = new Tomacco();
 				Wasabi wasabi = new Wasabi();
 				Wheat wheat = new Wheat();
-				
+
 				ChemicalSpray spray = new ChemicalSpray();
 				Compost compost = new Compost();
 				InstantGroLite igl = new InstantGroLite();
 				InstantGroPro igp = new InstantGroPro();
-				
+
 				if (actBox.getSelectedItem() == "water plants") {
 					if (plantList.getSelectedValue() == null) {
 						JOptionPane.showMessageDialog(frmCropManagement, "Please select a crop first.", "WARNING", JOptionPane.ERROR_MESSAGE);
@@ -269,9 +272,10 @@ public class CropCareGUI {
 		btnAction.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnAction.setBounds(54, 53, 140, 45);
 		frmCropManagement.getContentPane().add(btnAction);
-		
+
 		quitButton = new JButton("Exit");
 		quitButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
 			}
