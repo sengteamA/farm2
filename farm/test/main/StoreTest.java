@@ -5,8 +5,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.animals.*;
+import main.crops.*;
 import main.farms.Farm;
+import main.items.*;
 
+/**
+ * Tests for the Store class, which implements a command-line interface for
+ * interacting with the county general store.
+ * @author Grant and Nick
+ */
 class StoreTest {
 	Farm farm;
 	Store store;
@@ -16,9 +24,7 @@ class StoreTest {
 		farm = new Farm("Test", "Test");
 		store = new Store();
 	}
-	
-	
-	
+
 	/**
 	 * Test purchasing every type of animal, with no regard
 	 * for whether the user has enough money.
@@ -26,20 +32,20 @@ class StoreTest {
 	@Test
 	void purchaseAnimalTest() {
 		farm.updateBankBalance(10000000);
-		assertTrue(store.purchaseAnimal(farm, "Cow"));
-		assertTrue(store.purchaseAnimal(farm, "Fox"));
-		assertTrue(store.purchaseAnimal(farm, "Sheep"));
+		assertTrue(store.purchaseAnimal(farm, new Cow().getName()));
+		assertTrue(store.purchaseAnimal(farm, new Fox().getName()));
+		assertTrue(store.purchaseAnimal(farm, new Sheep().getName()));
 	}
-	
+
 	/**
 	 * Test purchasing an animal with not enough money.
 	 */
 	@Test
 	void purchaseAnimalNotEnoughMoneyTest() {
 		farm.updateBankBalance(-farm.getBankBalance() - 1);
-		assertFalse(store.purchaseAnimal(farm, "Cow"));
+		assertFalse(store.purchaseAnimal(farm, new Cow().getName()));
 	}
-	
+
 	/**
 	 * Test purchasing an animal that doesn't exist.
 	 */
@@ -47,7 +53,7 @@ class StoreTest {
 	void purchaseInvalidAnimalTest() {
 		assertFalse(store.purchaseAnimal(farm, "Shiba Inu"));
 	}
-	
+
 	/**
 	 * Test purchasing every type of crop, with no regard
 	 * for whether the user has enough money.
@@ -55,14 +61,14 @@ class StoreTest {
 	@Test
 	void purchaseCropTest() {
 		farm.updateBankBalance(10000000);
-		assertTrue(store.purchaseCrop(farm, "Carrot"));
-		assertTrue(store.purchaseCrop(farm, "Hipotke Grass"));
-		assertTrue(store.purchaseCrop(farm, "Mushroom"));
-		assertTrue(store.purchaseCrop(farm, "Tomacco"));
-		assertTrue(store.purchaseCrop(farm, "Wasabi"));
-		assertTrue(store.purchaseCrop(farm, "Wheat"));
+		assertTrue(store.purchaseCrop(farm, new Carrot().getName()));
+		assertTrue(store.purchaseCrop(farm, new Hipotke().getName()));
+		assertTrue(store.purchaseCrop(farm, new Mushroom().getName()));
+		assertTrue(store.purchaseCrop(farm, new Tomacco().getName()));
+		assertTrue(store.purchaseCrop(farm, new Wasabi().getName()));
+		assertTrue(store.purchaseCrop(farm, new Wheat().getName()));
 	}
-	
+
 	/**
 	 * Test purchasing a crop that doesn't exist.
 	 */
@@ -70,16 +76,16 @@ class StoreTest {
 	void purchaseInvalidCropTest() {
 		assertFalse(store.purchaseCrop(farm, "Strawberry"));
 	}
-	
+
 	/**
 	 * Test purchasing a crop with not enough money.
 	 */
 	@Test
 	void purchaseCropNotEnoughMoneyTest() {
 		farm.updateBankBalance(-farm.getBankBalance() - 1);
-		assertFalse(store.purchaseCrop(farm, "Carrot"));
+		assertFalse(store.purchaseCrop(farm, new Carrot().getName()));
 	}
-	
+
 	/**
 	 * Test purchasing every type of item, with no regard
 	 * for whether the user has enough money.
@@ -87,14 +93,14 @@ class StoreTest {
 	@Test
 	void purchaseItemTest() {
 		farm.updateBankBalance(10000000);
-		assertTrue(store.purchaseCrop(farm, "Chemical Spray"));
-		assertTrue(store.purchaseCrop(farm, "Compost"));
-		assertTrue(store.purchaseCrop(farm, "Instant-Grow Lite"));
-		assertTrue(store.purchaseCrop(farm, "Instant-Grow Pro"));
-		assertTrue(store.purchaseCrop(farm, "Panda Gummy"));
-		assertTrue(store.purchaseCrop(farm, "Stockfeed"));
+		assertTrue(store.purchaseItem(farm, new ChemicalSpray().getName()));
+		assertTrue(store.purchaseItem(farm, new Compost().getName()));
+		assertTrue(store.purchaseItem(farm, new InstantGroLite().getName()));
+		assertTrue(store.purchaseItem(farm, new InstantGroPro().getName()));
+		assertTrue(store.purchaseItem(farm, new PandaGummy().getName()));
+		assertTrue(store.purchaseItem(farm, new Stockfeed().getName()));
 	}
-	
+
 	/**
 	 * Test purchasing an item that doesn't exist.
 	 */
@@ -102,13 +108,13 @@ class StoreTest {
 	void purchaseInvalidItemTest() {
 		assertFalse(store.purchaseItem(farm, "Max Potion"));
 	}
-	
+
 	/**
 	 * Test purchasing an item with not enough money.
 	 */
 	@Test
 	void purchaseItemNotEnoughMoneyTest() {
 		farm.updateBankBalance(-farm.getBankBalance() - 1);
-		assertFalse(store.purchaseItem(farm, "Compost"));
+		assertFalse(store.purchaseItem(farm, new Compost().getName()));
 	}
 }
