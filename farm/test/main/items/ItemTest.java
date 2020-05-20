@@ -1,72 +1,70 @@
-package main.items;
+package main;
 
 import static org.junit.jupiter.api.Assertions.*;
+import main.items.*;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Comprehensively tests the Item class.
- * @author Nick
+ * 
+ * @author nickl
+ * Tests that the general getter and setter functions are functionally correctly
+ *
  */
-class ItemTest {
+class ItemTests {
 	/**
-	 * Tests flavour text getter
+	 * tests flavour text getter
 	 */
 	@Test
-	void chemicalSprayTest() {
+	void chemical_spray_test() {
 		ChemicalSpray Chemical = new ChemicalSpray();
 		assertEquals("kills bugs, and humans if you're not careful", Chemical.getFlavour());
 	}
-
+	
 	/**
-	 * Tests that benefits are displayed correctly
+	 * tests that benefits are displayed correctly
 	 */
 	@Test
-	void pandaGummyTest() {
+	void panda_gummy_test() {
 		PandaGummy panda = new PandaGummy();
 		assertEquals("Health + 100", panda.getBenefit());
 	}
-
+	
 	/**
-	 * Tests name of product is correctly displayed
+	 * tests name of product is correctly displayed
 	 */
 	@Test
-	void instantGroProTest() {
+	void ig_pro_test() {
 		InstantGroPro ig = new InstantGroPro();
 		assertEquals("Instant-Grow Pro(R)", ig.getName());
 	}
-
 	/**
-	 * Test for price of item
+	 * test for price of item
 	 */
 	@Test
-	void compostTest() {
+	void compost_test() {
 		Compost compost = new Compost();
 		assertEquals(150, compost.getPurchasePrice());
 	}
-
-	/**
-	 * Test toString works
-	 */
+	
 	@Test
-	void toStringTest() {
-		String name = "Blue";
-		String benefit = "Benefit";
-		Item blue = new Item(name, 500, "Crop", benefit, "Flavour text");
-		assertEquals(name + ": " + benefit, blue.toString());
+	void iglTest() {
+		InstantGroLite igl = new InstantGroLite();
+		assertEquals("Instant-Grow Lite(R)", igl.getName());
+		assertEquals(700, igl.getPurchasePrice());
+		assertEquals("Halves days to harvest", igl.getBenefit());
+		assertEquals("a lesser brand of witchcraft for the casual farmer", igl.getFlavour());
 	}
-
-	/**
-	 * Test getInfo works
-	 */
+	
 	@Test
-	void getInfoTest() {
-		String name = "Pink";
-		String type = "Crop";
-		String benefit = "Benefit text";
-		String flavour = "Flavour text";
-		Item blue = new Item(name, 500, type, benefit, flavour);
-		assertEquals(name + ": (for " + type + ")\n" + benefit + "\n" + flavour,
-				blue.getInfo());
+	void stockTest() {
+		Stockfeed stock = new Stockfeed();
+		assertEquals("Stockfeed", stock.getName());
+		assertEquals(200, stock.getPurchasePrice());
+		assertEquals("Animal", stock.getType());
+		assertEquals("Health + 50", stock.getBenefit());
+		assertEquals("Staple of all living livestocks", stock.getFlavour());
+		assertEquals("Stockfeed: Health + 50", stock.toString());
+		assertEquals("Stockfeed: (for Animal)\nHealth + 50\nStaple of all living livestocks", stock.getInfo());
 	}
 }
