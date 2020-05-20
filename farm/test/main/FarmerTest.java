@@ -102,7 +102,7 @@ class FarmerTest {
 	}
 
 	@Test
-	void animal_feeding_items_test() {
+	void animalFeedingItemsTest() {
 		Stockfeed stockfeed = new Stockfeed();
 		PandaGummy panda = new PandaGummy();
 		Cow moomoo = new Cow();
@@ -161,7 +161,6 @@ class FarmerTest {
 		Hipotke hip = new Hipotke();
 		farm.addItem(igp);
 		farm.addCrop(hip);
-		farm.addCrop(carrot);
 		farm.addCrop(carrot);
 		brown.tendToCrops("use item", carrot, igp);
 		assertEquals(0, farm.showCrops().get(1).getDaysLeft());
