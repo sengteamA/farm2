@@ -22,7 +22,6 @@ public class Game {
 	private int dayNumber = 1;
 	private int maxDays = 0;
 	private int score = 0; // TODO figure out how to calculate score
-	private int actionsLeft = 2; // TODO is this even used?
 
 	private void setGameDuration(Scanner sc) {
 		System.out.print("For how many days (from 5 to 10) would you like to play? ");
@@ -218,7 +217,6 @@ public class Game {
 	}
 
 	private void promptAction(Scanner sc) {
-		// TODO: test this
 		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
 		System.out.println("1. Tend to crops.");
 		System.out.println("2. Feed animals.");
@@ -234,7 +232,7 @@ public class Game {
 			try {
 				switch (sc.nextInt()) {
 				case 1:
-					
+
 					System.out.println("Tending to the crops...");
 					if (farm.hasCrops() == false) {
 						System.out.println("You have no crops.");
@@ -271,7 +269,7 @@ public class Game {
 													farmer.tendToCrops("watering plants", carrot, null);
 													System.out.println("Watered crops...");
 													break actionLoop;
-												
+
 												case 2:
 													if (farm.hasPlantItems() == false) {
 														System.out.println("You do not have crop items in stock");
@@ -284,8 +282,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -312,7 +310,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 3:
 																InstantGroLite igl = new InstantGroLite();
 																if (farm.itemInHand(igl) == false) {
@@ -324,7 +322,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -343,13 +341,13 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -375,7 +373,7 @@ public class Game {
 													farmer.tendToCrops("watering plants", hip, null);
 													System.out.println("Watered crops...");
 													break actionLoop;
-												
+
 												case 2:
 													if (farm.hasPlantItems() == false) {
 														System.out.println("You do not have crop items in stock");
@@ -388,8 +386,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -405,7 +403,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 2:
 																Compost compost = new Compost();
 																if (farm.itemInHand(compost) == false) {
@@ -417,7 +415,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 3:
 																InstantGroLite igl = new InstantGroLite();
 																if (farm.itemInHand(igl) == false) {
@@ -429,7 +427,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -441,7 +439,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 5:
 																System.out.println("Returning...");
 																break itemLoop;
@@ -449,13 +447,13 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -481,7 +479,7 @@ public class Game {
 													farmer.tendToCrops("watering plants", mush, null);
 													System.out.println("Watered crops...");
 													break actionLoop;
-												
+
 												case 2:
 													if (farm.hasPlantItems() == false) {
 														System.out.println("You do not have crop items in stock");
@@ -494,8 +492,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -511,7 +509,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 2:
 																Compost compost = new Compost();
 																if (farm.itemInHand(compost) == false) {
@@ -535,7 +533,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -547,7 +545,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 5:
 																System.out.println("Returning...");
 																break itemLoop;
@@ -555,13 +553,13 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -570,7 +568,7 @@ public class Game {
 									}
 										break innerLoop1;
 									}
-									
+
 								case 4:
 									Tomacco tomacco = new Tomacco();
 									if (farm.plantInStock(tomacco) == false) {
@@ -588,7 +586,7 @@ public class Game {
 													farmer.tendToCrops("watering plants", tomacco, null);
 													System.out.println("Watered crops...");
 													break actionLoop;
-												
+
 												case 2:
 													if (farm.hasPlantItems() == false) {
 														System.out.println("You do not have crop items in stock");
@@ -601,8 +599,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -618,7 +616,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 2:
 																Compost compost = new Compost();
 																if (farm.itemInHand(compost) == false) {
@@ -630,7 +628,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 3:
 																InstantGroLite igl = new InstantGroLite();
 																if (farm.itemInHand(igl) == false) {
@@ -642,7 +640,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -654,7 +652,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 5:
 																System.out.println("Returning...");
 																break itemLoop;
@@ -662,15 +660,15 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}
-														
+
 														}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -708,8 +706,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -725,7 +723,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 2:
 																Compost compost = new Compost();
 																if (farm.itemInHand(compost) == false) {
@@ -737,7 +735,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 3:
 																InstantGroLite igl = new InstantGroLite();
 																if (farm.itemInHand(igl) == false) {
@@ -749,7 +747,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -761,7 +759,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 5:
 																System.out.println("Returning...");
 																break itemLoop;
@@ -769,13 +767,13 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -784,7 +782,7 @@ public class Game {
 									}
 										break innerLoop1;
 									}
-									
+
 								case 6:
 									Wheat wheat = new Wheat();
 									if (farm.plantInStock(wheat) == false) {
@@ -802,7 +800,7 @@ public class Game {
 													farmer.tendToCrops("watering plants", wheat, null);
 													System.out.println("Watered crops...");
 													break actionLoop;
-												
+
 												case 2:
 													if (farm.hasPlantItems() == false) {
 														System.out.println("You do not have crop items in stock");
@@ -815,8 +813,8 @@ public class Game {
 														}
 														System.out.println("Enter 1: use chemical spray");
 														System.out.println("Enter 2: use compost");
-														System.out.println("Enter 3: use Instant-Grow Lite®");
-														System.out.println("Enter 4: use Instant-Grow Pro®");
+														System.out.println("Enter 3: use Instant-Grow Liteï¿½");
+														System.out.println("Enter 4: use Instant-Grow Proï¿½");
 														System.out.println("Enter 5: exit");
 														itemLoop: while (true) {
 														try {
@@ -832,7 +830,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 2:
 																Compost compost = new Compost();
 																if (farm.itemInHand(compost) == false) {
@@ -843,7 +841,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 3:
 																InstantGroLite igl = new InstantGroLite();
 																if (farm.itemInHand(igl) == false) {
@@ -855,7 +853,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 4:
 																InstantGroPro igp = new InstantGroPro();
 																if (farm.itemInHand(igp) == false) {
@@ -867,7 +865,7 @@ public class Game {
 																	System.out.println("Item used...");
 																	break itemLoop;
 																}
-																
+
 															case 5:
 																System.out.println("Returning...");
 																break itemLoop;
@@ -875,13 +873,13 @@ public class Game {
 																System.out.println("Please type a valid number.");
 																sc.next();
 															}
-															
+
 													}catch (InputMismatchException e) {
 														System.out.println("Please type a valid number.");
 														sc.next();
 													}}
 														}
-															
+
 											}}catch (InputMismatchException e) {
 											System.out.println("Please type a valid number.");
 											sc.next();
@@ -890,16 +888,16 @@ public class Game {
 									}
 										break innerLoop1;
 									}
-									
+
 								case 7:
 									System.out.println("Returning");
 									break innerLoop1;
-									
+
 								default:
 									System.out.println("Please type a valid number.");
 									sc.next();
 								}
-								
+
 						} catch (InputMismatchException e) {
 							System.out.println("Please type a valid number.");
 							sc.next();
@@ -907,14 +905,14 @@ public class Game {
 					}
 				}
 				break optionLoop;
-				
+
 				case 2:
 					System.out.println("Feeding the animals...");
 					if (farm.hasAnimals() == false) {
 						System.out.println("You have no animals to feed.");
 						break optionLoop;
 					}
-					
+
 					else if (farm.hasFoodItems() == false) {
 						System.out.println("You have no food for your animals");
 						break optionLoop;
@@ -955,20 +953,20 @@ public class Game {
 								case 3:
 									System.out.println("Returning...");
 									break innerLoop;
-								
+
 								default:
 									System.out.println("Please type a valid number.");
 									sc.next();
 								}
-								
-								
+
+
 							}catch (InputMismatchException e) {
 								System.out.println("Please type a valid number.");
 								sc.next();
 						}
 					}}
 					break optionLoop;
-						
+
 				case 3:
 					if (farm.hasAnimals() == false) {
 						System.out.println("You have no animals to play with.");
@@ -979,7 +977,7 @@ public class Game {
 						farmer.playWithAnimals(); //completed
 						break optionLoop;
 					}
-					
+
 				case 4:
 					if (farm.hasCrops() == false) {
 						System.out.println("You have no crops.");
@@ -994,7 +992,7 @@ public class Game {
 						farmer.harvestCrops(); //completed
 						break optionLoop;
 					}
-					
+
 				case 5:
 					System.out.println("Tending to the farm land...");
 					farmer.tendToLand(); //completed
