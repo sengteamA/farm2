@@ -13,7 +13,7 @@ class StoreTest {
 
 	@BeforeEach
 	public void init() {
-		farm = new Farm();
+		farm = new Farm("Test", "Test");
 		store = new Store();
 	}
 	
