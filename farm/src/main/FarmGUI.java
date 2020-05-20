@@ -270,6 +270,12 @@ public class FarmGUI {
 				for (Crop crop: manager.farm.showCrops()) {
 					crop.updateDaysElapsed(1);
 				}
+				for (Crop crop: manager.farm.showCrops()) {
+					if (crop.getDaysLeft() == 0) {
+						JOptionPane.showMessageDialog(frmFarmOverview, "You have crops ready for harvest.");
+						break;
+					}
+				}
 				lblDay.setText("Day: " + manager.dayNumber + "/" + manager.maxDays);
 				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
