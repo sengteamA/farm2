@@ -12,6 +12,7 @@ import main.items.*;
 /**
  * Handles daily actions made to the farm by the player.
  * Also stores name and age of player.
+ *
  * @author Nick
  *
  */
@@ -35,9 +36,9 @@ public class Farmer {
 	 * This constructor assumes that all validation (checking if name
 	 * is valid, for instance) has already been done.
 	 *
-	 * @param myFarm - the farm to use
-	 * @param myName - name of farmer
-	 * @param myAge - age of farmer
+	 * @param myFarm the farm to use
+	 * @param myName name of farmer
+	 * @param myAge age of farmer
 	 */
 	public Farmer(Farm myFarm, String myName, int myAge) {
 		farm = myFarm;
@@ -45,26 +46,46 @@ public class Farmer {
 		age = myAge;
 	}
 
+	/**
+	 * Returns the name of the farmer. Note that the name will have been set
+	 * by the player.
+	 *
+	 * @return name of the farmer
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns the age of the farmer. This could be any integer, as there are
+	 * no restrictions on what value the age can be.
+	 *
+	 * @return age of the farmer
+	 */
 	public int getAge() {
 		return age;
 	}
-	
+
 	/**
-	 * Set name of farmer to newName. Used in command-line interface only.
+	 * Set a name for the farmer. Used in command-line interface only -- the
+	 * GUI uses the Farmer constructor instead.
 	 *
-	 * @param newName - name to set the farmer name to
+	 * @param newName the string to set the farmer's name to
 	 */
 	public void setName(String newName) {
 		name = newName;
 	}
 
+	/**
+	 * Set age of farmer. Used in command-line interface only -- the GUI uses
+	 * the Farmer constructor instead.
+	 *
+	 * @param newAge the integer to set the farmer's age to
+	 */
 	public void setAge(int newAge) {
 		age = newAge;
 	}
+
 	/**
 	 * Will be used by Farmer.setDetails() to check whether a name is valid.
 	 * (This is not implemented yet.)
@@ -86,14 +107,22 @@ public class Farmer {
 		return true;
 	}
 
-	// TODO: add some stuff to verify farmer name,
-	// using the Farmer.isValidName() method
 	/**
 	 * Prompt user for their name and age. Used by the command-line interface.
+	 * @param sc where to get user input from (usually System.in)
 	 */
 	public void setDetails(Scanner sc) {
 		System.out.print("Type your own name here: ");
-		setName(sc.nextLine());
+		String name;
+		while (true) {
+			name = sc.nextLine();
+			if (isValidName(name)) {
+				setName(name);
+				break;
+			} else {
+				name = null;
+			}
+		}
 		System.out.println("Hello " + getName() + "!");
 		System.out.print("Type your age: ");
 		while (true) {

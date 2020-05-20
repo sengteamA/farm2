@@ -16,7 +16,8 @@ import main.items.*;
  * is provided as an argument for Store's methods).
  *
  * Also stores all the animals, crops and items available for purchase.
- * @author Grant
+ *
+ * @author Grant and Nick
  *
  */
 public class Store {
@@ -24,6 +25,14 @@ public class Store {
 	private TreeMap<String,Crop> crops;
 	private TreeMap<String,Item> items;
 
+	/**
+	 * Creates a new county general store and initialises animals, crops and
+	 * items available for purchase.
+	 *
+	 * Note that this store does not store a farm instance -- a farm
+	 * instance is always passed as an argument for each of Store's
+	 * methods, e.g. when the player purchases something.
+	 */
 	public Store() {
 		animals = new TreeMap<String,Animal>();
 		crops = new TreeMap<String,Crop>();
@@ -33,14 +42,35 @@ public class Store {
 		initialiseItems();
 	}
 
+	/**
+	 * Adds animal to the Store catalogue. This is run by initialiseAnimals() to
+	 * set up all the products available.
+	 *
+	 * @param name name of the animal, to be shown in the store
+	 * @param animal an instance of the animal
+	 */
 	private void addAnimal(String name, Animal animal) {
 		animals.put(name, animal);
 	}
 
+	/**
+	 * Adds crop to the Store catalogue. This is run by initialiseCrops() to
+	 * set up all the products available.
+	 *
+	 * @param name name of the crop, to be shown in the store
+	 * @param crop an instance of the crop
+	 */
 	private void addCrop(String name, Crop crop) {
 		crops.put(name, crop);
 	}
 
+	/**
+	 * Adds item to the Store catalogue. This is run by initialiseItems() to
+	 * set up all the products available.
+	 *
+	 * @param name name of the item, to be shown in the store
+	 * @param item an instance of the item
+	 */
 	private void addItem(String name, Item item) {
 		items.put(name, item);
 	}
@@ -99,6 +129,8 @@ public class Store {
 	/**
 	 * Prints assets the player has to the system console, in a very very
 	 * rudimentary fashion.
+	 *
+	 * @param farm Farm to print the assets of
 	 */
 	public void printFarmerAssets(Farm farm) {
 		System.out.println("Your animals:");
@@ -117,24 +149,25 @@ public class Store {
 
 	/**
 	 * Display all the items in an aisle, i.e. a collection of Asset objects.
+	 *
 	 * @param aisle A tree map of animals, crops or items -- the assets in the "aisle".
 	 */
 	public void printAisleAssets(TreeMap<String,? extends Asset> aisle) {
 		// https://stackoverflow.com/a/2723538
 		// for what ? extends Asset means
 		for (Map.Entry<String,? extends Asset> entry : aisle.entrySet()) {
-			// TODO: change getInfo() of Animal, Crop and Item
-			// to be, well, more expressive
 			System.out.printf("%s: %s\n", entry.getKey(), entry.getValue().getInfo());
 		}
 	}
 
 
 	/**
-	 * Purchases an animal: checks if player has enough money, then deducts money and adds animal to farm.
-	 * @param farm - The farm to apply the purchase to.
-	 * @param animalName - the name of the animal being purchased.
-	 * @return true if animal purchase was successful, false if it wasn't.
+	 * Purchases an animal: checks if player has enough money,
+	 * then deducts money and adds animal to farm.
+	 *
+	 * @param farm the farm to apply the purchase to
+	 * @param animalName the name of the animal being purchased
+	 * @return true if animal purchase was successful, false if it wasn't
 	 */
 	public boolean purchaseAnimal(Farm farm, String animalName) {
 		Animal mapAnimal = animals.get(animalName);
@@ -145,11 +178,11 @@ public class Store {
 		try {
 			Animal newAnimal = mapAnimal.getClass().getDeclaredConstructor().newInstance();
 			float price = newAnimal.getPurchasePrice();
-			//Trump bonus implemented & tested
+			// Trump Ranch bonus
 			if (farm instanceof TrumpRanch) {
 				price = price * (float)0.9;
 			}
-			//Moomoo Farm bonus implemented & tested
+			// Moomoo Farm bonus
 			else if (farm instanceof MoomooFarm && newAnimal.getName().equals("Cow")) {
 				price = price * (float)0.8;
 			}
@@ -158,7 +191,7 @@ public class Store {
 				return false;
 			}
 			farm.updateBankBalance(-(int)price);
-			//animal farm bonus implemented & tested
+			// Animal Farm bonus
 			if (farm instanceof AnimalFarm) {
 				float health = newAnimal.getHealth() * ((AnimalFarm)farm).animalBonus;
 				float happy = newAnimal.getHappiness() * ((AnimalFarm)farm).animalBonus;
@@ -180,8 +213,9 @@ public class Store {
 	/**
 	 * Enters the animal-purchasing command line interface. Also displays
 	 * the amount of money the user currently has.
-	 * @param farm - the farm to perform the purchase on
-	 * @param sc - where to get user input from (usually System.in)
+	 *
+	 * @param farm the farm to perform the purchase on
+	 * @param sc where to get user input from (usually System.in)
 	 */
 	private void visitAnimalAisle(Farm farm, Scanner sc) {
 		outerLoop: while (true) {
@@ -203,10 +237,12 @@ public class Store {
 	}
 
 	/**
-	 * Purchases a crop: checks if player has enough money, then deducts money and adds crop to farm.
-	 * @param farm - The farm to apply the purchase to.
-	 * @param cropName - the name of the crop being purchased.
-	 * @return true if crop purchase was successful, false if it wasn't.
+	 * Purchases a crop: checks if player has enough money, then deducts
+	 * money and adds crop to farm.
+	 *
+	 * @param farm the farm to apply the purchase to
+	 * @param cropName the name of the crop being purchased
+	 * @return true if crop purchase was successful, false if it wasn't
 	 */
 	public boolean purchaseCrop(Farm farm, String cropName) {
 		Crop mapCrop = crops.get(cropName);
@@ -216,7 +252,7 @@ public class Store {
 		}
 		try {
 			Crop newCrop = mapCrop.getClass().getDeclaredConstructor().newInstance();
-			//implemented Trump bonus
+			// Trump Ranch bonus
 			float price = newCrop.getPurchasePrice();
 			if (farm instanceof TrumpRanch) {
 				price = price * (float)0.9;
@@ -238,6 +274,13 @@ public class Store {
 		}
 	}
 
+	/**
+	 * Enters the crop-purchasing command line interface. Also displays
+	 * the amount of money the user currently has.
+	 *
+	 * @param farm the farm to perform the purchase on
+	 * @param sc where to get user input from (usually System.in)
+	 */
 	private void visitCropAisle(Farm farm, Scanner sc) {
 		outerLoop: while (true) {
 			printAisleAssets(crops);
@@ -257,6 +300,14 @@ public class Store {
 		}
 	}
 
+	/**
+	 * Purchases an item: checks if player has enough money,
+	 * then deducts money and adds item to farm.
+	 *
+	 * @param farm the farm to apply the purchase to
+	 * @param itemName the name of the item being purchased
+	 * @return true if item purchase was successful, false if it wasn't
+	 */
 	public boolean purchaseItem(Farm farm, String itemName) {
 		Item mapItem = items.get(itemName);
 		if (mapItem == null) {
@@ -265,7 +316,7 @@ public class Store {
 		}
 		try {
 			Item newItem = mapItem.getClass().getDeclaredConstructor().newInstance();
-			//implemented TrumpRanch bonus and tested
+			// Trump Ranch bonus
 			float price = newItem.getPurchasePrice();
 			if (farm instanceof TrumpRanch) {
 				price = price * (float)0.9;
@@ -287,6 +338,13 @@ public class Store {
 		}
 	}
 
+	/**
+	 * Enters the item-purchasing command line interface. Also displays
+	 * the amount of money the user currently has.
+	 *
+	 * @param farm the farm to perform the purchase on
+	 * @param sc where to get user input from (usually System.in)
+	 */
 	private void visitItemAisle(Farm farm, Scanner sc) {
 		outerLoop: while (true) {
 			printAisleAssets(items);
@@ -308,6 +366,9 @@ public class Store {
 
 	/**
 	 * Runs game loop for interacting with store.
+	 *
+	 * @param farm Farm instance to use with the store.
+	 * @param sc Scanner instance to use, typically System.in.
 	 */
 	public void visitStore(Farm farm, Scanner sc) {
 		outerLoop: while (true) {
