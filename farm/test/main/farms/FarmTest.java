@@ -132,9 +132,11 @@ class FarmTest {
 	@Test
 	void inStockTests() {
 		Carrot carrot = new Carrot();
+		Wasabi wasabi = new Wasabi();
 		assertFalse(testFarm.plantInStock(carrot));
 		testFarm.addCrop(carrot);
 		assertTrue(testFarm.plantInStock(carrot));
+		assertFalse(testFarm.plantInStock(wasabi));
 	}
 
 	/**
@@ -248,5 +250,62 @@ class FarmTest {
 		assertTrue(thrown.getMessage().contentEquals(
 				"Cannot add two identical instances (duplicates) of an item"
 		));
+	}
+	
+	@Test 
+	void MoomooFarmTest() {
+		Cow cow = new Cow();
+		Sheep sheep = new Sheep();
+		MoomooFarm moo = new MoomooFarm();
+		moo.addAnimal(sheep);
+		assertFalse(moo.hasCow());
+		moo.addAnimal(cow);
+		assertTrue(moo.hasCow());
+	}
+	
+	@Test 
+	void TomaccoLandTest() {
+		TomaccoLand Homer = new TomaccoLand();
+		assertEquals("The dangers of nuclear waste meets the genius of genetic engineering\n"
+				+ "tending to crops makes them mature 1 day faster than others", Homer.getFlavour());
+	}
+	
+	@Test
+	void genericFarmTest() {
+		Farm farm2 = new Farm("Trump Ranch", "I make the best deals!", 1500);
+		assertEquals(1500, farm2.getBankBalance());
+		farm2.setName("Donald");
+		assertEquals("Donald", farm2.getName());
+		assertEquals(0, farm2.getAnimalBonus());
+		farm2.updateBankBalance(-100);
+		assertEquals(1400, farm2.getBankBalance());
+		assertEquals("Trump Ranch", farm2.getType());
+		farm2.updateAP();
+		farm2.refreshAP();
+		assertEquals(2, farm2.getActionsLeft());
+	}
+	
+	@Test 
+	void dailyBonusTest() {
+		Fox fox = new Fox();
+		testFarm.addAnimal(fox);
+		assertEquals(160, testFarm.getDailyBonusMoney());
+	}
+	
+	@Test
+	void itemInHandTest() {
+		Compost compost = new Compost();
+		Stockfeed stock = new Stockfeed();
+		testFarm.addItem(stock);
+		assertFalse(testFarm.itemInHand(compost));
+		assertTrue(testFarm.itemInHand(stock));
+	}
+	
+	@Test
+	void scoreTest() {
+		assertEquals(1000, testFarm.getScore());
+		Fox crash = new Fox();
+		testFarm.addAnimal(crash);
+		assertEquals(1010, testFarm.getScore());
 	}
 }
