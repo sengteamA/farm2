@@ -6,8 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AnimalTest {
-
-	//an object created for each animal subclass
+	// An object created for each animal subclass
 	public Sheep babe;
 	public Cow moomoo;
 	public Fox crash;
@@ -19,35 +18,53 @@ public class AnimalTest {
 		crash = new Fox();
 	}
 
-	@Test // sheep health update test passed 21/04/2020
+	/**
+	 * Check if health of sheep is bounded by maxHealth.
+	 */
+	@Test
 	void sheepHealthTest() {
 		babe.updateHealth(5);
 		assertEquals(55, babe.getHealth());
 	}
 
-	@Test // sheep happiness update test passed 21/04/2020
+	/**
+	 * Check if happiness of sheep is bounded by maxHappiness.
+	 */
+	@Test
 	void sheepHappyTest() {
 		babe.updateHappiness(5);
 		assertEquals(55, babe.getHappiness());
 	}
 
-	@Test // cow max happiness test passed 21/04/2020
+	/**
+	 * Check if happiness of cow is bounded by maxHappiness.
+	 */
+	@Test
 	void cowHappyBoundTest() {
 		moomoo.updateHappiness(300);
 		assertEquals(250, moomoo.getHappiness());
 	}
 
-	@Test // fox price test passed 21/04/2020
+	/**
+	 * Verify price of a fox.
+	 */
+	@Test
 	void foxPriceTest() {
 		assertEquals(400, crash.getPurchasePrice());
 	}
 
-	@Test // passed 30/04/2020
+	/**
+	 * Test whether the toString() method works.
+	 */
+	@Test
 	void toStringTest() {
 		assertEquals("SHEEP health 50 happiness 50", babe.toString());
 	}
 
-	@Test // passed 02/05/2020
+	/**
+	 * Test if daily bonus for an animal incrases with a higher health level.
+	 */
+	@Test
 	void bonusTest() {
 		assertEquals(100, moomoo.bonus());
 		moomoo.updateHealth(10);
