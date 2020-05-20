@@ -31,7 +31,7 @@ public class Crop extends Asset {
 	 * @param name - name of the crop
 	 * @param purchasePrice - the price the player pays to buy
 	 * @param daysToHarvest - the days a crop must go through before it is ready for harvest
-	 * @param sellingPrice - the worth of the crop once it 
+	 * @param sellingPrice - the worth of the crop once it matures
 	 */
 
 	public Crop(String name, int purchasePrice, int daysToHarvest, int sellingPrice) {
