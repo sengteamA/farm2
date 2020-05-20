@@ -415,11 +415,11 @@ public class Farm {
 	 * @param type "Animal" or "Crop".
 	 * @return A new list containing the items of the given type.
 	 */
-	public ArrayList<String> getItemType(String type) {
-		ArrayList<String> iList = new ArrayList<String>();
+	public ArrayList<Item> getItemType(String type) {
+		ArrayList<Item> iList = new ArrayList<Item>();
 		for (Item item : this.showItems()) {
 			if (item.getType().equals(type)) {
-				iList.add(item.getName());
+				iList.add(item);
 			}
 		}
 		return iList;
