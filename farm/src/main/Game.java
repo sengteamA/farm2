@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,10 +11,11 @@ import main.animals.*;
 import main.crops.*;
 import main.farms.*;
 import main.items.*;
+
 /**
  * The class that runs the game loop, and handles every object in the game.
- * @author Grant
  *
+ * @author Grant and Nick
  */
 public class Game {
 	private Farmer farmer;
@@ -21,9 +23,12 @@ public class Game {
 	private Store store;
 	private int dayNumber = 1;
 	private int maxDays = 0;
-	private int score = 0; // TODO figure out how to calculate score
 
-	private void setGameDuration(Scanner sc) {
+	/**
+	 * Command line interface for setting the duration of the game.
+	 * @param sc where to get the user input from (typically System.in)
+	 */
+	private void setGameDuration(final Scanner sc) {
 		System.out.print("For how many days (from 5 to 10) would you like to play? ");
 		while (true) {
 			try {
@@ -42,17 +47,6 @@ public class Game {
 			}
 		}
 	}
-
-	/**
-	 * Initializes farmer attribute, prompts the user for and sets the name of
-	 * the farmer.
-	This method creats another instance of farm, which prevents attribute of objects from being updated correctly. Removed - Nick
-	private void setFarmerDetails(Scanner sc) {
-		Farm farm = new Farm("type", "text");
-		farmer = new Farmer(farm);
-		farmer.setDetails(sc);
-	}
-	 */
 
 	/**
 	 * Creates a new Store instance for the game.
@@ -76,19 +70,15 @@ public class Game {
 				switch (sc.nextInt()) {
 				case 1:
 					farm = new AnimalFarm();
-					farmer = new Farmer(farm);
 					break farmSelectLoop; // breaks out of the while loop
 				case 2:
 					farm = new TrumpRanch();
-					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				case 3:
 					farm = new TomaccoLand();
-					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				case 4:
 					farm = new MoomooFarm();
-					farmer = new Farmer(farm);
 					break farmSelectLoop;
 				default:
 					System.out.println("Number must be from 1 to 4.");
@@ -107,19 +97,106 @@ public class Game {
 	}
 
 	/**
+	 * Rrompts user to enter a name and sets it to that, after performing
+	 * a check for validity. Used by the command-line interface only.
+	 *
+	 * @param sc a scanner object to capture user entry
+	 */
+	public void setFarmName(final Scanner sc) {
+		while (true) {
+			String s;
+			System.out.println("Please enter a name between 3 to 15 characters " +
+					"long without numbers of symbols");
+			s = sc.nextLine();
+			farm.setName(s);
+			if (isValidName(farm.getName())) {
+				break;
+			} else {
+				farm.setName(null);
+			}
+		}
+	}
+
+	/**
+	 * Checks if the given farm/farmer name is valid according to project
+	 * requirements. (3-15 characters, alphabetical characters separated
+	 * by single space, no extra spaces)
+	 *
+	 * @param name the name to check
+	 * @return whether name is valid
+	 */
+	public boolean isValidName(String name) {
+		if (name.length() < 3 || name.length() > 15) {
+			System.out.println("Name is outside required length");
+			return false;
+		} else if (!name.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
+			System.out.println("Name cannot contain numbers or symbols, or extra spaces");
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Prompt user for their name and age. Used by the command-line
+	 * interface.
+	 *
+	 * @param sc where to get user input from (usually System.in)
+	 */
+	public void setFarmerDetails(final Scanner sc) {
+		System.out.print("Type your own name here: ");
+		String name;
+		while (true) {
+			name = sc.nextLine();
+			if (isValidName(name)) {
+				break;
+			} else {
+				name = null;
+			}
+		}
+		System.out.println("Hello " + name + "!");
+		System.out.print("Type your age: ");
+		int age;
+		while (true) {
+			try {
+				age = sc.nextInt();
+				sc.nextLine();
+				break;
+			} catch (InputMismatchException e) {
+				System.out.println("Please type a valid number.");
+				sc.next();
+			}
+		}
+		System.out.printf("Got it. You are %d years old.\n", age);
+		farmer = new Farmer(farm, name, age);
+	}
+
+	/**
 	 * Starts and sets up game, and prompts required information from user.
 	 */
 	private void startGame(Scanner sc) {
 		System.out.println("Welcome to the game.");
 		setGameDuration(sc);
 		selectFarm(sc);
-		farm.setName(sc);
-		farmer.setDetails(sc);
+		setFarmName(sc);
+		setFarmerDetails(sc);
 		// set up store, now that we have a farm
 		// (this could go anywhere to be honest)
 		createStore();
 	}
 
+	/**
+	 * Displays the animals on the farm to the console.
+	 */
+	private void viewAnimals() {
+		ArrayList<Animal> animals = farm.showAnimals();
+		for (Animal animal : animals) {
+			System.out.printf("%s\n", animal);
+		}
+	}
+
+	/**
+	 * Displays the crops on the farm to the console.
+	 */
 	private void viewCrops() {
 		ArrayList<Crop> crops = farm.showCrops();
 		for (Crop crop : crops) {
@@ -128,13 +205,9 @@ public class Game {
 		}
 	}
 
-	private void viewAnimals() {
-		ArrayList<Animal> animals = farm.showAnimals();
-		for (Animal animal : animals) {
-			System.out.printf("%s\n", animal);
-		}
-	}
-
+	/**
+	 * Displays the items on the farm to the console.
+	 */
 	private void viewItems() {
 		ArrayList<Item> items = farm.showItems();
 		for (Item item : items) {
@@ -146,6 +219,8 @@ public class Game {
 	 * Prints status of farm (including amount of money), and
 	 * prompts if the user wants to see status of crops, animals,
 	 * and items.
+	 *
+	 * @param sc where to get user input from (typically System.in)
 	 */
 	private void viewStatus(Scanner sc) {
 		System.out.printf("%s, owned by %s (%d y.o.)\n", farm.getName(), farmer.getName(), farmer.getAge());
@@ -188,9 +263,12 @@ public class Game {
 
 	/**
 	 * Prompt user for a game loop option that doesn't cost any actions.
+	 *
+	 * @param sc where to get the user input from (System.in)
 	 */
 	private void promptNonAction(Scanner sc) {
-		System.out.println("1. View status of farm OR farm's crops/animals/items.");
+		System.out.println("1. View status of farm OR farm's " +
+				"crops/animals/items.");
 		System.out.println("2. View general store.");
 		System.out.println("3. Go back.");
 		optionLoop: while (true) {
@@ -216,6 +294,11 @@ public class Game {
 		sc.nextLine();
 	}
 
+	/**
+	 * Handles all the daily actions do-able by the player.
+	 *
+	 * @param sc where to get user input from (typically System.in)
+	 */
 	private void promptAction(Scanner sc) {
 		System.out.printf("You have %d actions left.\n", farm.getActionsLeft());
 		System.out.println("1. Tend to crops.");
@@ -960,7 +1043,7 @@ public class Game {
 								}
 
 
-							}catch (InputMismatchException e) {
+							} catch (InputMismatchException e) {
 								System.out.println("Please type a valid number.");
 								sc.next();
 						}
@@ -968,26 +1051,25 @@ public class Game {
 					break optionLoop;
 
 				case 3:
-					if (farm.hasAnimals() == false) {
+					if (!farm.hasAnimals()) {
 						System.out.println("You have no animals to play with.");
 						break optionLoop;
 					}
 					else {
 						System.out.println("Playing with the animals...");
-						farmer.playWithAnimals(); //completed
+						farmer.playWithAnimals();
 						break optionLoop;
 					}
 
 				case 4:
-					if (farm.hasCrops() == false) {
+					if (!farm.hasCrops()) {
 						System.out.println("You have no crops.");
 						break optionLoop;
-					}
-					else if (farm.showCrops().stream().allMatch(e -> e.getDaysLeft() > 0)) {
+					} else if (farm.showCrops().stream().allMatch(
+							e -> e.getDaysLeft() > 0)) {
 						System.out.println("No crops are ready for harvest");
 						break optionLoop;
-					}
-					else {
+					} else {
 						System.out.println("Harvesting the crops...");
 						farmer.harvestCrops(); //completed
 						break optionLoop;
@@ -1015,13 +1097,16 @@ public class Game {
 	/**
 	 * Main game loop, loops over and over and prompts user for the
 	 * next action.
+	 *
+	 * @param scanner used to get user input (System.in)
 	 */
 	private void mainGameLoop(Scanner sc) {
 		outerLoop: while (dayNumber <= maxDays) {
 			System.out.printf("Day number: %d\n", dayNumber);
 			System.out.println("Please type a number from 1-9 below.");
 			System.out.println("1. View status or visit store.");
-			System.out.printf("2. Take an action (%d left).\n", farm.getActionsLeft());
+			System.out.printf("2. Take an action (%d left).\n",
+					farm.getActionsLeft());
 			System.out.println("3. Move on to next day.");
 			optionLoop: while (true) {
 				switch (sc.nextInt()) {
@@ -1032,13 +1117,12 @@ public class Game {
 					promptAction(sc);
 					break optionLoop;
 				case 3:
-					//my apologies, get dailybonus() actually calculates the bonus but doesn't add it to bank account! - Nick
 					System.out.println("Receiving bonus money...");
 					int income = farm.getDailyBonusMoney();
 					farm.updateBankBalance(income);
 					farm.refreshAP();
 					// ensure crops mature by each day
-					for (Crop crop: farm.showCrops()) {
+					for (Crop crop : farm.showCrops()) {
 						crop.updateDaysElapsed(1);
 					}
 					++dayNumber;
@@ -1066,6 +1150,8 @@ public class Game {
 
 	/**
 	 * Runs the game from start to finish.
+	 *
+	 * @param sc where to get user input from (typically System.in)
 	 */
 	public void runGame(Scanner sc) {
 		// good practice to have only one Scanner open at a time
@@ -1076,6 +1162,10 @@ public class Game {
 		finishGame();
 	}
 
+	/**
+	 * Runs the game from start to finish
+	 * @param args arguments to the program, unused
+	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Game game = new Game();

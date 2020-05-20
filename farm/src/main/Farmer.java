@@ -87,66 +87,17 @@ public class Farmer {
 	}
 
 	/**
-	 * Will be used by Farmer.setDetails() to check whether a name is valid.
-	 * (This is not implemented yet.)
+	 * Tend to all instances of a crop. All benefits for each item
+	 * hard-coded. Item affects all items of specific type.
 	 *
-	 * Note that for the GUI, the validation will be done in the GUI, as opposed to through
-	 * the isValidName method.
-	 *
-	 * @param name - the name to check
-	 * @return whether name is a valid name
-	 */
-	public boolean isValidName(String name) {
-		if (name.length() < 3 || name.length() > 15) {
-			System.out.println("Name is outside required length");
-			return false;
-		} else if (name.matches("^[A-Za-z]+( [A-Za-z]+)*$") == false) {
-			System.out.println("Name cannot contain numbers or symbols, or extra spaces");
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Prompt user for their name and age. Used by the command-line interface.
-	 * @param sc where to get user input from (usually System.in)
-	 */
-	public void setDetails(Scanner sc) {
-		System.out.print("Type your own name here: ");
-		String name;
-		while (true) {
-			name = sc.nextLine();
-			if (isValidName(name)) {
-				setName(name);
-				break;
-			} else {
-				name = null;
-			}
-		}
-		System.out.println("Hello " + getName() + "!");
-		System.out.print("Type your age: ");
-		while (true) {
-			try {
-				setAge(sc.nextInt());
-				sc.nextLine();
-				break;
-			} catch (InputMismatchException e) {
-				System.out.println("Please type a valid number.");
-				sc.next();
-			}
-		}
-		System.out.printf("Got it. You are %d years old.\n", getAge());
-	}
-
-	/**
-	 * All benefits for each item hard coded. Item affects all items of specific type.
 	 * If watering plants is selected, then choice will be null.
 	 * Tomacco Land crops should grow one day faster per action.
-	 * Moo Moo Farm crops should grow 2 days faster per action if cow is in play.
+	 * Moo Moo Farm crops should grow 2 days faster per action if cow
+	 * is in play.
 	 *
-	 * @param action The action to perform
-	 * @param type TODO
-	 * @param choice TODO
+	 * @param action action to perform
+	 * @param type type of crop to tend to
+	 * @param choice the item to use on the crops
 	 */
 	public void tendToCrops(String action, Crop type, Item choice) {
 		float days = 0;
@@ -196,6 +147,9 @@ public class Farmer {
 		farm.updateAP();
 	}
 
+	/**
+	 * @param choice
+	 */
 	public void feedAnimals(Item choice) {
 		float health = 0;
 		if (choice.getName().equals("Stockfeed")) {
