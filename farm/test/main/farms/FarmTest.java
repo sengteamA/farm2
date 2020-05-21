@@ -298,8 +298,8 @@ class FarmTest {
 	@Test 
 	void TomaccoLandTest() {
 		TomaccoLand Homer = new TomaccoLand();
-		assertEquals("The dangers of nuclear waste meets the genius of genetic engineering\n"
-				+ "tending to crops makes them mature 1 day faster than others", Homer.getFlavour());
+		assertEquals("The dangers of nuclear waste meets the genius of genetic engineering.\n"
+				+ "Tending to crops makes them mature 1 day faster than others.", Homer.getFlavour());
 	}
 	
 	/**
