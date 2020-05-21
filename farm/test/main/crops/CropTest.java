@@ -7,25 +7,25 @@ import org.junit.jupiter.api.Test;
 
 class CropTest {
 	private Crop myCrop;
-	
+
 	//custom crop created before each test
 	@BeforeEach
 	void setUp() throws Exception {
 		myCrop = new Crop("Bacon", 100, 2000, 150);
 	}
-	
+
 	//tests name getter
 	@Test
 	void testName() {
 		assertEquals("Bacon", myCrop.getName());
 	}
-	
+
 	//tests daysToHarvest getter
 	@Test
 	void testDaysToHarvest() {
 		assertEquals(2000, myCrop.getDaysToHarvest());
 	}
-	
+
 	//tests daysElapsed getter
 	@Test
 	void testDaysElapsed() {
@@ -37,9 +37,9 @@ class CropTest {
 	void testPurchasePrice() {
 		assertEquals(100, myCrop.getPurchasePrice());
 	}
-	
+
 	//tests if days left <= 0, which it shouldn't
-	@Test 
+	@Test
 	void daysTillHarvestTest() {
 		myCrop.updateDaysElapsed(500);
 		assertEquals(1500, myCrop.getDaysLeft());
@@ -48,13 +48,13 @@ class CropTest {
 		myCrop.updateDaysElapsed(100);
 		assertEquals(0, myCrop.getDaysLeft());
 	}
-	
+
 	//selling price getter test
 	@Test
 	void testSellingPrice() {
-		assertEquals(150, myCrop.getPrice());
+		assertEquals(150, myCrop.getSellingPrice());
 	}
-	
+
 	//crop toString test
 	@Test
 	void toStringTest() {
@@ -65,7 +65,7 @@ class CropTest {
 	void getInfoTest() {
 		assertEquals("Bacon - 100 (2000 days)", myCrop.getInfo());
 	}
-	
+
 	//test all aspects of Carrot
 	@Test
 	void carrotTest() {
@@ -73,9 +73,9 @@ class CropTest {
 		assertEquals("Carrot", carrot.getName());
 		assertEquals(20, carrot.getPurchasePrice());
 		assertEquals(6, carrot.getDaysToHarvest());
-		assertEquals(24, carrot.getPrice());
+		assertEquals(24, carrot.getSellingPrice());
 	}
-	
+
 	//test Hipotke attributes
 	@Test
 	void hipTest() {
@@ -83,9 +83,9 @@ class CropTest {
 		assertEquals("Hipotke Grass", hip.getName());
 		assertEquals(200, hip.getPurchasePrice());
 		assertEquals(18, hip.getDaysToHarvest());
-		assertEquals(300, hip.getPrice());
+		assertEquals(300, hip.getSellingPrice());
 	}
-	
+
 	//test mushroom attributes
 	@Test
 	void mushTest() {
@@ -93,9 +93,9 @@ class CropTest {
 		assertEquals("Mushroom", mush.getName());
 		assertEquals(30, mush.getPurchasePrice());
 		assertEquals(7, mush.getDaysToHarvest());
-		assertEquals(39, mush.getPrice());
+		assertEquals(39, mush.getSellingPrice());
 	}
-	
+
 	//test tomacco attributes
 	@Test
 	void tomcaccoTest() {
@@ -103,9 +103,9 @@ class CropTest {
 		assertEquals("Tomacco", tomacco.getName());
 		assertEquals(50, tomacco.getPurchasePrice());
 		assertEquals(9, tomacco.getDaysToHarvest());
-		assertEquals(65, tomacco.getPrice());
+		assertEquals(65, tomacco.getSellingPrice());
 	}
-	
+
 	//test wasabi attributes
 	@Test
 	void wasabiTest() {
@@ -113,9 +113,9 @@ class CropTest {
 		assertEquals("Wasabi", wasabi.getName());
 		assertEquals(100, wasabi.getPurchasePrice());
 		assertEquals(15, wasabi.getDaysToHarvest());
-		assertEquals(150, wasabi.getPrice());
+		assertEquals(150, wasabi.getSellingPrice());
 	}
-	
+
 	//test wheat attributes
 	@Test
 	void wheatTest() {
@@ -123,7 +123,7 @@ class CropTest {
 		assertEquals("Wheat", wheat.getName());
 		assertEquals(10, wheat.getPurchasePrice());
 		assertEquals(4, wheat.getDaysToHarvest());
-		assertEquals(12, wheat.getPrice());
+		assertEquals(12, wheat.getSellingPrice());
 	}
 
 }

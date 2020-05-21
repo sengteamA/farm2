@@ -1,63 +1,56 @@
-package main;
+package main.items;
 
 import static org.junit.jupiter.api.Assertions.*;
-import main.items.*;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * 
- * @author nickl
- * Tests that the general getter and setter functions are functionally correctly
- *
- */
 class ItemTests {
 	/**
-	 * tests flavour text getter
+	 * Tests flavour text getter
 	 */
 	@Test
-	void chemical_spray_test() {
+	void chemicalSprayTest() {
 		ChemicalSpray Chemical = new ChemicalSpray();
 		assertEquals("kills bugs, and humans if you're not careful", Chemical.getFlavour());
 	}
-	
+
 	/**
-	 * tests that benefits are displayed correctly
+	 * Tests that benefits are displayed correctly
 	 */
 	@Test
-	void panda_gummy_test() {
+	void pandaGummyTest() {
 		PandaGummy panda = new PandaGummy();
 		assertEquals("Health + 100", panda.getBenefit());
 	}
-	
+
 	/**
-	 * tests name of product is correctly displayed
+	 * Tests name of product is correctly displayed
 	 */
 	@Test
-	void ig_pro_test() {
+	void InstantGrowProTest() {
 		InstantGroPro ig = new InstantGroPro();
 		assertEquals("Instant-Grow Pro(R)", ig.getName());
 	}
 	/**
-	 * test for price of item
+	 * Test for price of item
 	 */
 	@Test
-	void compost_test() {
+	void compostTest() {
 		Compost compost = new Compost();
 		assertEquals(150, compost.getPurchasePrice());
 	}
-	
+
 	@Test
-	void iglTest() {
+	void InstantGrowLiteTest() {
 		InstantGroLite igl = new InstantGroLite();
 		assertEquals("Instant-Grow Lite(R)", igl.getName());
 		assertEquals(700, igl.getPurchasePrice());
 		assertEquals("Halves days to harvest", igl.getBenefit());
 		assertEquals("a lesser brand of witchcraft for the casual farmer", igl.getFlavour());
 	}
-	
+
 	@Test
-	void stockTest() {
+	void stockfeedTest() {
 		Stockfeed stock = new Stockfeed();
 		assertEquals("Stockfeed", stock.getName());
 		assertEquals(200, stock.getPurchasePrice());

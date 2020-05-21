@@ -337,3 +337,4 @@ class FarmTest {
 		assertFalse(testFarm.hasEnoughMoney(fox.getPurchasePrice()));
 		assertTrue(testFarm.hasEnoughMoney(sheep.getPurchasePrice()));
 	}
+}
