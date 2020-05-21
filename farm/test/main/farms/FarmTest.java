@@ -15,7 +15,10 @@ import main.items.*;
 
 class FarmTest {
 	public Farm testFarm;
-
+	
+	/**
+	 * Creates a regular farm without bonuses before each test.
+	 */
 	@BeforeEach
 	public void init() {
 		testFarm = new Farm("My new farm", "Flavour text");
@@ -50,13 +53,19 @@ class FarmTest {
 		assertEquals((float)0.2, animalFarm.getAnimalBonus());
 
 	}
-
+	
+	/**
+	 * Checks the number of actions are being accounted correctly.
+	 */
 	@Test
 	void APTest() {
 		testFarm.updateAP();
 		assertEquals(1, testFarm.getActionsLeft());
 	}
-
+	
+	/**
+	 * Checks animals are being added to the list correctly.
+	 */
 	@Test
 	void animalListTest() {
 		Sheep blackie = new Sheep();
@@ -68,7 +77,10 @@ class FarmTest {
 		assertEquals(3, testFarm.showAnimals().size());
 		assertEquals("Sheep", testFarm.showAnimals().get(0).getName());
 	}
-
+	
+	/**
+	 * Checks the items are added to the list correctly.
+	 */
 	@Test
 	void itemsListTest() {
 		ChemicalSpray bleach = new ChemicalSpray();
@@ -86,7 +98,10 @@ class FarmTest {
 		assertFalse(testFarm.showItems().contains(po));
 		assertFalse(testFarm.showItems().contains(stockfeed));
 	}
-
+	
+	/**
+	 * Checks that hasAnimalTest are checked correctly.
+	 */
 	@Test
 	void hasAnimalTest() {
 		assertFalse(testFarm.hasAnimals());
@@ -94,7 +109,10 @@ class FarmTest {
 		testFarm.addAnimal(blackie);
 		assertTrue(testFarm.hasAnimals());
 	}
-
+	
+	/**
+	 * Checks that hasFood logic is correct.
+	 */
 	@Test
 	void hasFoodItems() {
 		assertFalse(testFarm.hasFoodItems());
@@ -105,7 +123,10 @@ class FarmTest {
 		testFarm.addItem(stock);
 		assertTrue(testFarm.hasFoodItems());
 	}
-
+	
+	/**
+	 * Checks that hasCrop logic is correct.
+	 */
 	@Test
 	void hasCropsTest() {
 		assertFalse(testFarm.hasCrops());
@@ -114,7 +135,11 @@ class FarmTest {
 		testFarm.addCrop(marl);
 		assertTrue(testFarm.hasCrops());
 	}
-
+	
+	/**
+	 * Checks if farm has any crop items
+	 * on hand. 
+	 */
 	@Test
 	void hasPlantItems() {
 		assertFalse(testFarm.hasPlantItems());
@@ -252,6 +277,10 @@ class FarmTest {
 		));
 	}
 	
+	/**
+	 * Tests hasCow() is working correctly
+	 * for the MoomooFarm class.
+	 */
 	@Test 
 	void MoomooFarmTest() {
 		Cow cow = new Cow();
@@ -263,6 +292,9 @@ class FarmTest {
 		assertTrue(moo.hasCow());
 	}
 	
+	/**
+	 * Checks TomaccoLand attributes are set correctly.
+	 */
 	@Test 
 	void TomaccoLandTest() {
 		TomaccoLand Homer = new TomaccoLand();
@@ -270,6 +302,11 @@ class FarmTest {
 				+ "tending to crops makes them mature 1 day faster than others", Homer.getFlavour());
 	}
 	
+	/**
+	 * A random test using the second type of initialiser.
+	 * Checks various getter and setter functions
+	 * and ensure they are working correctly.
+	 */
 	@Test
 	void genericFarmTest() {
 		Farm farm2 = new Farm("Trump Ranch", "I make the best deals!", 1500);
@@ -285,6 +322,9 @@ class FarmTest {
 		assertEquals(2, farm2.getActionsLeft());
 	}
 	
+	/**
+	 * Ensure animals are giving the correct benefits.
+	 */
 	@Test 
 	void dailyBonusTest() {
 		Fox fox = new Fox();
@@ -292,6 +332,10 @@ class FarmTest {
 		assertEquals(160, testFarm.getDailyBonusMoney());
 	}
 	
+	/**
+	 * Tests whether the check for items in hand
+	 * is working correctly.
+	 */
 	@Test
 	void itemInHandTest() {
 		Compost compost = new Compost();
@@ -303,6 +347,10 @@ class FarmTest {
 		assertFalse(testFarm.itemInHand(stock));
 	}
 	
+	/**
+	 * Tests that score calculations are being 
+	 * performed correctly.
+	 */
 	@Test
 	void scoreTest() {
 		assertEquals(1000, testFarm.getScore());
@@ -311,6 +359,9 @@ class FarmTest {
 		assertEquals(1010, testFarm.getScore());
 	}
 	
+	/**
+	 * Tests whether crops are deleted correctly.
+	 */
 	@Test
 	void cropDeleteTest() {
 		Wasabi volcano = new Wasabi();
@@ -320,6 +371,9 @@ class FarmTest {
 		assertTrue(testFarm.showCrops().isEmpty());
 	}
 	
+	/**
+	 * Tests whether animals are deleted correctly.
+	 */
 	@Test
 	void animalDeleteTest() {
 		Cow seacow = new Cow();
@@ -329,6 +383,11 @@ class FarmTest {
 		assertTrue(testFarm.showAnimals().isEmpty());
 	}
 	
+	/**
+	 * Tests the method which checks farm balance
+	 * and ensures players do not go into debt
+	 * is functioning correctly.
+	 */
 	@Test
 	void liquidityTest() {
 		testFarm.updateBankBalance(-700);
