@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 class CropTest {
 	private Crop myCrop;
-
+	
+	//custom crop created before each test
 	@BeforeEach
 	void setUp() throws Exception {
 		myCrop = new Crop("Bacon", 100, 2000, 150);
@@ -47,22 +48,25 @@ class CropTest {
 		myCrop.updateDaysElapsed(100);
 		assertEquals(0, myCrop.getDaysLeft());
 	}
-
+	
+	//selling price getter test
 	@Test
 	void testSellingPrice() {
 		assertEquals(150, myCrop.getPrice());
 	}
 	
+	//crop toString test
 	@Test
 	void toStringTest() {
 		assertEquals("Bacon: days left 2000", myCrop.toString());
 	}
-	
+	//crop getInfoTest
 	@Test
 	void getInfoTest() {
 		assertEquals("Bacon - 100 (2000 days)", myCrop.getInfo());
 	}
 	
+	//test all aspects of Carrot
 	@Test
 	void carrotTest() {
 		Carrot carrot = new Carrot();
@@ -72,6 +76,7 @@ class CropTest {
 		assertEquals(24, carrot.getPrice());
 	}
 	
+	//test Hipotke attributes
 	@Test
 	void hipTest() {
 		Hipotke hip = new Hipotke();
@@ -81,6 +86,7 @@ class CropTest {
 		assertEquals(300, hip.getPrice());
 	}
 	
+	//test mushroom attributes
 	@Test
 	void mushTest() {
 		Mushroom mush = new Mushroom();
@@ -90,6 +96,7 @@ class CropTest {
 		assertEquals(39, mush.getPrice());
 	}
 	
+	//test tomacco attributes
 	@Test
 	void tomcaccoTest() {
 		Tomacco tomacco = new Tomacco();
@@ -99,6 +106,7 @@ class CropTest {
 		assertEquals(65, tomacco.getPrice());
 	}
 	
+	//test wasabi attributes
 	@Test
 	void wasabiTest() {
 		Wasabi wasabi = new Wasabi();
@@ -108,6 +116,7 @@ class CropTest {
 		assertEquals(150, wasabi.getPrice());
 	}
 	
+	//test wheat attributes
 	@Test
 	void wheatTest() {
 		Wheat wheat = new Wheat();
