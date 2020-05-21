@@ -20,7 +20,7 @@ public class Farmer {
 
 	/**
 	 * Initialises Farmer using an existing farm.
-	 * @param myFarm - the farm to use
+	 * @param myFarm the farm to use
 	 */
 	public Farmer(Farm myFarm) {
 		farm = myFarm;
