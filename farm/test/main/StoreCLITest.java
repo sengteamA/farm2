@@ -95,8 +95,8 @@ class StoreCLITest {
 		farm.updateBankBalance(10000000);
 		assertTrue(store.purchaseItem(farm, new ChemicalSpray().getName()));
 		assertTrue(store.purchaseItem(farm, new Compost().getName()));
-		assertTrue(store.purchaseItem(farm, new InstantGroLite().getName()));
-		assertTrue(store.purchaseItem(farm, new InstantGroPro().getName()));
+		assertTrue(store.purchaseItem(farm, new InstantGrowLite().getName()));
+		assertTrue(store.purchaseItem(farm, new InstantGrowPro().getName()));
 		assertTrue(store.purchaseItem(farm, new PandaGummy().getName()));
 		assertTrue(store.purchaseItem(farm, new Stockfeed().getName()));
 	}

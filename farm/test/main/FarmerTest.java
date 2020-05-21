@@ -51,7 +51,7 @@ class FarmerTest {
 		farm.addCrop(tomacco);
 		farm.addCrop(tomacco2);
 		assertEquals(2, farm.showCrops().size());
-		InstantGroPro igp = new InstantGroPro();
+		InstantGrowPro igp = new InstantGrowPro();
 		farm.addItem(igp);
 		brown.tendToCrops("use item", tomacco, igp);
 		brown.harvestCrops();
@@ -68,7 +68,7 @@ class FarmerTest {
 		tower.addCrop(wheat);
 		tower.addCrop(carrot);
 		assertEquals(2, tower.showCrops().size());
-		InstantGroPro igp = new InstantGroPro();
+		InstantGrowPro igp = new InstantGrowPro();
 		Donald.tendToCrops("use item", carrot, igp);
 		assertEquals(0, tower.showCrops().get(1).getDaysLeft());
 		Donald.harvestCrops();
@@ -123,7 +123,7 @@ class FarmerTest {
 	void cropTendingTest() {
 		Carrot carrot = new Carrot();
 		Hipotke hip = new Hipotke();
-		InstantGroLite igl = new InstantGroLite();
+		InstantGrowLite igl = new InstantGrowLite();
 		farm.addCrop(carrot);
 		farm.addCrop(hip);
 		farm.addItem(igl);
@@ -138,7 +138,7 @@ class FarmerTest {
 		Tomacco cig3 = new Tomacco();
 		TomaccoLand spring = new TomaccoLand();
 		Farmer homer = new Farmer(spring);
-		InstantGroLite igl = new InstantGroLite();
+		InstantGrowLite igl = new InstantGrowLite();
 		spring.addCrop(cig);
 		spring.addCrop(cig2);
 		spring.addCrop(cig3);
@@ -156,7 +156,7 @@ class FarmerTest {
 
 	@Test
 	void moreCropItemsTests() {
-		InstantGroPro igp = new InstantGroPro();
+		InstantGrowPro igp = new InstantGrowPro();
 		Carrot carrot = new Carrot();
 		Hipotke hip = new Hipotke();
 		farm.addItem(igp);

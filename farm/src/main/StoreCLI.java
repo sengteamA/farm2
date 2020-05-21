@@ -115,14 +115,14 @@ public class StoreCLI {
 	private void initialiseItems() {
 		ChemicalSpray chemicalSpray = new ChemicalSpray();
 		Compost compost = new Compost();
-		InstantGroLite instantGroLite = new InstantGroLite();
-		InstantGroPro instantGroPro = new InstantGroPro();
+		InstantGrowLite instantGrowLite = new InstantGrowLite();
+		InstantGrowPro instantGrowPro = new InstantGrowPro();
 		PandaGummy pandaGummy = new PandaGummy();
 		Stockfeed stockfeed = new Stockfeed();
 		addItem(chemicalSpray.getName(), chemicalSpray);
 		addItem(compost.getName(), compost);
-		addItem(instantGroLite.getName(), instantGroLite);
-		addItem(instantGroPro.getName(), instantGroPro);
+		addItem(instantGrowLite.getName(), instantGrowLite);
+		addItem(instantGrowPro.getName(), instantGrowPro);
 		addItem(pandaGummy.getName(), pandaGummy);
 		addItem(stockfeed.getName(), stockfeed);
 	}

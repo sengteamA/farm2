@@ -117,8 +117,8 @@ public class StoreGUI {
 	private void initialiseItems() {
 		items.add(new ChemicalSpray());
 		items.add(new Compost());
-		items.add(new InstantGroLite());
-		items.add(new InstantGroPro());
+		items.add(new InstantGrowLite());
+		items.add(new InstantGrowPro());
 		items.add(new PandaGummy());
 		items.add(new Stockfeed());
 	}

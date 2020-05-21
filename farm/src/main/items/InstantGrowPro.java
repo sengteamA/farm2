@@ -6,12 +6,12 @@ package main.items;
  *
  * @author Nick
  */
-public class InstantGroPro extends Item {
+public class InstantGrowPro extends Item {
 	/**
 	 * Creates a new Instant-Grow Pro(R). More expensive and more effective
 	 * than Instant-Grow Lite(R).
 	 */
-	public InstantGroPro() {
+	public InstantGrowPro() {
 		super("Instant-Grow Pro(R)", 1000, "Crop",
 				"Immediately harvest a crop",
 				"Immediately readies a crop for harvest. " +

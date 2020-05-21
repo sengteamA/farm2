@@ -73,8 +73,8 @@ class FarmTest {
 	void itemsListTest() {
 		ChemicalSpray bleach = new ChemicalSpray();
 		Compost compost = new Compost();
-		InstantGroLite igLite = new InstantGroLite();
-		InstantGroPro igPro = new InstantGroPro();
+		InstantGrowLite igLite = new InstantGrowLite();
+		InstantGrowPro igPro = new InstantGrowPro();
 		PandaGummy po = new PandaGummy();
 		Stockfeed stockfeed = new Stockfeed();
 		testFarm.addItem(bleach);

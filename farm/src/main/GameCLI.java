@@ -397,7 +397,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -409,7 +409,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -502,7 +502,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -514,7 +514,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -608,7 +608,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -620,7 +620,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -715,7 +715,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -727,7 +727,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -822,7 +822,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -834,7 +834,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -928,7 +928,7 @@ public class GameCLI {
 																}
 
 															case 3:
-																InstantGroLite igl = new InstantGroLite();
+																InstantGrowLite igl = new InstantGrowLite();
 																if (farm.itemInHand(igl) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;
@@ -940,7 +940,7 @@ public class GameCLI {
 																}
 
 															case 4:
-																InstantGroPro igp = new InstantGroPro();
+																InstantGrowPro igp = new InstantGrowPro();
 																if (farm.itemInHand(igp) == false) {
 																	System.out.println("You do not have this item in stock");
 																	break itemLoop;

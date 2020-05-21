@@ -28,7 +28,7 @@ class ItemTests {
 	 */
 	@Test
 	void InstantGrowProTest() {
-		InstantGroPro ig = new InstantGroPro();
+		InstantGrowPro ig = new InstantGrowPro();
 		assertEquals("Instant-Grow Pro(R)", ig.getName());
 	}
 	/**
@@ -42,7 +42,7 @@ class ItemTests {
 
 	@Test
 	void InstantGrowLiteTest() {
-		InstantGroLite igl = new InstantGroLite();
+		InstantGrowLite igl = new InstantGrowLite();
 		assertEquals("Instant-Grow Lite(R)", igl.getName());
 		assertEquals(700, igl.getPurchasePrice());
 		assertEquals("Halves days to harvest", igl.getBenefit());
