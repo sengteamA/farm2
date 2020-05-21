@@ -8,13 +8,17 @@ import org.junit.jupiter.api.Test;
 class TrumpRanchTest {
 
 	public TrumpRanch Don;
-
+	// Initialise an instance of Trump Ranch
 	@BeforeEach
 	public void init() {
 		Don = new TrumpRanch();
 	}
-
-	@Test //test passed 16/04/2020
+	
+	/**
+	 * Tests that TrumpRanch has a starting
+	 * cash advantage.
+	 */
+	@Test
 	void bankBalanceTest() {
 		Don.updateBankBalance(-100);
 		Don.updateBankBalance(200);
