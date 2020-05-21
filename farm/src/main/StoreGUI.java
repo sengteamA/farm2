@@ -19,8 +19,9 @@ import main.farms.*;
 import java.awt.GridLayout;
 
 /**
- * Store GUI, used for purchasing animals, crops and items from the general
- * county store. Also shows what the player currently has, for convenience.
+ * GUI window for purchasing from the general county store. Used for
+ * purchasing animals, crops and items. Also shows what the player
+ * currently has, for convenience purposes.
  *
  * @author Grant
  */

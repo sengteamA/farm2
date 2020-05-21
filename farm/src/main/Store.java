@@ -12,8 +12,9 @@ import main.farms.*;
 import main.items.*;
 
 /**
- * Handles the purchase of animals, crops and items to a Farm (which
- * is provided as an argument for Store's methods).
+ * Command-line interface class that handles the purchase of animals, crops
+ * and items to a Farm (which is provided as an argument for Store's
+ * methods).
  *
  * Also stores all the animals, crops and items available for purchase.
  *

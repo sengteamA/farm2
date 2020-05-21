@@ -3,10 +3,10 @@ package main;
 import main.farms.*;
 
 /**
- * Game manager: the class that essentially runs the entire game by
- * handling the creation and removal of GUI windows. Also stores
- * all the player data (farm, crops, animals, money etc.) required
- * by the GUI windows in question.
+ * Class that essentially runs the entire GUI game by handling the
+ * creation and removal of GUI windows. Also stores all the player
+ * data (farm, crops, animals, money etc.) required by the GUI
+ * windows in question.
  *
  * This is the GUI version of GameCLI.java, which uses a command-line
  * interface.

@@ -15,6 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ListIterator;
 
+/**
+ * GUI window for handling the feeding of item(s) to animals.
+ *
+ * @author Nick
+ */
 public class FeedingGUI {
 	private JFrame frame;
 	private GameManager manager;

@@ -13,7 +13,8 @@ import main.farms.*;
 import main.items.*;
 
 /**
- * The class that runs the game loop, and handles every object in the game.
+ * Command-line interface class that runs the game loop, and handles
+ * every object in the game.
  *
  * @author Grant and Nick
  */

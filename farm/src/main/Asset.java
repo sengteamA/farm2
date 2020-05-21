@@ -1,7 +1,8 @@
 package main;
 
 /**
- * Basic "asset" that can be purchased or sold in the store.
+ * Basic "asset" that can be purchased or sold in the store, or used by the
+ * player on the farm.
  *
  * @author Grant
  *

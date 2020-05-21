@@ -26,8 +26,8 @@ import main.farms.*;
 import java.util.List;
 
 /**
- * The window for setting up the player's farm, farmer and game duration.
- * Run at the start of the game.
+ * GUI window for setting up the player's farm, farmer and game
+ * duration. Run at the start of the game.
  *
  * @author Grant
  */

@@ -21,10 +21,11 @@ import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 
 /**
- * GUI for tending to crops. Has a list of items that can be applied to
- * crops, and a list of crops. Multiple instances of the same crop counts
- * as one crop when it comes to applying an item, i.e. applying an item on
- * Carrot applies it to all of the player's carrots simultaneously.
+ * GUI window for tending to crops. Has a list of items that can be
+ * applied to crops, and a list of crops. Multiple instances of the same
+ * crop counts as one crop when it comes to applying an item, i.e.
+ * applying an item on Carrot applies it to all of the player's carrots
+ * simultaneously.
  *
  * @author Nick
  */

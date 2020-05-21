@@ -21,8 +21,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
 /**
- * The main farm simulator window, with buttons that lead to daily actions or
- * other actions a player can perform.
+ * Main GUI window for the farm simulator, with buttons that lead to
+ * daily actions or other actions a player can perform.
  *
  * @author Nick
  */
