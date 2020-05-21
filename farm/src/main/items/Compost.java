@@ -1,12 +1,14 @@
-/**
- * A child of item.
- * Use to speed harvest by 2 days
- */
-
 package main.items;
 
+/**
+ * Compost - an item used on crops to speed up harvest by 2 days.
+ *
+ * @author Nick
+ */
 public class Compost extends Item {
-
+	/**
+	 * Creates some new compost.
+	 */
 	public Compost() {
 		super("Compost", 150, "Crop",
 				"Speeds up harvest by 2 days.",

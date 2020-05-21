@@ -1,14 +1,14 @@
-/**
- * This is an extension of the Crop class.
- * It is an item that can be bought in game.
- * Once its daystoHarvest reaches 0, it can be harvested for money.  
- * 
- * @author Grant Wong
- */
-
 package main.crops;
 
+/**
+ * Represents mushroom, a type of crop. A slight upgrade from carrot.
+ *
+ * @author Nick
+ */
 public class Mushroom extends Crop {
+	/**
+	 * Creates some mushroom.
+	 */
 	public Mushroom() {
 		super("Mushroom", 30, 7, 39);
 	}

@@ -2,6 +2,7 @@ package main;
 
 /**
  * Basic "asset" that can be purchased or sold in the store.
+ *
  * @author Grant
  *
  */
@@ -20,10 +21,18 @@ public class Asset {
 		this.purchasePrice = purchasePrice;
 	}
 
+	/**
+	 * Returns the name of the asset.
+	 * @return name of asset
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns how much the asset costs to purchase in the store.
+	 * @return price of asset
+	 */
 	public int getPurchasePrice() {
 		return purchasePrice;
 	}

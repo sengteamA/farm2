@@ -6,6 +6,9 @@ package main.animals;
  * @author Nick
  */
 public class Sheep extends Animal {
+	/**
+	 * Creates a sheep.
+	 */
 	public Sheep() {
 		super("Sheep", 50, 50, 100, 100, 200);
 	}

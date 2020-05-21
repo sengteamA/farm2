@@ -18,19 +18,34 @@ import main.farms.*;
 
 import java.awt.GridLayout;
 
+/**
+ * Store GUI, used for purchasing animals, crops and items from the general
+ * county store. Also shows what the player currently has, for convenience.
+ *
+ * @author Grant
+ */
 public class StoreGUI {
 	private JFrame window;
 	private GameManager manager;
 
-	// GUI components used by StoreGUI class methods
+	/**
+	 * GUI components used by StoreGUI class methods.
+	 */
 	private JTextField txtPlayerMoney;
 	private JComboBox<String> selectAssetType;
 	private JList<String> assetList;
 
+	/**
+	 * Stores instances of each animal, crop and item available in store.
+	 */
 	private ArrayList<Animal> animals;
 	private ArrayList<Crop> crops;
 	private ArrayList<Item> items;
 
+	/**
+	 * The ordering of the three categories in the two Combobox instances.
+	 * e.g. My animals, My crops, My items
+	 */
 	private final int ANIMAL_INDEX = 0;
 	private final int CROP_INDEX = 1;
 	private final int ITEM_INDEX = 2;
@@ -39,13 +54,13 @@ public class StoreGUI {
 	 * The new price of items if the farm is a Trump Ranch, where 1 is the
 	 * original price. For example, 0.9 would be a 10% discount.
 	 */
-	private final float TRUMP_RANCH_DISCOUNT = (float)0.9;
+	private final float TRUMP_RANCH_DISCOUNT = (float) 0.9;
 
 	/**
 	 * The new price of cows if the farm is a Moo Moo Farm, as a proportion
 	 * of the original price.
 	 */
-	private final float MOOMOO_FARM_DISCOUNT = (float)0.8;
+	private final float MOOMOO_FARM_DISCOUNT = (float) 0.8;
 
 	/**
 	 * Return the price of an asset, after any relevant discounts (i.e.
@@ -57,9 +72,9 @@ public class StoreGUI {
 	 */
 	private int getStorePrice(int price, String name) {
 		if (manager.farm instanceof TrumpRanch) {
-			return (int)(price * TRUMP_RANCH_DISCOUNT);
+			return (int) (price * TRUMP_RANCH_DISCOUNT);
 		} else if (manager.farm instanceof MoomooFarm && name.contentEquals("Cow")) {
-			return (int)(price * MOOMOO_FARM_DISCOUNT);
+			return (int) (price * MOOMOO_FARM_DISCOUNT);
 		}
 		return price;
 	}
@@ -107,6 +122,10 @@ public class StoreGUI {
 		items.add(new Stockfeed());
 	}
 
+	/**
+	 * Refresh the list of assets on the farm. This is run whenever changes
+	 * have been made to the farm while in the store.
+	 */
 	private void refreshAssetList() {
 		DefaultListModel<String> assetListModel = new DefaultListModel<>();
 		if (selectAssetType.getSelectedIndex() == ANIMAL_INDEX) {
@@ -174,7 +193,8 @@ public class StoreGUI {
 				throw new IllegalStateException("Not enough money!");
 			}
 			if (!manager.farm.hasSpace()) {
-				throw new IllegalArgumentException("Not enough space on the farm to add another crop!");
+				throw new IllegalArgumentException(
+						"Not enough space on the farm to add another crop!");
 			}
 			Crop newCrop = crop.getClass().getDeclaredConstructor().newInstance();
 			manager.farm.updateBankBalance(-price);
@@ -217,8 +237,8 @@ public class StoreGUI {
 	}
 
 	/**
-	 * Initialises the StoreGUI instance with the given GameManager.
-	 * @param myManager Game manager instance
+	 * Initialises the StoreGUI with the given game instance.
+	 * @param myManager instance of the game
 	 */
 	public StoreGUI(GameManager myManager) {
 		manager = myManager;
@@ -277,9 +297,13 @@ public class StoreGUI {
 		assetList.setBounds(22, 121, 325, 385);
 		window.getContentPane().add(assetList);
 
-		String playerAssetCategories[] = {"My animals", "My crops", "My items"};
+		String playerAssetCategories[] = {
+				"My animals",
+				"My crops",
+				"My items"
+		};
 
-		selectAssetType = new JComboBox(playerAssetCategories);
+		selectAssetType = new JComboBox<String>(playerAssetCategories);
 		selectAssetType.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		selectAssetType.setBounds(22, 77, 325, 33);
 		window.getContentPane().add(selectAssetType);
@@ -308,7 +332,7 @@ public class StoreGUI {
 				"Browse items in store"
 		};
 
-		JComboBox<String> selectAisle = new JComboBox(storeAssetCategories);
+		JComboBox<String> selectAisle = new JComboBox<String>(storeAssetCategories);
 		selectAisle.setBounds(380, 22, 394, 33);
 		window.getContentPane().add(selectAisle);
 
@@ -321,7 +345,8 @@ public class StoreGUI {
 		selectAisle.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel<String> assetModel = new DefaultListModel<String>();
+				DefaultListModel<String> assetModel =
+						new DefaultListModel<String>();
 				if (selectAisle.getSelectedIndex() == ANIMAL_INDEX) {
 					for (Animal animal : animals) {
 						float storePrice = getStorePrice(
@@ -346,7 +371,10 @@ public class StoreGUI {
 				}
 				else if (selectAisle.getSelectedIndex() == ITEM_INDEX) {
 					for (Item item : items) {
-						float storePrice = getStorePrice(item.getPurchasePrice(), item.getName());
+						float storePrice =
+								getStorePrice(
+										item.getPurchasePrice(),
+										item.getName());
 						assetModel.addElement(
 								item.name + " - $" + storePrice
 						);

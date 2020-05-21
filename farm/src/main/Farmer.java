@@ -1,8 +1,6 @@
 package main;
 
-import java.util.InputMismatchException;
 import java.util.ListIterator;
-import java.util.Scanner;
 
 import main.animals.*;
 import main.crops.*;
@@ -13,8 +11,7 @@ import main.items.*;
  * Handles daily actions made to the farm by the player.
  * Also stores name and age of player.
  *
- * @author Nick
- *
+ * @author Nick and Grant
  */
 public class Farmer {
 	private String name;
@@ -129,7 +126,7 @@ public class Farmer {
 
 		for (Crop crop : farm.showCrops()) {
 			if (crop.getName().equals(type.getName())) {
-				crop.updateDaysElapsed((int)days);
+				crop.updateDaysElapsed((int) days);
 			}
 		}
 
@@ -148,7 +145,9 @@ public class Farmer {
 	}
 
 	/**
-	 * @param choice
+	 * Feed animals with an item.
+	 *
+	 * @param choice which item to feed the animals with
 	 */
 	public void feedAnimals(Item choice) {
 		float health = 0;
@@ -162,7 +161,7 @@ public class Farmer {
 			health += health * farm.getAnimalBonus();
 		}
 		for (Animal animal : farm.showAnimals()) {
-			animal.updateHealth((int)health);
+			animal.updateHealth((int) health);
 		}
 		//corrected item deletion process
 		ListIterator<Item> iterator = farm.showItems().listIterator();
@@ -177,40 +176,57 @@ public class Farmer {
 		farm.updateAP();
 	}
 
+	/**
+	 * Play with animals, increasing all of their happiness levels by 30.
+	 */
 	public void playWithAnimals() {
 		for (Animal animal : farm.showAnimals()) {
 			float happy = 30;
 			if (farm instanceof AnimalFarm) {
 				happy += happy * farm.getAnimalBonus();
 			}
-			animal.updateHappiness((int)happy);
+			animal.updateHappiness((int) happy);
 		}
 		farm.updateAP();
 	}
 
+	/**
+	 * Harvest all crops, i.e. crops that have 0 days left.
+	 *
+	 * They are then sold automatically for their individual selling price.
+	 * See the Crop class for more details.
+	 */
 	public void harvestCrops() {
 		float revenue = 0;
 		for (Crop crop : farm.showCrops()) {
 			if (crop.getDaysLeft() <= 0) {
-				revenue += crop.getPrice();
+				revenue += crop.getSellingPrice();
 			}
 		}
 		if (farm instanceof TrumpRanch) {
 			revenue = revenue * (float)1.1;
 		}
 
-		farm.updateBankBalance((int)revenue);
+		farm.updateBankBalance((int) revenue);
 		farm.showCrops().removeIf(crop -> crop.getDaysLeft() == 0);
 		farm.updateAP();
 	}
 
+	/**
+	 * Tend to land, updating the animals' happiness levels by 20 and
+	 * increasing the farm cap (number of crops the player can have on
+	 * the farm).
+	 *
+	 * Compare this to playing with animals, which instead increases the
+	 * happiness levels by a whopping 30.
+	 */
 	public void tendToLand() {
 		for (Animal animal : farm.showAnimals()) {
 			float happy = 20;
 			if (farm instanceof AnimalFarm) {
 				happy += happy * farm.getAnimalBonus();
 			}
-			animal.updateHappiness((int)happy);
+			animal.updateHappiness((int) happy);
 		}
 		farm.addCap(2);
 		farm.updateAP();

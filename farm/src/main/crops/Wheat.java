@@ -1,14 +1,14 @@
-/**
- * This is an extension of the Crop class.
- * It is an item that can be bought in game.
- * Once its daystoHarvest reaches 0, it can be harvested for money.  
- * 
- * @author Grant Wong
- */
-
 package main.crops;
 
+/**
+ * The wheat crop, which is the cheapest crop available in-game.
+ *
+ * @author Nick
+ */
 public class Wheat extends Crop {
+	/**
+	 * Creates some wheat.
+	 */
 	public Wheat() {
 		super("Wheat", 10, 4, 12);
 	}

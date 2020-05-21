@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,17 +19,18 @@ import javax.swing.event.DocumentListener;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import main.farms.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
 
-import javax.swing.JFormattedTextField;
-
+/**
+ * The window for setting up the player's farm, farmer and game duration.
+ * Run at the start of the game.
+ *
+ * @author Grant
+ */
 public class SetupGUI {
 	private GameManager manager;
 	private JFrame window;
@@ -47,6 +47,7 @@ public class SetupGUI {
 
 	/**
 	 * Create the application.
+	 * @param myManager game instance to use
 	 */
 	public SetupGUI(GameManager myManager) {
 		manager = myManager;
@@ -73,11 +74,11 @@ public class SetupGUI {
 	 * Initialises all the variables used by the game with their values in the
 	 * setup screen.
 	 *
-	 * @param gameDuration - duration of game in days (5-10 days inclusive)
-	 * @param farmerName - farmer name (validated by the validate method)
-	 * @param farmerAge - farmer age (no restrictions)
-	 * @param farmName - farm name (validated by the validate method)
-	 * @param selectedFarm - an instance of one of the four Farm child classes
+	 * @param gameDuration duration of game in days (5-10 days inclusive)
+	 * @param farmerName farmer name (validated by the validate method)
+	 * @param farmerAge farmer age (no restrictions)
+	 * @param farmName farm name (validated by the validate method)
+	 * @param selectedFarm an instance of one of the four Farm child classes
 	 */
 	public void initialiseGame(int gameDuration, String farmerName,
 			int farmerAge, String farmName, Farm selectedFarm) {
@@ -105,22 +106,25 @@ public class SetupGUI {
 	 * farmers and farms. If it does not, set the contents of errorBar to an
 	 * appropriate error message for the user.
 	 *
-	 * @param textBox - the text box to check the input of
-	 * @param errorBar - the JLabel component to set any errors in
-	 * @param textBoxName - the name of the text box, used in error messages
+	 * @param textBox the text box to check the input of
+	 * @param errorBar the JLabel component to set any errors in
+	 * @param textBoxName the name of the text box, used in error messages
 	 * @return whether the input in the text box is valid
 	 */
-	public boolean validate(JTextField textBox, JLabel errorBar, String textBoxName) {
+	public boolean validate(JTextField textBox, JLabel errorBar,
+			String textBoxName) {
 		String name = textBox.getText();
 		Color validBackground = Color.WHITE;
 		Color errorBackground = Color.decode("#ffaaaa"); // a lighter red
 		if (name.length() < 3 || name.length() > 15) {
-			errorBar.setText(textBoxName + " name needs to be between 3 and 15 characters, inclusive.");
+			errorBar.setText(textBoxName +
+					" name needs to be between 3 and 15 characters, " +
+					"inclusive.");
 			textBox.setBackground(errorBackground);
 			return false;
 		} else if (!name.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
-			errorBar.setText(textBoxName + " name cannot contain numbers or " +
-					" symbols, or have extra spaces.");
+			errorBar.setText(textBoxName + " name cannot contain numbers " +
+					"or symbols, or have extra spaces.");
 			textBox.setBackground(errorBackground);
 			return false;
 		} else {
@@ -150,7 +154,8 @@ public class SetupGUI {
 		JSpinner selectGameDuration = new JSpinner();
 		selectGameDuration.setModel(new SpinnerNumberModel(8, 5, 10, 1));
 
-		JLabel lblFarmerName = new JLabel("Your name (3-15 chars, A-Z or spaces only):");
+		JLabel lblFarmerName = new JLabel(
+				"Your name (3-15 chars, A-Z or spaces only):");
 
 		JTextField txtFarmerName = new JTextField();
 		txtFarmerName.setText("Farmer name");
@@ -218,7 +223,8 @@ public class SetupGUI {
 		));
 		panelFarms.setToolTipText("");
 
-		JLabel lblSetFarmName = new JLabel("Name your farm: (3-15 chars, A-Z or spaces only)");
+		JLabel lblSetFarmName = new JLabel(
+				"Name your farm: (3-15 chars, A-Z or spaces only)");
 
 		JTextField txtFarmName = new JTextField();
 		txtFarmName.setText("My Farm");
@@ -239,7 +245,9 @@ public class SetupGUI {
 		});
 
 		JPanel panelError = new JPanel();
-		panelError.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelError.setBorder(new BevelBorder(
+				BevelBorder.LOWERED, null, null, null, null)
+		);
 
 		panelError.add(lblError);
 
@@ -251,25 +259,18 @@ public class SetupGUI {
 				// There are only two text boxes that need to be validated --
 				// the others are designed such that the user cannot feasibly input
 				// something invalid
-				boolean farmerNameValidation = validate(txtFarmerName, lblError, "Farmer");
-				boolean farmNameValidation = validate(txtFarmName, lblError, "Farm");
+				boolean farmerNameValidation =
+						validate(txtFarmerName, lblError, "Farmer");
+				boolean farmNameValidation =
+						validate(txtFarmName, lblError, "Farm");
 				if (!farmerNameValidation || !farmNameValidation) {
 					JOptionPane.showMessageDialog(window,
-							"Cannot create a new game because the name of your farm and/or " +
-							"farmer is invalid.\n" +
+							"Cannot create a new game because the name of " +
+							"your farm and/or farmer is invalid.\n" +
 							"Please fix them, then try again.");
 					return;
 				} else {
 					int selectedIndex = selectFarm.getSelectedIndex();
-					// debug code
-					// System.out.println("Start button pressed!");
-					// System.out.printf("Game duration: %d days\n", selectGameDuration.getValue());
-					// System.out.println("Farmer name (len " + txtFarmerName.getText().length() + ": " + txtFarmerName.getText());
-					// System.out.println("Farmer age: " + selectFarmerAge.getValue());
-					// System.out.println("Selected farm: " + selectFarm.getSelectedItem());
-					// System.out.println("Farm name (len " + txtFarmName.getText().length() + ": " + txtFarmName.getText());
-					// System.out.println("Farm selected: " + farms.get(selectedIndex));
-					// System.out.println("Panel errors: " + lblError.getText());
 					initialiseGame(
 							(int)selectGameDuration.getValue(),
 							txtFarmerName.getText(),
@@ -292,24 +293,49 @@ public class SetupGUI {
 						.addComponent(panelFarms, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblGameDuration)
-							.addPreferredGap(ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
-							.addComponent(selectGameDuration, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(
+									ComponentPlacement.RELATED,
+									301,
+									Short.MAX_VALUE)
+							.addComponent(
+									selectGameDuration,
+									GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE,
+									GroupLayout.PREFERRED_SIZE))
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(lblFarmerName)
 							.addPreferredGap(ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
-							.addComponent(txtFarmerName, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+							.addComponent(
+									txtFarmerName,
+									GroupLayout.PREFERRED_SIZE,
+									75,
+									GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblFarmerAge)
 								.addComponent(lblSelectFarm))
 							.addPreferredGap(ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(selectFarm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(selectFarmerAge, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(
+										selectFarm,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(selectFarmerAge,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblSetFarmName)
-							.addPreferredGap(ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
-							.addComponent(txtFarmName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(
+									ComponentPlacement.RELATED,
+									247,
+									Short.MAX_VALUE)
+							.addComponent(
+									txtFarmName,
+									GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE,
+									GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnStart))
 					.addContainerGap())
 		);
@@ -320,29 +346,57 @@ public class SetupGUI {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGameDuration)
-						.addComponent(selectGameDuration, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(
+								selectGameDuration,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFarmerName)
-						.addComponent(txtFarmerName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(
+								txtFarmerName,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFarmerAge)
-						.addComponent(selectFarmerAge, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(
+								selectFarmerAge,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblSelectFarm)
-						.addComponent(selectFarm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(
+								selectFarm,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelFarms, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+					.addComponent(
+							panelFarms,
+							GroupLayout.DEFAULT_SIZE,
+							90,
+							Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSetFarmName)
-						.addComponent(txtFarmName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(
+								txtFarmName,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnStart)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panelError, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					.addComponent(
+							panelError,
+							GroupLayout.PREFERRED_SIZE,
+							20,
+							GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 
@@ -354,7 +408,7 @@ public class SetupGUI {
 				ColumnSpec.decode("250px"),
 				ColumnSpec.decode("default:grow"),},
 			new RowSpec[] {
-				RowSpec.decode("max(20dlu;default)"),
+				RowSpec.decode("max( 20dlu;default)"),
 				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),}));
 

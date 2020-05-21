@@ -180,23 +180,23 @@ public class Store {
 			float price = newAnimal.getPurchasePrice();
 			// Trump Ranch bonus
 			if (farm instanceof TrumpRanch) {
-				price = price * (float)0.9;
+				price = price * (float) 0.9;
 			}
 			// Moomoo Farm bonus
 			else if (farm instanceof MoomooFarm && newAnimal.getName().equals("Cow")) {
-				price = price * (float)0.8;
+				price = price * (float) 0.8;
 			}
-			if (!farm.hasEnoughMoney((int)price)) {
+			if (!farm.hasEnoughMoney((int) price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-(int)price);
+			farm.updateBankBalance(-(int) price);
 			// Animal Farm bonus
 			if (farm instanceof AnimalFarm) {
-				float health = newAnimal.getHealth() * ((AnimalFarm)farm).animalBonus;
-				float happy = newAnimal.getHappiness() * ((AnimalFarm)farm).animalBonus;
-				newAnimal.updateHealth((int)health);
-				newAnimal.updateHappiness((int)happy);
+				float health = newAnimal.getHealth() * farm.getAnimalBonus();
+				float happy = newAnimal.getHappiness() * farm.getAnimalBonus();
+				newAnimal.updateHealth((int) health);
+				newAnimal.updateHappiness((int) happy);
 			}
 			farm.addAnimal(newAnimal);
 			System.out.printf("Purchased %s successfully.\n", newAnimal.getName());
@@ -255,13 +255,13 @@ public class Store {
 			// Trump Ranch bonus
 			float price = newCrop.getPurchasePrice();
 			if (farm instanceof TrumpRanch) {
-				price = price * (float)0.9;
+				price = price * (float) 0.9;
 			}
-			if (!farm.hasEnoughMoney((int)price)) {
+			if (!farm.hasEnoughMoney((int) price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-(int)price);
+			farm.updateBankBalance(-(int) price);
 			farm.addCrop(newCrop);
 			System.out.printf("Purchased %s successfully.\n", newCrop.getName());
 			return true;
@@ -319,13 +319,13 @@ public class Store {
 			// Trump Ranch bonus
 			float price = newItem.getPurchasePrice();
 			if (farm instanceof TrumpRanch) {
-				price = price * (float)0.9;
+				price = price * (float) 0.9;
 			}
-			if (!farm.hasEnoughMoney((int)price)) {
+			if (!farm.hasEnoughMoney((int) price)) {
 				System.out.println("Not enough money!");
 				return false;
 			}
-			farm.updateBankBalance(-(int)price);
+			farm.updateBankBalance(-(int) price);
 			farm.addItem(newItem);
 			System.out.printf("Purchased %s successfully.\n", newItem.getName());
 			return true;

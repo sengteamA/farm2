@@ -4,8 +4,8 @@ import main.Asset;
 
 /**
  * Represents an Animal, with health and happiness levels.
- * @author Nick
  *
+ * @author Nick
  */
 public class Animal extends Asset {
 	private int health;

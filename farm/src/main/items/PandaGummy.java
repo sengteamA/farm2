@@ -1,13 +1,15 @@
-/**
- * a child of items
- * This gives health benefit when fed to animals
- */
-
-
 package main.items;
 
+/**
+ * Panda Gummy - feed to animals to boost double the health of Stockfeed.
+ *
+ * @author Nick
+ */
 public class PandaGummy extends Item {
-	public PandaGummy () {
+	/**
+	 * Creates a panda gummy treat.
+	 */
+	public PandaGummy() {
 		super("Panda Gummy", 350, "Animal",
 				"Health + 100",
 				"Treat loved by all animals. WARNING: may contain Panda fur");

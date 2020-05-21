@@ -3,7 +3,6 @@ package main.farms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import main.animals.*;
@@ -264,7 +263,7 @@ public class Farm {
 	 * going into debt.
 	 *
 	 * @param toDeduct Amount to deduct
-	 * @return Whether there will be enough money after deducting
+	 * @return whether there will be enough money after deducting
 	 */
 	public boolean hasEnoughMoney(int toDeduct) {
 		return getBankBalance() - toDeduct >= 0;
@@ -272,6 +271,7 @@ public class Farm {
 
 	/**
 	 * Returns whether there are any animals in the farm.
+	 *
 	 * @return Number of animals != 0
 	 */
 	public boolean hasAnimals() {
@@ -282,7 +282,7 @@ public class Farm {
 	 * Returns whether the farmer has any items that can be used as food for
 	 * animals, i.e. items whose type is "Animal".
 	 *
-	 * @return Whether farmer has any animal food.
+	 * @return whether farmer has any animal food.
 	 */
 	public boolean hasFoodItems() {
 		Map<String, Long> counts = this.showItems().stream().filter(
@@ -301,6 +301,7 @@ public class Farm {
 
 	/**
 	 * Returns whether there are any crops in the farm.
+	 *
 	 * @return Number of crops != 0
 	 */
 	public boolean hasCrops() {
@@ -311,7 +312,7 @@ public class Farm {
 	 * Returns whether the farmer has any items that can be used on crops,
 	 * i.e. items whose type is "Crop".
 	 *
-	 * @return Whether farmer has any items for crops.
+	 * @return whether farmer has any items for crops.
 	 */
 	public boolean hasPlantItems() {
 		Map<String, Long> counts = this.showItems().stream().filter(
@@ -329,8 +330,9 @@ public class Farm {
 
 	/**
 	 * Checks if a particular crop is on the farm.
+	 *
 	 * @param subject Crop to check
-	 * @return Whether subject is on the farm.
+	 * @return whether subject is on the farm.
 	 */
 	public boolean plantInStock(Crop subject) {
 		for (Crop crop : this.showCrops()) {
@@ -344,7 +346,7 @@ public class Farm {
 	/**
 	 * Checks if a particular item is on the farm.
 	 * @param subject Item to check
-	 * @return Whether item is on the farm.
+	 * @return whether item is on the farm.
 	 */
 	public boolean itemInHand(Item subject) {
 		for (Item item : this.showItems()) {
@@ -356,7 +358,7 @@ public class Farm {
 	}
 
 	/**
-	 * Refresh AP (daily actions) to its original number of two.
+	 * Refresh AP (daily actions left) to its original number of two.
 	 * Used at the end of the day.
 	 */
 	public void refreshAP() {
@@ -368,7 +370,8 @@ public class Farm {
 	 * another crop.
 	 *
 	 * A necessary check before each crop is purchased.
-	 * @return Whether there is enough space on farm.
+	 *
+	 * @return whether there is enough space on farm.
 	 */
 	public boolean hasSpace() {
 		return crops.size() < this.getFarmCap();
@@ -379,7 +382,7 @@ public class Farm {
 	 * A type is what kind of asset the item can be used on.
 	 *
 	 * @param type "Animal" or "Crop".
-	 * @return A new list containing the items of the given type.
+	 * @return a new list containing the items of the given type.
 	 */
 	public ArrayList<Item> getItemType(String type) {
 		ArrayList<Item> iList = new ArrayList<Item>();
@@ -396,7 +399,7 @@ public class Farm {
 	 * currently has in stock, with duplicates removed and in alphabetical
 	 * order.
 	 *
-	 * @return A list of the kinds of crops on the farm.
+	 * @return a list of the kinds of crops on the farm.
 	 */
 	public ArrayList<String> getCropType() {
 		ArrayList<String> farmCropTypes = new ArrayList<String>();
@@ -410,10 +413,13 @@ public class Farm {
 	}
 
 	/**
+	 * Returns the score, calculated using the bank balance and the number of
+	 * animals and crops.
 	 *
 	 * @return the score of the game
 	 */
 	public int getScore() {
-		return this.getBankBalance() + (this.showAnimals().size() + this.showCrops().size()) * 10;
+		return this.getBankBalance() + (this.showAnimals().size() +
+				this.showCrops().size()) * 10;
 	}
 }
