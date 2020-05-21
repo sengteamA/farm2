@@ -67,8 +67,8 @@ public class StoreGUI {
 	 * Return the price of an asset, after any relevant discounts (i.e.
 	 * Trump Ranch discount) have been applied.
 	 *
-	 * @param price - price of the asset
-	 * @param name - name of the asset
+	 * @param price price of the asset
+	 * @param name name of the asset
 	 * @return new price of asset when purchasing in store
 	 */
 	private int getStorePrice(int price, String name) {
@@ -150,7 +150,7 @@ public class StoreGUI {
 	/**
 	 * Purchase an animal, deduct the appropriate amount of money,
 	 * and update the player's list of animals.
-	 * @param animal - an instance of the Animal the player wants to buy
+	 * @param animal an instance of the Animal the player wants to buy
 	 */
 	private void purchaseAsset(Animal animal) {
 		try {
@@ -185,7 +185,7 @@ public class StoreGUI {
 	/**
 	 * Purchase a crop, deduct the appropriate amount of money,
 	 * and update the player's list of crops.
-	 * @param crop - an instance of the Crop the player wants to buy
+	 * @param crop an instance of the Crop the player wants to buy
 	 */
 	private void purchaseAsset(Crop crop) {
 		try {
@@ -215,7 +215,7 @@ public class StoreGUI {
 	/**
 	 * Purchase an animal, deduct the appropriate amount of money,
 	 * and update the player's list of animals.
-	 * @param item - an instance of the Item the player wants to buy
+	 * @param item an instance of the Item the player wants to buy
 	 */
 	private void purchaseAsset(Item item) {
 		try {
