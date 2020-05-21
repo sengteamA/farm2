@@ -18,10 +18,10 @@ import main.items.*;
  *
  * @author Grant and Nick
  */
-public class Game {
+public class GameCLI {
 	private Farmer farmer;
 	private Farm farm;
-	private Store store;
+	private StoreCLI store;
 	private int dayNumber = 1;
 	private int maxDays = 0;
 
@@ -53,7 +53,7 @@ public class Game {
 	 * Creates a new Store instance for the game.
 	 */
 	private void createStore() {
-		store = new Store();
+		store = new StoreCLI();
 	}
 
 	/**
@@ -1171,7 +1171,7 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Game game = new Game();
+		GameCLI game = new GameCLI();
 		game.runGame(sc);
 		sc.close(); // wrap up the Scanner, no longer accept input
 	}

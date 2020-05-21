@@ -15,14 +15,14 @@ import main.items.*;
  * interacting with the county general store.
  * @author Grant and Nick
  */
-class StoreTest {
+class StoreCLITest {
 	Farm farm;
-	Store store;
+	StoreCLI store;
 
 	@BeforeEach
 	public void init() {
 		farm = new Farm("Test", "Test");
-		store = new Store();
+		store = new StoreCLI();
 	}
 
 	/**

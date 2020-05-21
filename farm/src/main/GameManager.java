@@ -21,7 +21,6 @@ public class GameManager {
 	 */
 	public Farmer farmer;
 	public Farm farm;
-	public Store store;
 	public int dayNumber = 1;
 	public int maxDays = 0;
 	public int score = 0;

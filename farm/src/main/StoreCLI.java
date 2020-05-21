@@ -21,7 +21,7 @@ import main.items.*;
  * @author Grant and Nick
  *
  */
-public class Store {
+public class StoreCLI {
 	private TreeMap<String,Animal> animals;
 	private TreeMap<String,Crop> crops;
 	private TreeMap<String,Item> items;
@@ -34,7 +34,7 @@ public class Store {
 	 * instance is always passed as an argument for each of Store's
 	 * methods, e.g. when the player purchases something.
 	 */
-	public Store() {
+	public StoreCLI() {
 		animals = new TreeMap<String,Animal>();
 		crops = new TreeMap<String,Crop>();
 		items = new TreeMap<String,Item>();
