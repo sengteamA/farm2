@@ -39,7 +39,10 @@ class ItemTests {
 		Compost compost = new Compost();
 		assertEquals(150, compost.getPurchasePrice());
 	}
-
+	
+	/**
+	 * Tests InstantGrowLite attributes
+	 */
 	@Test
 	void InstantGrowLiteTest() {
 		InstantGrowLite igl = new InstantGrowLite();
@@ -48,7 +51,10 @@ class ItemTests {
 		assertEquals("Halves days to harvest", igl.getBenefit());
 		assertEquals("a lesser brand of witchcraft for the casual farmer", igl.getFlavour());
 	}
-
+	
+	/**
+	 * Tests stockfeed attributes
+	 */
 	@Test
 	void stockfeedTest() {
 		Stockfeed stock = new Stockfeed();
