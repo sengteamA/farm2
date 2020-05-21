@@ -100,9 +100,7 @@ public class Farmer {
 		float days = 0;
 		if (action.equals("watering plants")) {
 			days = 1;
-		}
-
-		else if (action.equals("use item")) {
+		} else if (action.equals("use item")) {
 			if (choice.getName().equals("Chemical Spray")) {
 				days = 4;
 			}
