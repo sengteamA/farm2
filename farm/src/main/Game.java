@@ -173,6 +173,7 @@ public class Game {
 
 	/**
 	 * Starts and sets up game, and prompts required information from user.
+	 * @param sc where to get user input from (typically System.in)
 	 */
 	private void startGame(Scanner sc) {
 		System.out.println("Welcome to the game.");
@@ -265,7 +266,7 @@ public class Game {
 	/**
 	 * Prompt user for a game loop option that doesn't cost any actions.
 	 *
-	 * @param sc where to get the user input from (System.in)
+	 * @param sc where to get the user input from (typically System.in)
 	 */
 	private void promptNonAction(Scanner sc) {
 		System.out.println("1. View status of farm OR farm's " +
@@ -1164,7 +1165,8 @@ public class Game {
 	}
 
 	/**
-	 * Runs the game from start to finish
+	 * Runs the game upon execution of this program.
+	 *
 	 * @param args arguments to the program, unused
 	 */
 	public static void main(String[] args) {
