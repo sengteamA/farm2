@@ -105,6 +105,6 @@ public class Animal extends Asset {
 	public String getInfo() {
 		return name + ":\n" +
 				"Happiness: " + happiness + "\n" +
-				"Health " + health;
+				"Health: " + health;
 	}
 }
