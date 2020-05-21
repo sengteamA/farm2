@@ -70,4 +70,12 @@ public class AnimalTest {
 		moomoo.updateHealth(10);
 		assertEquals(104, moomoo.bonus());
 	}
+	
+	/**
+	 * Tests if getInfo present information correctly.
+	 */
+	@Test
+	void getInfoTest() {
+		assertEquals("Sheep:\nHappiness: 50\nHealth: 50", babe.getInfo());
+	}
 }
