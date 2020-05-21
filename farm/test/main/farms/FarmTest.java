@@ -299,6 +299,8 @@ class FarmTest {
 		testFarm.addItem(stock);
 		assertFalse(testFarm.itemInHand(compost));
 		assertTrue(testFarm.itemInHand(stock));
+		testFarm.delItem(stock);
+		assertFalse(testFarm.itemInHand(stock));
 	}
 	
 	@Test
@@ -308,4 +310,30 @@ class FarmTest {
 		testFarm.addAnimal(crash);
 		assertEquals(1010, testFarm.getScore());
 	}
-}
+	
+	@Test
+	void cropDeleteTest() {
+		Wasabi volcano = new Wasabi();
+		testFarm.addCrop(volcano);
+		assertEquals(1, testFarm.showCrops().size());
+		testFarm.delCrop(volcano);
+		assertTrue(testFarm.showCrops().isEmpty());
+	}
+	
+	@Test
+	void animalDeleteTest() {
+		Cow seacow = new Cow();
+		testFarm.addAnimal(seacow);
+		assertEquals(1, testFarm.showAnimals().size());
+		testFarm.delAnimal(seacow);
+		assertTrue(testFarm.showAnimals().isEmpty());
+	}
+	
+	@Test
+	void liquidityTest() {
+		testFarm.updateBankBalance(-700);
+		Fox fox = new Fox();
+		Sheep sheep = new Sheep();
+		assertFalse(testFarm.hasEnoughMoney(fox.getPurchasePrice()));
+		assertTrue(testFarm.hasEnoughMoney(sheep.getPurchasePrice()));
+	}
