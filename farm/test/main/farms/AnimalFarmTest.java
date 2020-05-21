@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 class AnimalFarmTest {
 
 	public AnimalFarm snowball;
-	//initialised object before each test
+	// initialised object before each test
 	@BeforeEach
 	public void init() {
 		snowball = new AnimalFarm();
 	}
 
-	//test that flavour string is correct
+	// test that flavour string is correct
 	@Test 
 	void flavourTest() {
 		String s = snowball.getFlavour();
@@ -24,14 +24,14 @@ class AnimalFarmTest {
 				+ "Feeding and playing with animals is 20% more effective.\n", s);
 	}
 	
-	//test inheritance correctly implemented
+	// test inheritance correctly implemented
 	@Test
 	void class_test() {
 		assertTrue(snowball instanceof AnimalFarm);
 		assertTrue(snowball instanceof Farm);
 	}
 	
-	//test that animalBonus correctly implemented
+	// test that animalBonus correctly implemented
 	@Test 
 	void animalBonusTest() {
 		assertEquals((float)0.2, snowball.getAnimalBonus());
