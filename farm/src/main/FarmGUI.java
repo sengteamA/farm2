@@ -36,7 +36,6 @@ public class FarmGUI {
 	private JLabel lblFarmMoney;
 	private JComboBox<String> selectAssetType;
 	private JList<String> listsDisplay;
-	private JTextField viewAssets;
 
 	/**
 	 * Create the application.
@@ -56,10 +55,12 @@ public class FarmGUI {
 	}
 
 	/**
-	 * Updates the "Actions Left" label in the main farm window.
+	 * Updates the "Actions Left" and "Bank Balance" labels in the
+	 * main farm window.
 	 */
-	public void updateActionLabel() {
+	public void updateLabels() {
 		lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
+		lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class FarmGUI {
 			}
 		}
 		listsDisplay.setModel(assetListModel);
-	}
+ 	}
 
 
 	/**
@@ -170,15 +171,20 @@ public class FarmGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				launchStore();
+				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 			}
 		});
 		btnVisitStore.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVisitStore.setBounds(196, 142, 155, 48);
 		window.getContentPane().add(btnVisitStore);
 
-		//will not automatically update unless "pressed" again
-		JTextField ViewAssets = new JTextField("View Assets");
-		ViewAssets.setHorizontalAlignment(SwingConstants.CENTER);
+		JTextField viewAssets = new JTextField("View Assets");
+		viewAssets.setBounds(31, 256, 111, 34);
+		viewAssets.setFont(new Font("Tahoma", Font.BOLD, 15));
+		viewAssets.setEditable(false);
+		viewAssets.setHorizontalAlignment(SwingConstants.CENTER);
+		viewAssets.setColumns(10);
+		window.getContentPane().add(viewAssets);
 
 		listsDisplay = new JList<String>();
 		listsDisplay.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -228,7 +234,10 @@ public class FarmGUI {
 				}
 				else {
 					manager.farmer.harvestCrops();
-					JOptionPane.showMessageDialog(window, "Crop(s) were harvested and sold.");
+					JOptionPane.showMessageDialog(
+							window,
+							"Crop(s) were harvested and sold."
+					);
 					refreshAssetList();
 				}
 				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
@@ -240,11 +249,11 @@ public class FarmGUI {
 		window.getContentPane().add(btnHarvestCrops);
 
 
-		JLabel FarmStatus = new JLabel("Farm Status");
-		FarmStatus.setHorizontalAlignment(SwingConstants.LEFT);
-		FarmStatus.setFont(new Font("Tahoma", Font.BOLD, 18));
-		FarmStatus.setBounds(417, 40, 137, 34);
-		window.getContentPane().add(FarmStatus);
+		JLabel farmStatus = new JLabel("Farm Status");
+		farmStatus.setHorizontalAlignment(SwingConstants.LEFT);
+		farmStatus.setFont(new Font("Tahoma", Font.BOLD, 18));
+		farmStatus.setBounds(417, 40, 137, 34);
+		window.getContentPane().add(farmStatus);
 
 
 		JButton btnPlayWithAnimals = new JButton("Play with Animals");
@@ -401,13 +410,5 @@ public class FarmGUI {
 		tendtoCrops.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tendtoCrops.setBounds(31, 28, 155, 48);
 		window.getContentPane().add(tendtoCrops);
-
-		viewAssets = new JTextField();
-		viewAssets.setText("View Assets");
-		viewAssets.setFont(new Font("Tahoma", Font.BOLD, 15));
-		viewAssets.setHorizontalAlignment(SwingConstants.CENTER);
-		viewAssets.setBounds(31, 256, 111, 34);
-		window.getContentPane().add(viewAssets);
-		viewAssets.setColumns(10);
 	}
 }
