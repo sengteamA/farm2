@@ -62,7 +62,7 @@ public class AnimalTest {
 	}
 
 	/**
-	 * Test if daily bonus for an animal incrases with a higher health level.
+	 * Test if daily bonus for an animal increases with a higher health level.
 	 */
 	@Test
 	void bonusTest() {
