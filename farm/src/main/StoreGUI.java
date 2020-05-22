@@ -203,8 +203,8 @@ public class StoreGUI {
 			refreshMoneyLabel();
 			refreshAssetList();
 		} catch (InstantiationException | IllegalAccessException |
-				IllegalArgumentException | InvocationTargetException |
-				SecurityException | NoSuchMethodException e) {
+				InvocationTargetException | SecurityException |
+				NoSuchMethodException e) {
 			// handle potential errors by just stopping the entire method
 			e.printStackTrace();
 			throw new IllegalArgumentException("Something's wrong with this " +
