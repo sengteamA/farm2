@@ -90,13 +90,11 @@ public class FarmGUI {
 			for (Animal animal : manager.farm.showAnimals()) {
 				assetListModel.addElement(animal.toString());
 			}
-		}
-		else if (selectAssetType.getSelectedItem().equals("Crops")) {
+		} else if (selectAssetType.getSelectedItem().equals("Crops")) {
 			for (Crop crop : manager.farm.showCrops()) {
 				assetListModel.addElement(crop.toString());
 			}
-		}
-		else if (selectAssetType.getSelectedItem().equals("Items")) {
+		} else if (selectAssetType.getSelectedItem().equals("Items")) {
 			for (Item item : manager.farm.showItems()) {
 				assetListModel.addElement(item.toString());
 			}
@@ -149,8 +147,7 @@ public class FarmGUI {
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else {
+				} else {
 					manager.farmer.tendToLand();
 					lblActions.setText(
 							"Actions Left: " +
@@ -222,24 +219,21 @@ public class FarmGUI {
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else if (!manager.farm.hasCrops()) {
+				} else if (!manager.farm.hasCrops()) {
 					JOptionPane.showMessageDialog(
 							window,
 							"You have no crops. Please see your local supplier.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else if (manager.farm.showCrops().stream().allMatch(c -> c.getDaysLeft() > 0)) {
+				} else if (manager.farm.showCrops().stream().allMatch(c -> c.getDaysLeft() > 0)) {
 					JOptionPane.showMessageDialog(
 							window,
 							"No crops available for harvest.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else {
+				} else {
 					manager.farmer.harvestCrops();
 					JOptionPane.showMessageDialog(
 							window,
@@ -274,15 +268,13 @@ public class FarmGUI {
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else if (!manager.farm.hasAnimals()) {
+				} else if (!manager.farm.hasAnimals()) {
 					JOptionPane.showMessageDialog(window,
 							"You have no animals. Please see your local supplier.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else {
+				} else {
 					manager.farmer.playWithAnimals();
 					lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 					JOptionPane.showMessageDialog(
@@ -360,26 +352,21 @@ public class FarmGUI {
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-
-				else if (!manager.farm.hasAnimals()) {
+				} else if (!manager.farm.hasAnimals()) {
 					JOptionPane.showMessageDialog(
 							window,
 							"You have no animals. Please see your local supplier.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-
-				else if(!manager.farm.hasFoodItems()) {
+				} else if (!manager.farm.hasFoodItems()) {
 					JOptionPane.showMessageDialog(
 							window,
 							"You have no food. Please see your local supplier.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else {
+				} else {
 					manager.launchFeedingScreen();
 				}
 			}
@@ -400,16 +387,14 @@ public class FarmGUI {
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else if (manager.farm.hasCrops() == false) {
+				} else if (!manager.farm.hasCrops()) {
 					JOptionPane.showMessageDialog(
 							window,
 							"You have no crops. Please see your local supplier.",
 							"WARNING",
 							JOptionPane.ERROR_MESSAGE
 					);
-				}
-				else {
+				} else {
 					manager.launchCropsScreen();
 				}
 			}
