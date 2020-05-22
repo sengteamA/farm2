@@ -10,18 +10,15 @@ Welcome to the Farm Simulator!
 
 1. Extract .zip archive to get the "farm" directory.
 
-2. Open Eclipse and create a new empty Java project into a new workspace.
-   Use File > New > Java Project.
+2. The "farm" directory is already an Eclipse project! Go to File > Import...
+   > Existing Projects into Workspace and select the "farm" directory as the
+   root directory.
 
-3. Right click on the source folder (in the Package Explorer view) and
-   click Import... > General > File System, then choose the "farm"
-   directory that was extracted earlier.
+3. After pressing Finish, you should be able to see three folders: "src", which
+   contains the source code; "test", which contains the JUnit tests; and
+   "doc", which contains the Javadoc documentation.
 
-4. The source code will be accessible in the "./src/" subdirectory.
-   You can also access the tests, which are in "./tests/", and the
-   Javadoc documentation, which is in "./doc/".
-
-This has been tested with Java 11 JDK.
+This has been tested with Java 11 JDK in the Erskine labs, with Eclipse 2019-09.
 
 ## How to build the source code
 
