@@ -14,15 +14,30 @@ import main.farms.*;
  * @author Grant and Nick
  */
 public class GameManager {
+	/**
+	 * An instance of the main farm GUI window, included here as it is
+	 * passed around classes.
+	 */
 	public FarmGUI farmWindow;
 	/**
 	 * Farmer stores all the high-level actions that the player can run.
-	 * Farm stores all the player data, like what the player has on the farm.
 	 */
 	public Farmer farmer;
+	/**
+	 * Farm stores all the player data, like what the player has on the farm.
+	 */
 	public Farm farm;
+	/**
+	 * The day number of the game. Must not exceed total duration.
+	 */
 	public int dayNumber = 1;
+	/**
+	 * Total duration of the game; some integer between 5 and 10 inclusive.
+	 */
 	public int maxDays = 0;
+	/**
+	 * The score, calculated at the very end.
+	 */
 	public int score = 0;
 
 	/**
