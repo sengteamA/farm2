@@ -23,6 +23,10 @@ Welcome to the Farm Simulator!
 
 This has been tested with Java 11 JDK.
 
+## How to build the source code
+
+1. Building the .jar file can be done with Eclipse: File > Export > Runnable JAR file.
+
 ## How to run
 
 1. Ensure Java 11 JDK or above is installed.
