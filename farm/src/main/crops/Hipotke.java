@@ -12,8 +12,9 @@ package main.crops;
 public class Hipotke extends Crop {
 	/**
 	 * Creates some Hipotke Grass.
+	 * @param dayPlanted the day this crop was purchased or planted
 	 */
-	public Hipotke() {
-		super("Hipotke Grass", 200, 18, 300);
+	public Hipotke(int dayPlanted) {
+		super("Hipotke Grass", 200, 18, 300, dayPlanted);
 	}
 }

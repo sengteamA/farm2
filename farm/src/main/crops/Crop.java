@@ -16,6 +16,12 @@ public class Crop extends Asset {
 	private int daysToHarvest;
 
 	/**
+	 * The day the crop was grown/planted. Since crops are planted immediately
+	 * after purchase, this is equivalent to the day the crop was purchased.
+	 */
+	private int dayPlanted;
+
+	/**
 	 * Days elapsed measures how many days has passed since purchase.
 	 */
 	private int daysElapsed = 0;
@@ -35,11 +41,14 @@ public class Crop extends Asset {
 	 *        ready for harvest
 	 * @param sellingPrice how much money the crop will bring once harvested
 	 *        and sold
+	 * @param dayPlanted the day this crop was planted/purchased; used
+	 * 		  exclusively for informational purposes and not in any game logic
 	 */
-	public Crop(String name, int purchasePrice, int daysToHarvest, int sellingPrice) {
+	public Crop(String name, int purchasePrice, int daysToHarvest, int sellingPrice, int dayPlanted) {
 		super(name, purchasePrice);
 		this.daysToHarvest = daysToHarvest;
 		this.sellingPrice = sellingPrice;
+		this.dayPlanted = dayPlanted;
 	}
 
 	/**
@@ -103,7 +112,8 @@ public class Crop extends Asset {
 	 */
 	@Override
 	public String toString() {
-		return name + ": days left " + this.getDaysLeft();
+		return name + ": planted day " + dayPlanted + ", " +
+				this.getDaysLeft() + " days left";
 	}
 
 	/**

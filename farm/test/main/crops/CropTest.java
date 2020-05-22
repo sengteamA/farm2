@@ -11,7 +11,7 @@ class CropTest {
 	// custom crop created before each test
 	@BeforeEach
 	void setUp() throws Exception {
-		myCrop = new Crop("Bacon", 100, 2000, 150);
+		myCrop = new Crop("Bacon", 100, 2000, 150, 5);
 	}
 
 	// tests name getter
@@ -58,8 +58,10 @@ class CropTest {
 	// crop toString test
 	@Test
 	void toStringTest() {
-		assertEquals("Bacon: days left 2000", myCrop.toString());
+		assertEquals("Bacon: planted day 5, 2000 days left",
+				myCrop.toString());
 	}
+
 	// crop getInfoTest
 	@Test
 	void getInfoTest() {
@@ -69,7 +71,7 @@ class CropTest {
 	// test all aspects of Carrot
 	@Test
 	void carrotTest() {
-		Carrot carrot = new Carrot();
+		Carrot carrot = new Carrot(5);
 		assertEquals("Carrot", carrot.getName());
 		assertEquals(20, carrot.getPurchasePrice());
 		assertEquals(6, carrot.getDaysToHarvest());
@@ -79,7 +81,7 @@ class CropTest {
 	// test Hipotke attributes
 	@Test
 	void hipTest() {
-		Hipotke hip = new Hipotke();
+		Hipotke hip = new Hipotke(5);
 		assertEquals("Hipotke Grass", hip.getName());
 		assertEquals(200, hip.getPurchasePrice());
 		assertEquals(18, hip.getDaysToHarvest());
@@ -89,7 +91,7 @@ class CropTest {
 	// test mushroom attributes
 	@Test
 	void mushTest() {
-		Mushroom mush = new Mushroom();
+		Mushroom mush = new Mushroom(5);
 		assertEquals("Mushroom", mush.getName());
 		assertEquals(30, mush.getPurchasePrice());
 		assertEquals(7, mush.getDaysToHarvest());
@@ -99,7 +101,7 @@ class CropTest {
 	// test tomacco attributes
 	@Test
 	void tomcaccoTest() {
-		Tomacco tomacco = new Tomacco();
+		Tomacco tomacco = new Tomacco(5);
 		assertEquals("Tomacco", tomacco.getName());
 		assertEquals(50, tomacco.getPurchasePrice());
 		assertEquals(9, tomacco.getDaysToHarvest());
@@ -109,7 +111,7 @@ class CropTest {
 	// test wasabi attributes
 	@Test
 	void wasabiTest() {
-		Wasabi wasabi = new Wasabi();
+		Wasabi wasabi = new Wasabi(5);
 		assertEquals("Wasabi", wasabi.getName());
 		assertEquals(100, wasabi.getPurchasePrice());
 		assertEquals(15, wasabi.getDaysToHarvest());
@@ -119,7 +121,7 @@ class CropTest {
 	// test wheat attributes
 	@Test
 	void wheatTest() {
-		Wheat wheat = new Wheat();
+		Wheat wheat = new Wheat(5);
 		assertEquals("Wheat", wheat.getName());
 		assertEquals(10, wheat.getPurchasePrice());
 		assertEquals(4, wheat.getDaysToHarvest());

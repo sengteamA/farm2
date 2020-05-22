@@ -15,7 +15,7 @@ import main.items.*;
 
 class FarmTest {
 	public Farm testFarm;
-	
+
 	/**
 	 * Creates a regular farm without bonuses before each test.
 	 */
@@ -53,7 +53,7 @@ class FarmTest {
 		assertEquals((float)0.2, animalFarm.getAnimalBonus());
 
 	}
-	
+
 	/**
 	 * Checks the number of actions are being accounted correctly.
 	 */
@@ -62,7 +62,7 @@ class FarmTest {
 		testFarm.updateAP();
 		assertEquals(1, testFarm.getActionsLeft());
 	}
-	
+
 	/**
 	 * Checks animals are being added to the list correctly.
 	 */
@@ -77,7 +77,7 @@ class FarmTest {
 		assertEquals(3, testFarm.showAnimals().size());
 		assertEquals("Sheep", testFarm.showAnimals().get(0).getName());
 	}
-	
+
 	/**
 	 * Checks the items are added to the list correctly.
 	 */
@@ -98,7 +98,7 @@ class FarmTest {
 		assertFalse(testFarm.showItems().contains(po));
 		assertFalse(testFarm.showItems().contains(stockfeed));
 	}
-	
+
 	/**
 	 * Checks that hasAnimalTest are checked correctly.
 	 */
@@ -109,7 +109,7 @@ class FarmTest {
 		testFarm.addAnimal(blackie);
 		assertTrue(testFarm.hasAnimals());
 	}
-	
+
 	/**
 	 * Checks that hasFood logic is correct.
 	 */
@@ -123,22 +123,22 @@ class FarmTest {
 		testFarm.addItem(stock);
 		assertTrue(testFarm.hasFoodItems());
 	}
-	
+
 	/**
 	 * Checks that hasCrop logic is correct.
 	 */
 	@Test
 	void hasCropsTest() {
 		assertFalse(testFarm.hasCrops());
-		Tomacco marl = new Tomacco();
+		Tomacco marl = new Tomacco(0);
 		assertFalse(testFarm.hasCrops());
 		testFarm.addCrop(marl);
 		assertTrue(testFarm.hasCrops());
 	}
-	
+
 	/**
 	 * Checks if farm has any crop items
-	 * on hand. 
+	 * on hand.
 	 */
 	@Test
 	void hasPlantItems() {
@@ -156,8 +156,8 @@ class FarmTest {
 	 */
 	@Test
 	void inStockTests() {
-		Carrot carrot = new Carrot();
-		Wasabi wasabi = new Wasabi();
+		Carrot carrot = new Carrot(0);
+		Wasabi wasabi = new Wasabi(0);
 		assertFalse(testFarm.plantInStock(carrot));
 		testFarm.addCrop(carrot);
 		assertTrue(testFarm.plantInStock(carrot));
@@ -171,7 +171,7 @@ class FarmTest {
 	void farmCapTests() {
 		assertTrue(testFarm.hasSpace());
 		for (int i=0; i <=9; i++) {
-			testFarm.addCrop(new Carrot());
+			testFarm.addCrop(new Carrot(0));
 		}
 		assertFalse(testFarm.hasSpace());
 	}
@@ -196,14 +196,14 @@ class FarmTest {
 	 */
 	@Test
 	void getCropTypeTest() {
-		testFarm.addCrop(new Wheat());
-		testFarm.addCrop(new Mushroom());
-		testFarm.addCrop(new Wasabi());
-		testFarm.addCrop(new Hipotke());
-		testFarm.addCrop(new Carrot());
-		testFarm.addCrop(new Tomacco());
-		testFarm.addCrop(new Tomacco());
-		testFarm.addCrop(new Tomacco());
+		testFarm.addCrop(new Wheat(0));
+		testFarm.addCrop(new Mushroom(0));
+		testFarm.addCrop(new Wasabi(0));
+		testFarm.addCrop(new Hipotke(0));
+		testFarm.addCrop(new Carrot(0));
+		testFarm.addCrop(new Tomacco(0));
+		testFarm.addCrop(new Tomacco(0));
+		testFarm.addCrop(new Tomacco(0));
 		ArrayList<String> types = testFarm.getCropType();
 		// testing an array for equality, the lazy way
 		assertEquals("Carrot", types.get(0));
@@ -246,7 +246,7 @@ class FarmTest {
 	 */
 	@Test
 	void cropDupeTest() {
-		Carrot carrot = new Carrot();
+		Carrot carrot = new Carrot(0);
 		IllegalArgumentException thrown = assertThrows(
 				IllegalArgumentException.class,
 				() -> {
@@ -276,12 +276,12 @@ class FarmTest {
 				"Cannot add two identical instances (duplicates) of an item"
 		));
 	}
-	
+
 	/**
 	 * Tests hasCow() is working correctly
 	 * for the MoomooFarm class.
 	 */
-	@Test 
+	@Test
 	void MoomooFarmTest() {
 		Cow cow = new Cow();
 		Sheep sheep = new Sheep();
@@ -291,17 +291,17 @@ class FarmTest {
 		moo.addAnimal(cow);
 		assertTrue(moo.hasCow());
 	}
-	
+
 	/**
 	 * Checks TomaccoLand attributes are set correctly.
 	 */
-	@Test 
+	@Test
 	void TomaccoLandTest() {
 		TomaccoLand Homer = new TomaccoLand();
 		assertEquals("The dangers of nuclear waste meets the genius of genetic engineering.\n"
 				+ "Tending to crops makes them mature 1 day faster than others.", Homer.getFlavour());
 	}
-	
+
 	/**
 	 * A random test using the second type of initialiser.
 	 * Checks various getter and setter functions
@@ -321,17 +321,17 @@ class FarmTest {
 		farm2.refreshAP();
 		assertEquals(2, farm2.getActionsLeft());
 	}
-	
+
 	/**
 	 * Ensure animals are giving the correct benefits.
 	 */
-	@Test 
+	@Test
 	void dailyBonusTest() {
 		Fox fox = new Fox();
 		testFarm.addAnimal(fox);
 		assertEquals(160, testFarm.getDailyBonusMoney());
 	}
-	
+
 	/**
 	 * Tests whether the check for items in hand
 	 * is working correctly.
@@ -346,9 +346,9 @@ class FarmTest {
 		testFarm.delItem(stock);
 		assertFalse(testFarm.itemInHand(stock));
 	}
-	
+
 	/**
-	 * Tests that score calculations are being 
+	 * Tests that score calculations are being
 	 * performed correctly.
 	 */
 	@Test
@@ -358,19 +358,19 @@ class FarmTest {
 		testFarm.addAnimal(crash);
 		assertEquals(1010, testFarm.getScore());
 	}
-	
+
 	/**
 	 * Tests whether crops are deleted correctly.
 	 */
 	@Test
 	void cropDeleteTest() {
-		Wasabi volcano = new Wasabi();
+		Wasabi volcano = new Wasabi(0);
 		testFarm.addCrop(volcano);
 		assertEquals(1, testFarm.showCrops().size());
 		testFarm.delCrop(volcano);
 		assertTrue(testFarm.showCrops().isEmpty());
 	}
-	
+
 	/**
 	 * Tests whether animals are deleted correctly.
 	 */
@@ -382,7 +382,7 @@ class FarmTest {
 		testFarm.delAnimal(seacow);
 		assertTrue(testFarm.showAnimals().isEmpty());
 	}
-	
+
 	/**
 	 * Tests the method which checks farm balance
 	 * and ensures players do not go into debt

@@ -102,12 +102,15 @@ public class StoreGUI {
 	 * available for purchase in the store.
 	 */
 	private void initialiseCrops() {
-		crops.add(new Carrot());
-		crops.add(new Hipotke());
-		crops.add(new Mushroom());
-		crops.add(new Tomacco());
-		crops.add(new Wasabi());
-		crops.add(new Wheat());
+		// This zero acts as a sort of placeholder; when the player
+		// purchases a crop, this value will be replaced by the
+		// day the crop was purchased and subsequently planted.
+		crops.add(new Carrot(0));
+		crops.add(new Hipotke(0));
+		crops.add(new Mushroom(0));
+		crops.add(new Tomacco(0));
+		crops.add(new Wasabi(0));
+		crops.add(new Wheat(0));
 	}
 
 	/**
@@ -197,7 +200,11 @@ public class StoreGUI {
 				throw new IllegalArgumentException(
 						"Not enough space on the farm to add another crop!");
 			}
-			Crop newCrop = crop.getClass().getDeclaredConstructor().newInstance();
+			// Make a new instance of the same type of crop, with the day
+			// number it was bought and planted on.
+			//
+			// Note that in this game, purchasing a crop immediately plants it.
+			Crop newCrop = crop.getClass().getDeclaredConstructor(int.class).newInstance(manager.getDayNumber());
 			manager.farm.updateBankBalance(-price);
 			manager.farm.addCrop(newCrop);
 			refreshMoneyLabel();
@@ -206,7 +213,6 @@ public class StoreGUI {
 				InvocationTargetException | SecurityException |
 				NoSuchMethodException e) {
 			// handle potential errors by just stopping the entire method
-			e.printStackTrace();
 			throw new IllegalArgumentException("Something's wrong with this " +
 					"product. Buy something else instead?");
 		}

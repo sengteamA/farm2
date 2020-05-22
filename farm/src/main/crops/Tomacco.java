@@ -8,8 +8,9 @@ package main.crops;
 public class Tomacco extends Crop {
 	/**
 	 * Creates some tomacco crop.
+	 * @param dayPlanted the day this crop was purchased or planted
 	 */
-	public Tomacco() {
-		super("Tomacco", 50, 9, 65);
+	public Tomacco(int dayPlanted) {
+		super("Tomacco", 50, 9, 65, dayPlanted);
 	}
 }

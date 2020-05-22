@@ -8,8 +8,9 @@ package main.crops;
 public class Wasabi extends Crop {
 	/**
 	 * Creates some wasabi.
+	 * @param dayPlanted the day this crop was purchased or planted
 	 */
-	public Wasabi() {
-		super("Wasabi", 100, 15, 150);
+	public Wasabi(int dayPlanted) {
+		super("Wasabi", 100, 15, 150, dayPlanted);
 	}
 }

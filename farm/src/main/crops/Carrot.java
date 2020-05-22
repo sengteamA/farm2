@@ -8,8 +8,9 @@ package main.crops;
 public class Carrot extends Crop {
 	/**
 	 * Creates some carrot.
+	 * @param dayPlanted the day this crop was purchased or planted
 	 */
-	public Carrot() {
-		super("Carrot", 20, 6, 24);
+	public Carrot(int dayPlanted) {
+		super("Carrot", 20, 6, 24, dayPlanted);
 	}
 }

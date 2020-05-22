@@ -118,12 +118,17 @@ public class CropCareGUI {
 		actionButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Carrot carrot = new Carrot();
-				Hipotke hip = new Hipotke();
-				Mushroom mush = new Mushroom();
-				Tomacco tomacco = new Tomacco();
-				Wasabi wasabi = new Wasabi();
-				Wheat wheat = new Wheat();
+				// Use 0 as a placeholder value for the day these crops
+				// were planted/purchased
+				//
+				// We're just using them to get the getName() value anyway
+				// so it doesn't matter
+				Carrot carrot = new Carrot(0);
+				Hipotke hip = new Hipotke(0);
+				Mushroom mush = new Mushroom(0);
+				Tomacco tomacco = new Tomacco(0);
+				Wasabi wasabi = new Wasabi(0);
+				Wheat wheat = new Wheat(0);
 
 				if (actBox.getSelectedItem() == "water plants") {
 					if (plantList.getSelectedValue() == null) {

@@ -8,8 +8,9 @@ package main.crops;
 public class Wheat extends Crop {
 	/**
 	 * Creates some wheat.
+	 * @param dayPlanted the day this crop was purchased or planted
 	 */
-	public Wheat() {
-		super("Wheat", 10, 4, 12);
+	public Wheat(int dayPlanted) {
+		super("Wheat", 10, 4, 12, dayPlanted);
 	}
 }

@@ -20,7 +20,7 @@ class FarmerTest {
 		farm = new Farm("farm", "test");
 		brown = new Farmer(farm);
 	}
-	
+
 	/**
 	 * Tests if tend to land daily action
 	 * is functioning correctly.
@@ -36,7 +36,7 @@ class FarmerTest {
 		assertEquals(12, farm.getFarmCap());
 		assertEquals(1, farm.getActionsLeft());
 	}
-	
+
 	/**
 	 * Tests that animalBonus is corrected
 	 * implemented for tendToLand daily action.
@@ -46,12 +46,12 @@ class FarmerTest {
 		Sheep blackie = new Sheep();
 		AnimalFarm snowball = new AnimalFarm();
 		Farmer duncan = new Farmer(snowball);
-		snowball.addAnimal(blackie); 
+		snowball.addAnimal(blackie);
 		duncan.tendToLand();
 		assertEquals("Sheep", snowball.showAnimals().get(0).getName());
 		assertEquals(74, snowball.showAnimals().get(0).getHappiness());
 	}
-	
+
 	/**
 	 * Tests that the harvest crop option
 	 * is correctly accounting revenue
@@ -59,8 +59,8 @@ class FarmerTest {
 	 */
 	@Test
 	void harvestTest() {
-		Tomacco tomacco = new Tomacco();
-		Tomacco tomacco2 = new Tomacco();
+		Tomacco tomacco = new Tomacco(0);
+		Tomacco tomacco2 = new Tomacco(0);
 		farm.addCrop(tomacco);
 		farm.addCrop(tomacco2);
 		assertEquals(2, farm.showCrops().size());
@@ -71,15 +71,15 @@ class FarmerTest {
 		assertEquals(0, farm.showCrops().size());
 		assertEquals(1130, farm.getBankBalance());
 	}
-	
+
 	/**
 	 * Tests that when harvesting crops that
 	 * TrumpRanch gets 10% bonus revenue.
 	 */
 	@Test
 	void trumpHarvestTest() {
-		Carrot carrot = new Carrot();
-		Wheat wheat = new Wheat();
+		Carrot carrot = new Carrot(0);
+		Wheat wheat = new Wheat(0);
 		TrumpRanch tower = new TrumpRanch();
 		Farmer Donald = new Farmer(tower);
 		tower.addCrop(wheat);
@@ -107,7 +107,7 @@ class FarmerTest {
 		assertEquals(230, farm.showAnimals().get(1).getHappiness());
 		assertEquals(1, farm.getActionsLeft());
 	}
-	
+
 	/**
 	 * Tests that when playing with animals,
 	 * the animalFarm bonus is included.
@@ -124,10 +124,10 @@ class FarmerTest {
 		assertEquals(161, pigsy.showAnimals().get(0).getHappiness());
 		assertEquals(236, pigsy.showAnimals().get(1).getHappiness());
 	}
-	
+
 	/**
-	 * Checks that feeding animals gives the right 
-	 * benefits. 
+	 * Checks that feeding animals gives the right
+	 * benefits.
 	 */
 	@Test
 	void animalFeedingItemsTest() {
@@ -146,11 +146,11 @@ class FarmerTest {
 		assertEquals(250, farm.showAnimals().get(0).getHealth());
 		assertEquals(225, farm.showAnimals().get(1).getHealth());
 	}
-	
+
 	/**
-	 * Tests that animal farm bonus is 
+	 * Tests that animal farm bonus is
 	 * correctly applied when feeding
-	 * animals. Due to code, unable to test 
+	 * animals. Due to code, unable to test
 	 * both branches for item selection.
 	 */
 	@Test
@@ -171,8 +171,8 @@ class FarmerTest {
 	 */
 	@Test
 	void cropTendingTest() {
-		Carrot carrot = new Carrot();
-		Hipotke hip = new Hipotke();
+		Carrot carrot = new Carrot(0);
+		Hipotke hip = new Hipotke(0);
 		ChemicalSpray spray = new ChemicalSpray();
 		InstantGrowLite igl = new InstantGrowLite();
 		farm.addCrop(carrot);
@@ -184,16 +184,16 @@ class FarmerTest {
 		brown.tendToCrops("use item", hip, spray);
 		assertEquals(14, farm.showCrops().get(1).getDaysLeft());
 	}
-	
+
 	/**
 	 * Tests that when tending to crops,
 	 * TomaccoLand bonus correctly applies.
 	 */
 	@Test
 	void TomaccoCropTest() {
-		Tomacco cig = new Tomacco();
-		Tomacco cig2 = new Tomacco();
-		Tomacco cig3 = new Tomacco();
+		Tomacco cig = new Tomacco(0);
+		Tomacco cig2 = new Tomacco(0);
+		Tomacco cig3 = new Tomacco(0);
 		TomaccoLand spring = new TomaccoLand();
 		Farmer homer = new Farmer(spring);
 		InstantGrowLite igl = new InstantGrowLite();
@@ -211,16 +211,16 @@ class FarmerTest {
 		assertEquals(2, spring.showCrops().get(1).getDaysLeft());
 		assertEquals(2, spring.showCrops().get(2).getDaysLeft());
 	}
-	
+
 	/**
-	 * Additional test of items 
+	 * Additional test of items
 	 * being applied to crops.
 	 */
 	@Test
 	void moreCropItemsTests() {
 		InstantGrowPro igp = new InstantGrowPro();
-		Carrot carrot = new Carrot();
-		Hipotke hip = new Hipotke();
+		Carrot carrot = new Carrot(0);
+		Hipotke hip = new Hipotke(0);
 		farm.addItem(igp);
 		farm.addCrop(hip);
 		farm.addCrop(carrot);
@@ -228,10 +228,10 @@ class FarmerTest {
 		assertEquals(0, farm.showCrops().get(1).getDaysLeft());
 		assertEquals(18, farm.showCrops().get(0).getDaysLeft());
 	}
-	
+
 	/**
 	 * Tests that MoomooFarm bonus
-	 * correctly applies when a cow is 
+	 * correctly applies when a cow is
 	 * in play.
 	 */
 	@Test
@@ -240,7 +240,7 @@ class FarmerTest {
 		Farmer hachi = new Farmer(seacow);
 		assertFalse(seacow.hasCow());
 		Cow moomoo = new Cow();
-		Carrot carrot = new Carrot();
+		Carrot carrot = new Carrot(0);
 		seacow.addCrop(carrot);
 		hachi.tendToCrops("watering plants", carrot, null);
 		assertEquals(5, seacow.showCrops().get(0).getDaysLeft());
@@ -249,9 +249,9 @@ class FarmerTest {
 		hachi.tendToCrops("watering plants", carrot, null);
 		assertEquals(2, seacow.showCrops().get(0).getDaysLeft());
 	}
-	
+
 	/**
-	 * Ensure that items are properly 
+	 * Ensure that items are properly
 	 * consumed when used.
 	 */
 	@Test
@@ -267,13 +267,13 @@ class FarmerTest {
 		brown.feedAnimals(stock);
 		assertEquals(2, farm.showItems().size());
 	}
-	
+
 	/**
 	 * More item deletion tests.
 	 */
 	@Test
 	void itemDeletionTest2() {
-		Carrot carrot = new Carrot();
+		Carrot carrot = new Carrot(0);
 		Compost compost = new Compost();
 		Compost compost2 = new Compost();
 		farm.addCrop(carrot);
@@ -282,7 +282,7 @@ class FarmerTest {
 		brown.tendToCrops("use item", carrot, compost2);
 		assertEquals(1, farm.showItems().size());
 	}
-	
+
 	/**
 	 * Tests to ensure constructor, getter
 	 * and setter methods are correct.
@@ -298,5 +298,3 @@ class FarmerTest {
 		assertEquals(100, George.getAge());
 	}
 }
-
-
