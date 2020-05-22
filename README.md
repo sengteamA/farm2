@@ -25,7 +25,9 @@ This has been tested with Java 11 JDK.
 
 ## How to build the source code
 
-1. Building the .jar file can be done with Eclipse: File > Export > Runnable JAR file.
+Building the .jar file can be done with Eclipse: File > Export > Runnable JAR file.
+
+Make sure to select "GameManager" as the launch configuration.
 
 ## How to run
 
