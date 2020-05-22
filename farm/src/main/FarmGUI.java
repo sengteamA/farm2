@@ -118,7 +118,7 @@ public class FarmGUI {
 		lblLandCap.setBounds(417, 84, 137, 34);
 		window.getContentPane().add(lblLandCap);
 
-		JLabel lblDay = new JLabel("Day: " + manager.dayNumber + "/" + manager.maxDays);
+		JLabel lblDay = new JLabel("Day: " + manager.getDayNumber() + "/" + manager.getMaxDays());
 		lblDay.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDay.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDay.setBounds(417, 119, 137, 34);
@@ -295,19 +295,20 @@ public class FarmGUI {
 		btnDayEnd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				++manager.dayNumber;
+				manager.incrementDayNumber();
 				int income = manager.farm.getDailyBonusMoney();
 				manager.farm.updateBankBalance(income);
-				if (manager.dayNumber > (manager.maxDays)) {
+				if (manager.getDayNumber() > manager.getMaxDays()) {
 					JOptionPane.showMessageDialog(
 							window,
 							"==========\n" +
 							"You have completed the farm simulator!\n" +
-							"Thank you for playing.\n==========\n"
-							+ "Farm name: " + manager.farm.getName() + "\n" +
-							"Game duration: " + (manager.dayNumber-1) + "\n" +
+							"Thank you for playing, " + manager.farmer.getName() +
+							" (age " + manager.farmer.getAge() + ").\n==========\n" +
+							"Farm name: " + manager.farm.getName() + "\n" +
+							"Game duration: " + (manager.getDayNumber()-1) + "\n" +
 							"Profit: $" + manager.farm.getBankBalance() + "\n" +
-							"Final score:" + manager.farm.getScore()
+							"Final score: " + manager.farm.getScore()
 					);
 					finishedWindow();
 				}
@@ -324,7 +325,7 @@ public class FarmGUI {
 						break;
 					}
 				}
-				lblDay.setText("Day: " + manager.dayNumber + "/" + manager.maxDays);
+				lblDay.setText("Day: " + manager.getDayNumber() + "/" + manager.getMaxDays());
 				lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
 				lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 				selectAssetType.setSelectedIndex(0);

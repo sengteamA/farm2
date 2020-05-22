@@ -28,17 +28,55 @@ public class GameManager {
 	 */
 	public Farm farm;
 	/**
-	 * The day number of the game. Must not exceed total duration.
-	 */
-	public int dayNumber = 1;
-	/**
 	 * Total duration of the game; some integer between 5 and 10 inclusive.
 	 */
-	public int maxDays = 0;
+	private int maxDays = 0;
 	/**
-	 * The score, calculated at the very end.
+	 * The day number of the game. Game ends when this exceeds total duration.
+	 * (Enforced by FarmGUI)
 	 */
-	public int score = 0;
+	private int dayNumber = 1;
+
+	/**
+	 * Return the total duration of the game, in days.
+	 *
+	 * @return total duration in days
+	 */
+	public int getMaxDays() {
+		return maxDays;
+	}
+
+	/**
+	 * Set the total duration of the game, in days.
+	 *
+	 * Only run once: in SetupGUI, when the player is prompted to enter
+	 * the number of days they would like to play for.
+	 *
+	 * @param newMaxDays new total duration of game
+	 */
+	public void setMaxDays(int newMaxDays) {
+		maxDays = newMaxDays;
+	}
+
+	/**
+	 * Retrieves the number of days that have passed so far in the game.
+	 *
+	 * @return dayNumber
+	 */
+	public int getDayNumber() {
+		return dayNumber;
+	}
+
+	/**
+	 * Increases day number by one.
+	 *
+	 * Checking if the day number exceeds the game duration and ending the
+	 * game is handled by FarmGUI.
+	 *
+	 */
+	public void incrementDayNumber() {
+		++dayNumber;
+	}
 
 	/**
 	 * Launches the setup window.

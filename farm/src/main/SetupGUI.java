@@ -82,7 +82,7 @@ public class SetupGUI {
 	 */
 	public void initialiseGame(int gameDuration, String farmerName,
 			int farmerAge, String farmName, Farm selectedFarm) {
-		manager.maxDays = gameDuration;
+		manager.setMaxDays(gameDuration);
 		try {
 			// Create a new farm instance from the existing instance
 			// https://stackoverflow.com/q/53257073
