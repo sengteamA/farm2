@@ -17,6 +17,10 @@ Welcome to the Farm Simulator!
    click Import... > General > File System, then choose the "farm"
    directory that was extracted earlier.
 
+4. The source code will be accessible in the "./src/" subdirectory.
+   You can also access the tests, which are in "./tests/", and the
+   Javadoc documentation, which is in "./doc/".
+
 This has been tested with Java 11 JDK.
 
 ## How to run
