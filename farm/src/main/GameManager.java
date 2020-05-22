@@ -8,8 +8,8 @@ import main.farms.*;
  * data (farm, crops, animals, money etc.) required by the GUI
  * windows in question.
  *
- * This is the GUI version of GameCLI.java, which uses a command-line
- * interface.
+ * This is the GUI version of GameCLI.java, which no longer exists
+ * but used a command-line interface.
  *
  * @author Grant and Nick
  */
