@@ -11,8 +11,8 @@ Welcome to the Farm Simulator!
 1. Extract .zip archive to get the "farm" directory.
 
 2. The "farm" directory is already an Eclipse project! Go to File > Import...
-   > Existing Projects into Workspace and select the "farm" directory as the
-   root directory.
+   then click Existing Projects into Workspace. Then select the "farm"
+   directory as the root directory.
 
 3. After pressing Finish, you should be able to see three folders: "src", which
    contains the source code; "test", which contains the JUnit tests; and
