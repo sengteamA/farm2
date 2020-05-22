@@ -30,12 +30,12 @@ import java.awt.event.ActionEvent;
  * @author Nick
  */
 public class CropCareGUI {
-	private JFrame frmCropManagement;
+	private JFrame window;
 	private GameManager manager;
 	private JTextField playerPlants;
 	private JTextField playerItems;
 	private JComboBox<?> actBox;
-	private JButton btnAction;
+	private JButton actionButton;
 	private JButton quitButton;
 
 	/**
@@ -46,14 +46,14 @@ public class CropCareGUI {
 	public CropCareGUI(GameManager myManager) {
 		manager = myManager;
 		initialize();
-		frmCropManagement.setVisible(true);
+		window.setVisible(true);
 	}
 
 	/**
 	 * Closes the CropCareGUI window. Run from GameManager.
 	 */
 	public void closeWindow() {
-		frmCropManagement.dispose();
+		window.dispose();
 	}
 
 	/**
@@ -68,15 +68,15 @@ public class CropCareGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmCropManagement = new JFrame();
-		frmCropManagement.setTitle("Crop Management");
-		frmCropManagement.setBounds(100, 100, 717, 349);
-		frmCropManagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCropManagement.getContentPane().setLayout(null);
+		window = new JFrame();
+		window.setTitle("Crop Management");
+		window.setBounds(100, 100, 717, 349);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setLayout(null);
 
 		JList<String> plantList = new JList<String>();
 		plantList.setBounds(255, 57, 167, 201);
-		frmCropManagement.getContentPane().add(plantList);
+		window.getContentPane().add(plantList);
 		DefaultListModel<String> cropListModel = new DefaultListModel<>();
 		cropListModel.addAll(manager.farm.getCropType());
 		plantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -85,7 +85,7 @@ public class CropCareGUI {
 		JList<Item> ItemList = new JList<Item>();
 		ItemList.setBounds(453, 57, 218, 201);
 		ItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		frmCropManagement.getContentPane().add(ItemList);
+		window.getContentPane().add(ItemList);
 		DefaultListModel<Item> itemListModel = new DefaultListModel<>();
 		itemListModel.addAll(manager.farm.getItemType("Crop"));
 		ItemList.setModel(itemListModel);
@@ -96,7 +96,7 @@ public class CropCareGUI {
 		playerPlants.setFont(new Font("Tahoma", Font.BOLD, 15));
 		playerPlants.setBounds(255, 12, 167, 35);
 		playerPlants.setEditable(false);
-		frmCropManagement.getContentPane().add(playerPlants);
+		window.getContentPane().add(playerPlants);
 		playerPlants.setColumns(10);
 
 		playerItems = new JTextField();
@@ -106,16 +106,16 @@ public class CropCareGUI {
 		playerItems.setColumns(10);
 		playerItems.setBounds(453, 12, 218, 35);
 		playerPlants.setEditable(false);
-		frmCropManagement.getContentPane().add(playerItems);
+		window.getContentPane().add(playerItems);
 
 		String acts[] = {"water plants", "use item"};
 		actBox = new JComboBox<Object>(acts);
 		actBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		actBox.setBounds(54, 102, 140, 45);
-		frmCropManagement.getContentPane().add(actBox);
+		window.getContentPane().add(actBox);
 
-		btnAction = new JButton("Confirm Action");
-		btnAction.addActionListener(new ActionListener() {
+		actionButton = new JButton("Confirm Action");
+		actionButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Carrot carrot = new Carrot();
@@ -127,49 +127,49 @@ public class CropCareGUI {
 
 				if (actBox.getSelectedItem() == "water plants") {
 					if (plantList.getSelectedValue() == null) {
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Please select a crop first.",
 								"WARNING", JOptionPane.ERROR_MESSAGE);
 					}
 					else if(plantList.getSelectedValue().contentEquals(carrot.getName())) {
 						manager.farmer.tendToCrops("watering plants", carrot,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Carrots watered.");
 						finishedWindow();
 					}
 					else if(plantList.getSelectedValue().contentEquals(hip.getName())) {
 						manager.farmer.tendToCrops("watering plants", hip,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Hipotke Grass watered.");
 						finishedWindow();
 					}
 					else if (plantList.getSelectedValue().contentEquals(mush.getName())) {
 						manager.farmer.tendToCrops("watering plants", mush,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Mushrooms watered.");
 						finishedWindow();
 					}
 					else if (plantList.getSelectedValue().contentEquals(tomacco.getName())) {
 						manager.farmer.tendToCrops("watering plants", tomacco,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Tomaccos watered.");
 						finishedWindow();
 					}
 					else if (plantList.getSelectedValue().contentEquals(wasabi.getName())) {
 						manager.farmer.tendToCrops("watering plants", wasabi,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Wasabi watered");
 						finishedWindow();
 					}
 					else if (plantList.getSelectedValue().contentEquals(wheat.getName())) {
 						manager.farmer.tendToCrops("watering plants", wheat,
 								null);
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Wheat watered");
 						finishedWindow();
 					}
@@ -178,7 +178,7 @@ public class CropCareGUI {
 				else if (actBox.getSelectedItem() == "use item") {
 					if (plantList.getSelectedValue() == null ||
 							ItemList.getSelectedValue() == null) {
-						JOptionPane.showMessageDialog(frmCropManagement,
+						JOptionPane.showMessageDialog(window,
 								"Please select a crop and an item.",
 								"WARNING", JOptionPane.ERROR_MESSAGE);
 					}
@@ -195,7 +195,7 @@ public class CropCareGUI {
 						if (item != null) {
 							manager.farmer.tendToCrops("use item",
 									carrot, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on carrots.");
 							DefaultListModel<Item> itemListModel =
 									new DefaultListModel<>();
@@ -217,7 +217,7 @@ public class CropCareGUI {
 						}
 						if (item != null) {
 							manager.farmer.tendToCrops("use item", hip, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on Hipotke Grass.");
 							DefaultListModel<Item> itemListModel =
 									new DefaultListModel<>();
@@ -238,7 +238,7 @@ public class CropCareGUI {
 						}
 						if (item != null) {
 							manager.farmer.tendToCrops("use item", mush, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on mushrooms.");
 							DefaultListModel<Item> itemListModel =
 									new DefaultListModel<>();
@@ -259,7 +259,7 @@ public class CropCareGUI {
 						}
 						if (item != null) {
 							manager.farmer.tendToCrops("use item", tomacco, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on Tomaccos.");
 							DefaultListModel<Item> itemListModel =
 									new DefaultListModel<>();
@@ -280,7 +280,7 @@ public class CropCareGUI {
 						}
 						if (item != null) {
 							manager.farmer.tendToCrops("use item", wasabi, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on wasabi.");
 							DefaultListModel<Item> itemListModel = new DefaultListModel<>();
 							itemListModel.addAll(manager.farm.getItemType("Crop"));
@@ -300,7 +300,7 @@ public class CropCareGUI {
 						}
 						if (item != null) {
 							manager.farmer.tendToCrops("use item", wheat, item);
-							JOptionPane.showMessageDialog(frmCropManagement,
+							JOptionPane.showMessageDialog(window,
 									item.getName() + " used on wheat.");
 							DefaultListModel<Item> itemListModel = new DefaultListModel<>();
 							itemListModel.addAll(manager.farm.getItemType("Crop"));
@@ -311,9 +311,9 @@ public class CropCareGUI {
 				}
 			}
 		});
-		btnAction.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnAction.setBounds(54, 53, 140, 45);
-		frmCropManagement.getContentPane().add(btnAction);
+		actionButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		actionButton.setBounds(54, 53, 140, 45);
+		window.getContentPane().add(actionButton);
 
 		quitButton = new JButton("Exit");
 		quitButton.addActionListener(new ActionListener() {
@@ -324,6 +324,6 @@ public class CropCareGUI {
 		});
 		quitButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		quitButton.setBounds(54, 212, 140, 45);
-		frmCropManagement.getContentPane().add(quitButton);
+		window.getContentPane().add(quitButton);
 	}
 }
