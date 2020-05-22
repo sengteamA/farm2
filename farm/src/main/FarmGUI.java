@@ -192,6 +192,11 @@ public class FarmGUI {
 		listsDisplay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		listsDisplay.setBounds(152, 256, 199, 173);
 		window.getContentPane().add(listsDisplay);
+		
+		JScrollPane scroll = new JScrollPane(listsDisplay);
+		scroll.setBounds(152, 256, 199, 173);
+		scroll.setVisible(true);
+		window.add(scroll);
 
 		String assets[] = {"", "Animals", "Crops", "Items"};
 		selectAssetType = new JComboBox<String>(assets);
