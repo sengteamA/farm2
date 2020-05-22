@@ -105,7 +105,7 @@ public class CropCareGUI {
 		playerItems.setFont(new Font("Tahoma", Font.BOLD, 15));
 		playerItems.setColumns(10);
 		playerItems.setBounds(453, 12, 218, 35);
-		playerPlants.setEditable(false);
+		playerItems.setEditable(false);
 		window.getContentPane().add(playerItems);
 
 		String acts[] = {"water plants", "use item"};

@@ -277,7 +277,7 @@ public class StoreGUI {
 	private void initialise() {
 		window = new JFrame();
 		window.setTitle("Store");
-		window.setBounds(100, 100, 800, 600);
+		window.setBounds(100, 100, 825, 650);
 		// Do nothing when the X button is pressed
 		// perhaps a lazy solution, but it keeps things easy to manage
 		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

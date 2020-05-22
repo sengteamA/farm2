@@ -89,7 +89,7 @@ public class GameManager {
 	 */
 	public void closeStoreScreen(StoreGUI storeScreen) {
 		storeScreen.closeWindow();
-		farmWindow.updateLabels();
+		farmWindow.updateWindowData();
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class GameManager {
 	 */
 	public void closeFeedingScreen(FeedingGUI feeder) {
 		feeder.closeWindow();
-		farmWindow.updateLabels();
+		farmWindow.updateWindowData();
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class GameManager {
 	 */
 	public void closeCropScreen(CropCareGUI planter) {
 		planter.closeWindow();
-		farmWindow.updateLabels();
+		farmWindow.updateWindowData();
 	}
 
 	/**

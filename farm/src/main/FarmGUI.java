@@ -55,12 +55,13 @@ public class FarmGUI {
 	}
 
 	/**
-	 * Updates the "Actions Left" and "Bank Balance" labels in the
-	 * main farm window.
+	 * Updates the "Actions Left" and "Bank Balance" labels, as well as the
+	 * player's assets list in the main farm window.
 	 */
-	public void updateLabels() {
+	public void updateWindowData() {
 		lblActions.setText("Actions Left: " + manager.farm.getActionsLeft());
 		lblFarmMoney.setText("$ " + manager.farm.getBankBalance());
+		refreshAssetList();
 	}
 
 	/**
@@ -298,7 +299,6 @@ public class FarmGUI {
 			public void actionPerformed(ActionEvent e) {
 				++manager.dayNumber;
 				if (manager.dayNumber > (manager.maxDays)) {
-					finishedWindow();
 					JOptionPane.showMessageDialog(
 							window,
 							"==========\n" +
@@ -309,6 +309,7 @@ public class FarmGUI {
 							"Profit: $" + manager.farm.getBankBalance() + "\n" +
 							"Final score:" + manager.farm.getScore()
 					);
+					finishedWindow();
 				}
 				manager.farm.refreshAP();
 				int income = manager.farm.getDailyBonusMoney();
