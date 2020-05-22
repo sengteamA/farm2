@@ -304,6 +304,8 @@ public class FarmGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				++manager.dayNumber;
+				int income = manager.farm.getDailyBonusMoney();
+				manager.farm.updateBankBalance(income);
 				if (manager.dayNumber > (manager.maxDays)) {
 					JOptionPane.showMessageDialog(
 							window,
@@ -318,8 +320,6 @@ public class FarmGUI {
 					finishedWindow();
 				}
 				manager.farm.refreshAP();
-				int income = manager.farm.getDailyBonusMoney();
-				manager.farm.updateBankBalance(income);
 				for (Crop crop : manager.farm.showCrops()) {
 					crop.updateDaysElapsed(1);
 				}
