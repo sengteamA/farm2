@@ -106,7 +106,7 @@ public class FarmGUI {
 
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the main farm GUI window.
 	 */
 	private void initialise() {
 		window = new JFrame();
@@ -193,7 +193,7 @@ public class FarmGUI {
 		listsDisplay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		listsDisplay.setBounds(152, 256, 199, 173);
 		window.getContentPane().add(listsDisplay);
-		
+
 		JScrollPane scroll = new JScrollPane(listsDisplay);
 		scroll.setBounds(152, 256, 199, 173);
 		scroll.setVisible(true);

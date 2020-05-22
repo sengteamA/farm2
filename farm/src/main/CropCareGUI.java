@@ -45,7 +45,7 @@ public class CropCareGUI {
 	 */
 	public CropCareGUI(GameManager myManager) {
 		manager = myManager;
-		initialize();
+		initialise();
 		window.setVisible(true);
 	}
 
@@ -65,9 +65,9 @@ public class CropCareGUI {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the crop care GUI window.
 	 */
-	private void initialize() {
+	private void initialise() {
 		window = new JFrame();
 		window.setTitle("Crop Management");
 		window.setBounds(100, 100, 717, 349);

@@ -51,7 +51,7 @@ public class FeedingGUI {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the feeding animals GUI window.
 	 */
 	private void initialise() {
 		frame = new JFrame();
