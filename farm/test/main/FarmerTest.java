@@ -162,7 +162,7 @@ class FarmerTest {
 		Farmer Duncan = new Farmer(farm1);
 		farm1.addAnimal(moomoo);
 		farm1.addItem(panda);
-		Duncan.feedAnimals(panda);
+		Duncan.feedAnimals(panda2);
 		assertEquals(245, farm1.showAnimals().get(0).getHealth());
 	}
 	/**
