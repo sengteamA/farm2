@@ -317,11 +317,13 @@ public class FarmGUI {
 					crop.updateDaysElapsed(1);
 				}
 				for (Crop crop : manager.farm.showCrops()) {
-					if (crop.getDaysLeft() == 0) {
+					if (manager.getDayNumber() > manager.getMaxDays()) {
+						break;
+					} else if (crop.getDaysLeft() == 0) {
 						JOptionPane.showMessageDialog(
 								window,
 								"You have crops ready for harvest."
-						);
+								);
 						break;
 					}
 				}
