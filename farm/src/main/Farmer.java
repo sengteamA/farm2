@@ -64,8 +64,8 @@ public class Farmer {
 	}
 
 	/**
-	 * Set a name for the farmer. Used in command-line interface only -- the
-	 * GUI uses the Farmer constructor instead.
+	 * Set a name for the farmer. An alternate way to initialise a farmer, but
+	 * note that the GUI uses the Farmer constructor directly.
 	 *
 	 * @param newName the string to set the farmer's name to
 	 */
@@ -74,8 +74,8 @@ public class Farmer {
 	}
 
 	/**
-	 * Set age of farmer. Used in command-line interface only -- the GUI uses
-	 * the Farmer constructor instead.
+	 * Set age of farmer. An alternate way to initialise a farmer, but note
+	 * that the GUI uses the Farmer constructor directly instead.
 	 *
 	 * @param newAge the integer to set the farmer's age to
 	 */
